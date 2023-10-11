@@ -11,7 +11,7 @@ import os
 api_bp = Blueprint('api',__name__)
 bcrypt = Bcrypt()
 # jwt = JWTManager(app)
-SECRET = os.getenv("SECRETE")
+SECRET = "secret"
 client = MongoClient('localhost', 27017)
 db = client.test
 collection = db["users"]

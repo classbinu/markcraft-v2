@@ -10,17 +10,23 @@
       <p class="text-center fond-bold text-xl my-5">
         자유롭게 마크다운을 작성하세요
       </p>
-      <textarea id="practiceInput" class="w-full textarea textarea-success" rows="20"></textarea>
+      <textarea
+        id="practiceInput"
+        class="w-full textarea textarea-success"
+        rows="20"
+      ></textarea>
     </div>
     <div class="w-full lg:w-1/2 px-20">
       <p class="text-center fond-bold text-xl my-5">마크다운 렌더링 프리뷰</p>
-      <div id="previewOutput" class="border-2 p-5 border-success rounded-xl"></div>
+      <div
+        id="previewOutput"
+        class="border-2 p-5 border-success rounded-xl"
+      ></div>
     </div>
   </div>
 </main>
 
 <script>
-
   initializeRealTimeRendering();
 </script>
 {% endblock %}

@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template
+from flask import Flask, Blueprint, render_template, request
 from pymongo import MongoClient
 
 pages_bp = Blueprint('pages',__name__)
@@ -14,6 +14,11 @@ def millisecondsToMinutesSeconds(milliseconds):
 
 @pages_bp.route('/', methods=['GET'])
 def get_home():
+    token = request.cookies.get("access_token")
+    isLoggedIn = False
+    if token:
+        isLoggedIn = True
+
     rankers = list(db.users.find().sort("bestTime", 1).limit(3))
     try:
         ranker_1 = rankers[0]
@@ -25,7 +30,7 @@ def get_home():
         ranker_3['bestTime'] = millisecondsToMinutesSeconds(ranker_3['bestTime'])
     except StopIteration:
         pass
-    return render_template('index.html', ranker_1=ranker_1, ranker_2=ranker_2, ranker_3=ranker_3)
+    return render_template('index.html', ranker_1=ranker_1, ranker_2=ranker_2, ranker_3=ranker_3, isLoggedIn=isLoggedIn)
 
 @pages_bp.route('/signin', methods=['GET'])
 def get_signin():
