@@ -3,6 +3,28 @@ function go(url) {
   window.location.href = url;
 }
 
+// 회원가입 시 비밀번호 일치 확인
+function checkPasswordMatch() {
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirm_password").value;
+  const passwordInfo = document.getElementById("password_info");
+  const submitButton = document.getElementById("submit_button");
+
+  if (password === confirmPassword) {
+    passwordInfo.innerHTML = "비밀번호가 일치합니다.";
+    passwordInfo.classList.add("text-success");
+    passwordInfo.classList.remove("text-error");
+    submitButton.disabled = false;
+    return true;
+  } else {
+    passwordInfo.innerHTML = "비밀번호가 일치하지 않습니다.";
+    passwordInfo.classList.add("text-error");
+    passwordInfo.classList.remove("text-success");
+    submitButton.disabled = true;
+    return false;
+  }
+}
+
 // 강의실, 타임어택
 // 예제 JSON 데이터
 const jsonData = {

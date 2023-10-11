@@ -13,7 +13,7 @@
     </div>
 
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="#" method="POST">
+      <form class="space-y-6" method="POST">
         <div>
           <label
             for="email"
@@ -44,7 +44,7 @@
           <div class="mt-2">
             <input
               id="password"
-              name="password"
+              name="userpw"
               type="password"
               autocomplete="current-password"
               required
@@ -64,28 +64,29 @@
           </div>
           <div class="mt-2">
             <input
-              id="password"
-              name="password"
+              id="confirm_password"
               type="password"
               autocomplete="current-password"
               required
               class="input input-bordered input-success w-full"
               placeholder="비밀번호를 다시 입력해 주세요."
+              oninput="checkPasswordMatch()"
             />
           </div>
+          <div id="password_info" class="text-xs"></div>
         </div>
 
         <div>
           <label
-            for="email"
+            for="nickname"
             class="block text-sm font-medium leading-6 text-gray-900"
             >닉네임</label
           >
           <div class="mt-2">
             <input
-              id="email"
-              name="email"
-              type="email"
+              id="nickname"
+              name="nickname"
+              type="text"
               autocomplete="email"
               required
               placeholder="유효한 이메일 주소를 입력해 주세요."
@@ -96,6 +97,7 @@
 
         <div>
           <button
+            id="submit_button"
             type="submit"
             class="btn w-full bg-primary bg-emerald-400 text-white"
           >
