@@ -42,7 +42,7 @@
           <h2
             class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
           >
-            회원가입
+            로그인
           </h2>
         </div>
 
@@ -74,6 +74,14 @@
                   class="block text-sm font-medium leading-6 text-gray-900"
                   >비밀번호</label
                 >
+                <div class="text-sm">
+                  <a
+                    href="#"
+                    class="text-markcraft link"
+                    onclick="alert('비밀번호 찾기 기능은 지원되지 않습니다.')"
+                    >비밀번호를 잊으셨나요?</a
+                  >
+                </div>
               </div>
               <div class="mt-2">
                 <input
@@ -89,59 +97,19 @@
             </div>
 
             <div>
-              <div class="flex items-center justify-between">
-                <label
-                  for="password"
-                  class="block text-sm font-medium leading-6 text-gray-900"
-                  >비밀번호 확인</label
-                >
-              </div>
-              <div class="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autocomplete="current-password"
-                  required
-                  class="input input-bordered input-success w-full"
-                  placeholder="비밀번호를 다시 입력해 주세요."
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                for="email"
-                class="block text-sm font-medium leading-6 text-gray-900"
-                >닉네임</label
-              >
-              <div class="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autocomplete="email"
-                  required
-                  placeholder="로그인 아이디로 이메일 주소를 사용합니다."
-                  class="input input-bordered input-success w-full"
-                />
-              </div>
-            </div>
-
-            <div>
               <button
                 type="submit"
                 class="btn w-full bg-primary bg-emerald-400 text-white"
               >
-                회원가입
+                로그인
               </button>
             </div>
           </form>
 
           <p class="mt-10 text-center text-sm text-gray-500">
-            이미 회원이신가요?
-            <a href="/login.html" class="font-bold text-markcraft link"
-              >로그인하기</a
+            회원이 아니신가요?
+            <a href="/signup" class="font-bold text-markcraft link"
+              >회원가입하기</a
             >
           </p>
         </div>
