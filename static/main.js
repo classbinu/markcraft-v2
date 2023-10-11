@@ -159,12 +159,19 @@ function timeAttack() {
     clearInterval(timerInterval);
     timerInterval = null;
   }
-
+  function storedBestTime(time) {
+    return fetch("/timeattack", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ bestTime: time }),
+    }).then((response) => response.json());
+  }
   // 문제가 모두 완료되었을 때 타이머를 멈추고 모달을 띄움
   function completeChallenges() {
     if (totalTime < localStorage.getItem("bestTime")) {
-      localStorage.setItem("bestTime", totalTime);
-
+      storedBestTime(totalTime);
       // // 최고 기록 UI 업데이트
       // document.getElementById("bestTime").textContent = bestTime;
 
