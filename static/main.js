@@ -25,6 +25,21 @@ function checkPasswordMatch() {
   }
 }
 
+// 밀리세컨드를 00:00 형식으로 변환
+function millisecondsToMinutesSeconds(milliseconds) {
+  let seconds = Math.floor(milliseconds / 1000);
+  let minutes = Math.floor(seconds / 60);
+  seconds = seconds % 60;
+  const formattedTime =
+    (minutes < 10 ? "0" : "") +
+    minutes +
+    ":" +
+    (seconds < 10 ? "0" : "") +
+    seconds;
+
+  return formattedTime;
+}
+
 // 강의실, 타임어택
 // 예제 JSON 데이터
 const jsonData = {
