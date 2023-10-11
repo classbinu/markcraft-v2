@@ -40,6 +40,12 @@ function millisecondsToMinutesSeconds(milliseconds) {
   return formattedTime;
 }
 
+function logout(cookieName) {
+  document.cookie =
+    cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  window.location.href = "/";
+}
+
 // 강의실, 타임어택
 // 예제 example 데이터
 
