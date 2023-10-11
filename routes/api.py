@@ -16,31 +16,27 @@ collection = db["users"]
 collection.create_index([("email",1)], unique=True)
 collection.create_index([("nickname",1)], unique=True)
 
-
-
-@api_bp.route('/testtoken', methods=['GET'])
-def verify_token() :
+def verify_token(token) :
     try:
-        token = request.cookies.get("access_token")
-        print(':::::',token)
+        # 검증 코드
+        # 토큰 존재 유무
+        if not token :
+            raise Exception("NoTokens")
         decoded_token = jwt.decode(token, SECRET, algorithms='HS256')
-        print('>>>>',decoded_token)
         email = decoded_token["email"]
         nickname = decoded_token["nickname"]
         exp  = decoded_token["exp"]
-        # 검증 코드
-        # 토큰 존재 유무
+        
         # 토큰 만료 시간
-        if not token :
-            raise Exception("NoTokens")
-        elif exp < int(datetime.datetime.now().timestamp()) :
+        if exp < int(datetime.datetime.now().timestamp()) :
             raise Exception("ExpiredTokens")
         
         condition = [{"email":email},{"nickname":nickname}]
 
         # # 잘못된 토큰. 토큰 값이 db에 없는 email이나 nickname일때
         # # if not db.users.find_one({"$and":condition}) :
-        print(db.users.find_one({"$and":condition}))
+        if not db.users.find_one({"$and":condition}):
+            raise Exception("IncorrectTokens")
         # # raise
         # # No Tokens
         # # Expirated Token
@@ -51,6 +47,8 @@ def verify_token() :
             return '토큰이 존재하지 않습니다.'
         elif str(e) == 'ExpiredTokens' :
             return '만료된 토큰입니다.'
+        elif str(e) == 'IncorrectTokens':
+            return '잘못된 토큰입니다.'
         else :
             return str(e)
 
@@ -60,7 +58,7 @@ def verify_token() :
 
 @api_bp.route('/signin', methods=['POST'])
 def signin():
-    data = request.get_json()
+    data = request.form
     try:
         checkUser = db.users.find_one({'email':data['email']})
         if checkUser:
@@ -72,7 +70,7 @@ def signin():
             payload = {
                 "email":checkUser["email"],
                 "nickname":checkUser["nickname"], 
-                "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=10)
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
             }
 
             access_token = jwt.encode(payload, SECRET, algorithm='HS256')
@@ -94,7 +92,7 @@ def signin():
 
 @api_bp.route('/signup', methods=['POST'])
 def signup():
-    data = request.get_json()
+    data = request.form
     try:
         db.users.insert_one(
             {
@@ -105,11 +103,16 @@ def signup():
         )
         return '회원가입 성공'
 
-    except:
-        return '에러 발생'
+    except Exception as e:
+        return str(e)
     
 
 
 @api_bp.route('/timeattack', methods=['POST'])
 def timeattack():
-    return jsonify({'result':'hi'})
+    token = request.cookies.get("access_token")
+    users = verify_token(token)
+    timeScore = request.get_json().values()
+    # db.users.insert_one({"tie"})
+    print(users)
+    return jsonify(users)
