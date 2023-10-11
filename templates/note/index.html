@@ -3,6 +3,32 @@
 {% block body %}
 <!-- 네비게이션바 -->
 {% include 'common/navbar.html' %}
+<!-- daisyUI로 인해 h태그 기본 스타일이 초기화되는 문제 해결 -->
+<style>
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  h3 {
+    font-size: 1.17em;
+  }
+
+  h4 {
+    font-size: 1em;
+  }
+
+  h5 {
+    font-size: 0.83em;
+  }
+
+  h6 {
+    font-size: 0.67em;
+  }
+</style>
 <main class="container mx-auto p-5">
   <h1 class="text-center text-3xl font-bold logo text-markcraft">연습장</h1>
   <div class="flex flex-wrap">
@@ -10,17 +36,23 @@
       <p class="text-center fond-bold text-xl my-5">
         자유롭게 마크다운을 작성하세요
       </p>
-      <textarea id="practiceInput" class="w-full textarea textarea-success" rows="20"></textarea>
+      <textarea
+        id="practiceInput"
+        class="w-full textarea textarea-success"
+        rows="20"
+      ></textarea>
     </div>
     <div class="w-full lg:w-1/2 px-20">
       <p class="text-center fond-bold text-xl my-5">마크다운 렌더링 프리뷰</p>
-      <div id="previewOutput" class="border-2 p-5 border-success rounded-xl"></div>
+      <div
+        id="previewOutput"
+        class="border-2 p-5 border-success rounded-xl"
+      ></div>
     </div>
   </div>
 </main>
 
 <script>
-
   initializeRealTimeRendering();
 </script>
 {% endblock %}

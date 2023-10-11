@@ -1,7 +1,6 @@
 from flask import jsonify, make_response, request, Blueprint, redirect
 from pymongo import MongoClient
 from flask_bcrypt import Bcrypt
-# from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import jwt
 import datetime
 from dotenv import load_dotenv
@@ -10,7 +9,6 @@ import os
 
 api_bp = Blueprint('api',__name__)
 bcrypt = Bcrypt()
-# jwt = JWTManager(app)
 SECRET = os.getenv("SECRET")
 client = MongoClient('localhost', 27017)
 db = client.test
