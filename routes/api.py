@@ -4,12 +4,14 @@ from flask_bcrypt import Bcrypt
 # from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import jwt
 import datetime
+from dotenv import load_dotenv
+import os
 
 
 api_bp = Blueprint('api',__name__)
 bcrypt = Bcrypt()
 # jwt = JWTManager(app)
-SECRET = 'random'
+SECRET = os.getenv("SECRETE")
 client = MongoClient('localhost', 27017)
 db = client.test
 collection = db["users"]
@@ -71,12 +73,12 @@ def signin():
             payload = {
                 "email":checkUser["email"],
                 "nickname":checkUser["nickname"], 
-                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=2)
             }
 
             access_token = jwt.encode(payload, SECRET, algorithm='HS256')
             response = make_response(redirect('/'))
-            response.set_cookie('access_token', access_token, httponly=True)
+            response.set_cookie('access_token', access_token)
 
             return response
 
@@ -101,17 +103,19 @@ def signup():
             {
                 'email':data["email"], 
                 'nickname':data["nickname"], 
-                'userpw':bcrypt.generate_password_hash(data['userpw']).decode('utf-8')
+                'userpw':bcrypt.generate_password_hash(data['userpw']).decode('utf-8'),
+                'bestTime': 99999999,
+                'progress':1
             }
         )
         payload = {
                 "email":data["email"],
                 "nickname":data["nickname"], 
-                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=2)
             }
         access_token = jwt.encode(payload, SECRET, algorithm='HS256')
         response = make_response(redirect('/'))
-        response.set_cookie('access_token', access_token, httponly=True)
+        response.set_cookie('access_token', access_token)
         return response
 
     except Exception as e:
