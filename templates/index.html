@@ -1,7 +1,6 @@
 {% extends "layout/base.html" %}
 <!-- 레이아웃 -->
-{% block body %}
-{% include 'common/navbar.html' %}
+{% block body %} {% include 'common/navbar.html' %}
 <main class="container mx-auto lg:w-1/3 p-5">
   {% include 'common/logo.html' %}
   <div class="mt-10">
@@ -40,8 +39,8 @@
       <div class="card bg-primary text-white">
         <div class="card-body text-center">
           <h2 class="card-title text-6xl mx-auto">🥇</h2>
-          <p class="mt-5 text-sm">몰입한정글러</p>
-          <p>0:47</p>
+          <p class="mt-5 text-sm">{{ ranker_1.nickname }}</p>
+          <p>{{ ranker_1.bestTime }}</p>
         </div>
       </div>
     </div>
@@ -49,8 +48,8 @@
       <div class="card bg-secondary text-white">
         <div class="card-body text-center">
           <h2 class="card-title text-6xl mx-auto">🥈</h2>
-          <p class="mt-5 text-sm">만년2등</p>
-          <p>1:31</p>
+          <p class="mt-5 text-sm">{{ ranker_2.nickname }}</p>
+          <p>{{ ranker_2.bestTime }}</p>
         </div>
       </div>
     </div>
@@ -58,8 +57,8 @@
       <div class="card bg-accent text-white">
         <div class="card-body text-center">
           <h2 class="card-title text-6xl mx-auto">🥉</h2>
-          <p class="mt-5 text-sm">마크다운초보</p>
-          <p>2:59</p>
+          <p class="mt-5 text-sm">{{ ranker_3.nickname }}</p>
+          <p>{{ ranker_3.bestTime }}</p>
         </div>
       </div>
     </div>
