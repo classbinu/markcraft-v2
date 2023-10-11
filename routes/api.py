@@ -15,6 +15,9 @@ db = client.test
 collection = db["users"]
 collection.create_index([("email",1)], unique=True)
 collection.create_index([("nickname",1)], unique=True)
+collection.create_index([("userpw",1)])
+collection.create_index([("timeScore",1)])
+collection.create_index([("progress",1)])
 
 def verify_token(token) :
     try:
