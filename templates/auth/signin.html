@@ -1,119 +1,83 @@
-<!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Markcraft</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/daisyui@3.9.2/dist/full.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <style>
-    .text-markcraft {
-      color: #21ca70;
-    }
+{% extends "layout/base.html" %}
+<!-- 레이아웃 -->
+{% block body %}
 
-    .bg-markcraft {
-      background-color: #21ca70;
-    }
+<main>
+  <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm mt-10">
+      {% include 'common/logo.html' %}
+      <h2
+        class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
+      >
+        로그인
+      </h2>
+    </div>
 
-    @font-face {
-      font-family: "Orbit-Regular";
-      src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/Orbit-Regular.woff2")
-        format("woff2");
-      font-weight: normal;
-      font-style: normal;
-    }
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <form class="space-y-6" action="#" method="POST">
+        <div>
+          <label
+            for="email"
+            class="block text-sm font-medium leading-6 text-gray-900"
+            >이메일 주소</label
+          >
+          <div class="mt-2">
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              placeholder="유효한 이메일 주소를 입력해 주세요."
+              class="input input-bordered input-success w-full"
+            />
+          </div>
+        </div>
 
-    .logo {
-      font-family: "Orbit-Regular";
-    }
-  </style>
-  <body>
-    <main>
-      <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-          <p class="logo text-center mt-10 text-markcraft text-6xl">
-            Markcraft
-          </p>
-          <h2
-            class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
+        <div>
+          <div class="flex items-center justify-between">
+            <label
+              for="password"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >비밀번호</label
+            >
+            <div class="text-sm">
+              <a
+                href="#"
+                class="text-markcraft link"
+                onclick="alert('비밀번호 찾기 기능은 지원되지 않습니다.')"
+                >비밀번호를 잊으셨나요?</a
+              >
+            </div>
+          </div>
+          <div class="mt-2">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+              class="input input-bordered input-success w-full"
+              placeholder="4자리 이상 숫자/대소문자/특수문자"
+            />
+          </div>
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            class="btn w-full bg-primary bg-emerald-400 text-white"
           >
             로그인
-          </h2>
+          </button>
         </div>
+      </form>
 
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form class="space-y-6" action="#" method="POST">
-            <div>
-              <label
-                for="email"
-                class="block text-sm font-medium leading-6 text-gray-900"
-                >이메일 주소</label
-              >
-              <div class="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autocomplete="email"
-                  required
-                  placeholder="로그인 아이디로 이메일 주소를 사용합니다."
-                  class="input input-bordered input-success w-full"
-                />
-              </div>
-            </div>
-
-            <div>
-              <div class="flex items-center justify-between">
-                <label
-                  for="password"
-                  class="block text-sm font-medium leading-6 text-gray-900"
-                  >비밀번호</label
-                >
-                <div class="text-sm">
-                  <a
-                    href="#"
-                    class="text-markcraft link"
-                    onclick="alert('비밀번호 찾기 기능은 지원되지 않습니다.')"
-                    >비밀번호를 잊으셨나요?</a
-                  >
-                </div>
-              </div>
-              <div class="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autocomplete="current-password"
-                  required
-                  class="input input-bordered input-success w-full"
-                  placeholder="4자리 이상 숫자/대소문자/특수문자"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                class="btn w-full bg-primary bg-emerald-400 text-white"
-              >
-                로그인
-              </button>
-            </div>
-          </form>
-
-          <p class="mt-10 text-center text-sm text-gray-500">
-            회원이 아니신가요?
-            <a href="/signup" class="font-bold text-markcraft link"
-              >회원가입하기</a
-            >
-          </p>
-        </div>
-      </div>
-    </main>
-  </body>
-</html>
+      <p class="mt-10 text-center text-sm text-gray-500">
+        회원이 아니신가요?
+        <a href="/signup" class="font-bold text-markcraft link">회원가입하기</a>
+      </p>
+    </div>
+  </div>
+</main>
+{% endblock %}
