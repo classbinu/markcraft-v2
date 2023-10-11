@@ -19,9 +19,10 @@ def get_signup():
 def get_classroom():
     return render_template('classroom/index.html')
 
-@pages_bp.route('/classroom/chapter1', methods=['GET'])
-def get_chapter1():
-    return render_template('classroom/chapter1.html')
+@pages_bp.route('/classroom/chapter/<int:chapter_id>', methods=['GET'])
+def get_chapter(chapter_id):
+    template_path = f'classroom/chapter{chapter_id}.html'
+    return render_template(template_path)
 
 @pages_bp.route('/timeattack', methods=['GET'])
 def get_timeattack():
