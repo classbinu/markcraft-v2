@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
 
+  <script src="https://tistory4.daumcdn.net/tistory/3134841/skin/images/confetti_vs2.js"></script>
+
 
 </head>
 <style>
@@ -73,6 +75,22 @@
     color: inherit;
     /* 부모 요소의 색상 상속 */
   }
+
+  /* 폭죽 */
+
+  @keyframes fireworks {
+    0% {
+      opacity: 0;
+    }
+
+    20% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
 </style>
 <nav class="container mx-auto">
   <div class="navbar bg-base-100">
@@ -110,7 +128,7 @@
     <p id="currentTime" class="text-6xl text-center mt-10">00:00:00</p>
     <div class="text-center text-gray-400 mb-10">
       <p class="">현재 최고 기록</p>
-      <span class="">00:59:00</span>
+      <span id="bestTime" class=""></span>
     </div>
     <div class="text-center">
       <progress class="progress progress-success w-56" value="40" max="100"></progress>
@@ -205,18 +223,30 @@
     const comparisonResult = document.getElementById('comparisonResult');
     const questionsContainer = document.getElementById('questionsContainer');
 
+    // 현재 최고 기록
+    let bestTime = document.getElementById('bestTime');
+    bestTime.textContent = localStorage.getItem('bestTime') ? parseInt(localStorage.getItem('bestTime')) : Infinity;
+
     // 1. 타이머를 위한 변수 설정
     let timerInterval;
     let startTime;
     let timeDisplay = document.getElementById('currentTime');
 
+    function convertTimeFormat(milliseconds) {
+      let minutes = Math.floor(milliseconds / (60 * 1000));
+      let seconds = Math.floor((milliseconds % (60 * 1000)) / 1000);
+      let ms = milliseconds % 1000;
+
+      return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}:${String(ms).padStart(3, "0")}`;
+    }
 
 
     // 2. 시작 버튼 클릭 이벤트 리스너 추가
-    // 시작 버튼 클릭 이벤트 리스너 추가
     document.querySelector(".btn-success").addEventListener("click", function () {
       this.style.display = "none";  // 시작 버튼 숨기기
       startTimer();
+      // 처음 문제 로드
+      loadQuestion(currentQuestionIndex);
     });
 
     // 3. 타이머 시작/정지 함수
@@ -224,12 +254,7 @@
       startTime = Date.now();
       timerInterval = setInterval(function () {
         let elapsedTime = Date.now() - startTime;
-        let minutes = Math.floor(elapsedTime / (60 * 1000));
-        let seconds = Math.floor((elapsedTime % (60 * 1000)) / 1000);
-        let milliseconds = elapsedTime % 1000;
-
-        // 시간 표시 형식: MM:SS:MS
-        timeDisplay.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}:${String(milliseconds).padStart(3, "0")}`;
+        timeDisplay.textContent = convertTimeFormat(elapsedTime)
       }, 10);
     }
 
@@ -241,10 +266,10 @@
 
     // 문제가 모두 완료되었을 때 타이머를 멈추고 모달을 띄움
     function completeChallenges() {
-      console.log("Modal")
       stopTimer();
       showModal();
     }
+
 
 
 
@@ -253,9 +278,26 @@
       let completionModal = document.getElementById("completionModal");
       let completionTime = document.getElementById("completionTime");
 
-      completionTime.textContent = `완료까지 걸린 시간: ${timeDisplay.textContent}`;
+      let currentScore = timeDisplay.textContent;
+      if (currentScore < bestTime) {
+        // 폭죽 애니메이션 추가
+        let fireworks = document.createElement("div");
+        fireworks.className = "fireworks";
+        document.body.appendChild(fireworks);
+        setTimeout(() => {
+          document.body.removeChild(fireworks);
+        }, 1000);
+        bestTime = currentScore;
+        localStorage.setItem('bestTime', bestTime);
+        // 추가: 최고 기록 UI 업데이트
+        completionTime.textContent = `축하합니다! 최고 기록을 경신하셨습니다!!\n\n걸린 시간: ${currentScore}`;
+      } else {
+        completionTime.textContent = `완료까지 걸린 시간: ${currentScore}`;
+      }
+
       completionModal.style.display = "block";
     }
+
 
     // 모달을 닫는 함수
     function closeModal() {
@@ -297,8 +339,7 @@
       }
     });
 
-    // 처음 문제 로드
-    loadQuestion(currentQuestionIndex);
+
 
     // 다음 문제 로드 함수
     function loadNextQuestion() {
