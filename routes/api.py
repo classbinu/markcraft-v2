@@ -1,4 +1,4 @@
-from flask import jsonify, make_response, request, Blueprint
+from flask import jsonify, make_response, request, Blueprint, redirect
 from pymongo import MongoClient
 from flask_bcrypt import Bcrypt
 # from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
@@ -15,6 +15,7 @@ db = client.test
 collection = db["users"]
 collection.create_index([("email",1)], unique=True)
 collection.create_index([("nickname",1)], unique=True)
+collection.create_index([("bestTime",1)])
 
 def verify_token(token) :
     try:
@@ -74,7 +75,7 @@ def signin():
             }
 
             access_token = jwt.encode(payload, SECRET, algorithm='HS256')
-            response = make_response(jsonify({'message': '로그인 성공'}))
+            response = make_response(redirect('/'))
             response.set_cookie('access_token', access_token, httponly=True)
 
             return response
@@ -88,6 +89,8 @@ def signin():
             return '비밀번호가 일치하지 않습니다. (로그인 실패)'
         elif str(e) == 'UserNotFound':
             return '사용자 정보(Email)가 일치하지 않습니다. (로그인 실패)'
+        else :
+            return str(e)
 
 
 @api_bp.route('/signup', methods=['POST'])
@@ -101,7 +104,15 @@ def signup():
                 'userpw':bcrypt.generate_password_hash(data['userpw']).decode('utf-8')
             }
         )
-        return '회원가입 성공'
+        payload = {
+                "email":data["email"],
+                "nickname":data["nickname"], 
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+            }
+        access_token = jwt.encode(payload, SECRET, algorithm='HS256')
+        response = make_response(redirect('/'))
+        response.set_cookie('access_token', access_token, httponly=True)
+        return response
 
     except Exception as e:
         return str(e)
@@ -111,7 +122,9 @@ def signup():
 @api_bp.route('/timeattack', methods=['POST'])
 def timeattack():
     token = request.cookies.get("access_token")
+    print(token)
     users = verify_token(token)
+    print(users)
     timeScore = request.get_json().values()
     # db.users.insert_one({"tie"})
     print(users)
