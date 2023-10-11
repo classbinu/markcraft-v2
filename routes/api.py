@@ -1,7 +1,6 @@
 from flask import jsonify, make_response, request, Blueprint, redirect
 from pymongo import MongoClient
 from flask_bcrypt import Bcrypt
-# from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import jwt
 import datetime
 from dotenv import load_dotenv
@@ -10,8 +9,7 @@ import os
 
 api_bp = Blueprint('api',__name__)
 bcrypt = Bcrypt()
-# jwt = JWTManager(app)
-SECRET = "secret"
+SECRET = os.getenv("SECRET")
 client = MongoClient('localhost', 27017)
 db = client.test
 collection = db["users"]
@@ -125,6 +123,7 @@ def signup():
 
 @api_bp.route('/timeattack', methods=['POST'])
 def timeattack():
+    print('hi')
     token = request.cookies.get("access_token")
     print(token)
     users = verify_token(token)
@@ -133,3 +132,9 @@ def timeattack():
     # db.users.insert_one({"tie"})
     print(users)
     return jsonify(users)
+
+
+@api_bp.route('/besttime', methods=['GET'])
+def getTimeAttack():
+    result = db.users.find_one(sort=[("bestTime", 1)])
+    return jsonify({"result":result["bestTime"]})
