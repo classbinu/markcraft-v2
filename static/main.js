@@ -41,7 +41,7 @@ function millisecondsToMinutesSeconds(milliseconds) {
 }
 
 // 강의실, 타임어택
-// 예제 JSON 데이터
+// 예제 example 데이터
 
 function classRoom() {}
 
@@ -60,6 +60,8 @@ function closeModal() {
 }
 
 function timeAttack() {
+  // 현재 문제 인덱스
+  let currentQuestionIndex = 0;
   // 예제문제
   const example = {
     questions: [
@@ -68,26 +70,36 @@ function timeAttack() {
         userPrompt: "This is inline code.",
         correctAnswer: "This is `inline code`.",
       },
-      // {
-      //   "id": 2,
-      //   "userPrompt": "",
-      //   "correctAnswer": "가나다"
-      // },
-      // {
-      //   "id": 3,
-      //   "userPrompt": "이것은 제목",
-      //   "correctAnswer": "## 이것은 제목"
-      // },
-      // {
-      //   "id": 4,
-      //   "userPrompt": "여기에 본문을 입력하세요.\n\n이것은 강조된 텍스트입니다.",
-      //   "correctAnswer": "여기에 본문을 입력하세요.\n\n이것은 **강조된** 텍스트입니다."
-      // }
-      // 추가적인 문제들...
+      {
+        id: 2,
+        userPrompt: "",
+        correctAnswer: "가나다",
+      },
+      {
+        id: 3,
+        userPrompt: "이것은 제목",
+        correctAnswer: "## 이것은 제목",
+      },
+      {
+        id: 4,
+        userPrompt: "여기에 본문을 입력하세요.\n\n이것은 강조된 텍스트입니다.",
+        correctAnswer:
+          "여기에 본문을 입력하세요.\n\n이것은 **강조된** 텍스트입니다.",
+      },
     ],
   };
-  // 현재 문제 인덱스
-  let currentQuestionIndex = 0;
+  function updateProgressBar(index) {
+    const progressBar = document.getElementById("progress-bar");
+    progressBar.max = example.questions.length;
+    progressBar.value = index + 1;
+  }
+
+  function updateProgressText(index) {
+    const progressText = document.getElementById("progress-text");
+    progressText.textContent = `${index + 1}/${example.questions.length}`;
+  }
+  updateProgressBar(currentQuestionIndex);
+  updateProgressText(currentQuestionIndex);
   const userInput = document.getElementById("userInput");
   const userOutput = document.getElementById("userOutput");
   const correctOutput = document.getElementById("correctOutput");
@@ -115,9 +127,10 @@ function timeAttack() {
   let max_best = 51 * 60000;
   let bestTime = document.getElementById("bestTime");
   console.log(convertTimeFormat(max_best));
-  bestTime.textContent = localStorage.getItem("bestTime")
-    ? convertTimeFormat(localStorage.getItem("bestTime"))
-    : convertTimeFormat(max_best);
+  if (!localStorage.getItem("bestTime")) {
+    localStorage.setItem("bestTime", max_best);
+  }
+  bestTime.textContent = convertTimeFormat(localStorage.getItem("bestTime"));
 
   // 2. 시작 버튼 클릭 이벤트 리스너 추가
   document.querySelector(".btn-success").addEventListener("click", function () {
@@ -200,6 +213,8 @@ function timeAttack() {
 
   function loadQuestion(index) {
     console.log(index);
+    updateProgressBar(index);
+    updateProgressText(index);
     // 문제 불러오기
     userInput.value = example.questions[index].userPrompt;
     correctOutput.innerHTML = marked(example.questions[index].correctAnswer);
