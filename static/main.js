@@ -1,3 +1,8 @@
+// 강의실 이동
+function go(url) {
+  window.location.href = url;
+}
+
 // 강의실, 타임어택
 // 예제 JSON 데이터
 const jsonData = {
