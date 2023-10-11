@@ -31,10 +31,9 @@ function checkPasswordMatch() {
 function classRoom() {}
 
 // 모달을 보여주는 함수
-function showModal(timeDisplay) {
+function showModal() {
   let completionModal = document.getElementById("completionModal");
   let completionTime = document.getElementById("completionTime");
-  let currentScore = timeDisplay.textContent;
   completionModal.style.display = "block";
 }
 
@@ -94,13 +93,16 @@ function timeAttack() {
   // 1. 타이머를 위한 변수 설정
   let timerInterval;
   let startTime;
+  let totalTime;
   let timeDisplay = document.getElementById("currentTime");
 
   // 현재 최고 기록
+  let max_best = 51 * 60000;
   let bestTime = document.getElementById("bestTime");
+  console.log(convertTimeFormat(max_best));
   bestTime.textContent = localStorage.getItem("bestTime")
     ? convertTimeFormat(localStorage.getItem("bestTime"))
-    : convertTimeFormat(Infinity);
+    : convertTimeFormat(max_best);
 
   // 2. 시작 버튼 클릭 이벤트 리스너 추가
   document.querySelector(".btn-success").addEventListener("click", function () {
@@ -114,83 +116,72 @@ function timeAttack() {
   function startTimer() {
     startTime = Date.now();
     timerInterval = setInterval(function () {
-      let elapsedTime = Date.now() - startTime;
-      timeDisplay.textContent = convertTimeFormat(elapsedTime);
+      totalTime = Date.now() - startTime;
+      timeDisplay.textContent = convertTimeFormat(totalTime);
     }, 10);
   }
 
   function stopTimer() {
-    completeChallenges();
     clearInterval(timerInterval);
     timerInterval = null;
   }
 
-  // function timeToSeconds(timeStr) {
-  //   timeStr = String(timeStr);
-  //   if (typeof timeStr !== "string") {
-  //     console.error(typeof timeStr);
-  //     return 0; // or handle it some other way
-  //   }
-  //   const [hours, minutes, seconds] = timeStr.split(":").map(Number);
-  //   return hours * 3600 + minutes * 60 + seconds;
-  // }
-
   // 문제가 모두 완료되었을 때 타이머를 멈추고 모달을 띄움
   function completeChallenges() {
-    const currentScore = timeDisplay.textContent);
-    const topScore = bestTime;
-
-    console.log(timeToSeconds(bestTime.textContent));
-    console.log(bestTime);
-    if (currentScore < topScore) {
-      localStorage.setItem("bestTime", convertTimeFormat(currentScore));
+    if (totalTime < localStorage.getItem("bestTime")) {
+      localStorage.setItem("bestTime", totalTime);
 
       // // 최고 기록 UI 업데이트
       // document.getElementById("bestTime").textContent = bestTime;
 
-      // // 폭죽 이펙트 실행
-      // document.getElementById("particles-js").style.display = "block";
-      // setTimeout(function () {
-      //   document.getElementById("particles-js").style.display = "none";
-      // }, 2000); // 2초 후 폭죽 이펙트 숨김
+      // 폭죽 이펙트 실행
+      document.getElementById("particles-js").style.display = "block";
+      setTimeout(function () {
+        document.getElementById("particles-js").style.display = "none";
+      }, 2000); // 2초 후 폭죽 이펙트 숨김
 
       // 모달 메시지 변경
-      document.getElementById("completionTime").textContent =
-        "축하합니다! 최고 기록을 경신하셨습니다!!";
+      document.getElementById(
+        "completionTime"
+      ).textContent = `축하합니다! 최고 기록을 경신하셨습니다!!\n\n걸린 시간: ${timeDisplay.textContent}`;
+    } else {
+      document.getElementById(
+        "completionTime"
+      ).textContent = `완료까지 걸린 시간: ${timeDisplay.textContent}`;
     }
-    showModal(timeDisplay);
+    showModal();
   }
-  // particlesJS("particles-js", {
-  //   particles: {
-  //     number: {
-  //       value: 100,
-  //     },
-  //     size: {
-  //       value: 3,
-  //     },
-  //     line_linked: {
-  //       enable: false,
-  //     },
-  //     move: {
-  //       direction: "top",
-  //       speed: 2,
-  //     },
-  //   },
-  //   interactivity: {
-  //     events: {
-  //       onclick: {
-  //         enable: true,
-  //         mode: "repulse",
-  //       },
-  //     },
-  //     modes: {
-  //       repulse: {
-  //         distance: 200,
-  //         duration: 0.4,
-  //       },
-  //     },
-  //   },
-  // });
+  particlesJS("particles-js", {
+    particles: {
+      number: {
+        value: 100,
+      },
+      size: {
+        value: 3,
+      },
+      line_linked: {
+        enable: false,
+      },
+      move: {
+        direction: "top",
+        speed: 2,
+      },
+    },
+    interactivity: {
+      events: {
+        onclick: {
+          enable: true,
+          mode: "repulse",
+        },
+      },
+      modes: {
+        repulse: {
+          distance: 200,
+          duration: 0.4,
+        },
+      },
+    },
+  });
 
   function loadQuestion(index) {
     console.log(index);
@@ -214,6 +205,7 @@ function timeAttack() {
       // 문제를 모두 풀면 모달을 보여주는 코드
       if (currentQuestionIndex === example.questions.length - 1) {
         stopTimer();
+        completeChallenges();
       } else {
         // setTimeout(loadNextQuestion, 2000);
         loadNextQuestion();
