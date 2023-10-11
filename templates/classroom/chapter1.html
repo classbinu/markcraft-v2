@@ -1,0 +1,64 @@
+{% extends "layout/base.html" %}
+<!-- 레이아웃 -->
+{% block body %} {% include 'common/navbar.html' %}
+<div class="text-center">
+  <ul class="steps text-xs">
+    <li class="step hover:cursor-pointer step-success" onclick="go(1)">헤더</li>
+    <li class="step hover:cursor-pointer" onclick="go(2)">줄바꿈</li>
+    <li class="step hover:cursor-pointer" onclick="go(3)">수평선</li>
+    <li class="step hover:cursor-pointer" onclick="go(4)">스타일</li>
+    <li class="step hover:cursor-pointer" onclick="go(5)">인용</li>
+    <li class="step hover:cursor-pointer" onclick="go(6)">코드블록</li>
+    <li class="step hover:cursor-pointer" onclick="go(7)">U목록</li>
+    <li class="step hover:cursor-pointer" onclick="go(8)">O목록</li>
+    <li class="step hover:cursor-pointer" onclick="go(9)">링크</li>
+    <li class="step hover:cursor-pointer" onclick="go(10)">이미지</li>
+  </ul>
+</div>
+<main class="p-5 container mx-auto">
+  <!-- 챕터1 -->
+  <div>
+    <h2 class="font-bold text-3xl text-center my-5">Chapter 1. 헤더(Header)</h2>
+    <div class="flex flex-wrap">
+      <div class="w-full lg:w-1/2">
+        <p class="mb-5 font-bold">예시</p>
+        <ul>
+          <li class="text-4xl"># 이것은 1수준의 헤더입니다.</li>
+          <li class="text-3xl">## 이것은 2수준의 헤더입니다.</li>
+          <li class="text-2xl">### 이것은 3수준의 헤더입니다.</li>
+          <li class="text-xl">##### 이것은 4수준의 헤더입니다.</li>
+          <li class="text-lg">###### 이것은 5수준의 헤더입니다.</li>
+          <li class="text-md">####### 이것은 6수준의 헤더입니다.</li>
+        </ul>
+      </div>
+      <div class="w-full lg:w-1/2 text-center">
+        <p class="mb-5 font-bold">문법</p>
+        <p>
+          제목을 만들려면 텍스트 앞에 1~6개의 '#' 기호를 추가하세요.
+          <br />
+          사용하는 숫자에 따라 제목의 계층 구조 수준과 서체 크기가 결정됩니다.
+          <br />
+          마지막 '#'다음에는 1칸의 공백이 있어야 합니다.
+        </p>
+      </div>
+    </div>
+    <div class="divider text-gray-400">Let's Practice!</div>
+    <div class="flex flex-wrap">
+      <div class="w-full lg:w-1/2 px-20">
+        <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
+        <textarea class="w-full textarea textarea-success"></textarea>
+        <button class="btn btn-xs">
+          잘 모르겠다면 이 버튼을 눌러 정답을 확인하세요
+        </button>
+      </div>
+      <div class="w-full lg:w-1/2 px-20">
+        <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
+        <div class="border-2 p-5 border-success rounded-xl">프리뷰</div>
+      </div>
+    </div>
+    <div class="text-center">
+      <a href="2" class="btn btn-success text-white my-10">다음 챕터</a>
+    </div>
+  </div>
+</main>
+{% endblock %}

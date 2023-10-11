@@ -1,0 +1,25 @@
+{% extends "layout/base.html" %}
+<!-- 레이아웃 -->
+{% block body %}
+<!-- 네비게이션바 -->
+{% include 'common/navbar.html' %}
+<main class="container mx-auto p-5">
+  <h1 class="text-center text-3xl font-bold logo text-markcraft">연습장</h1>
+  <div class="flex flex-wrap">
+    <div class="w-full lg:w-1/2 px-20">
+      <p class="text-center fond-bold text-xl my-5">
+        자유롭게 마크다운을 작성하세요
+      </p>
+      <textarea
+        id="userInput"
+        class="w-full textarea textarea-success"
+        rows="20"
+      ></textarea>
+    </div>
+    <div class="w-full lg:w-1/2 px-20">
+      <p class="text-center fond-bold text-xl my-5">마크다운 렌더링 프리뷰</p>
+      <div id="preview" class="border-2 p-5 border-success rounded-xl"></div>
+    </div>
+  </div>
+</main>
+{% endblock %}

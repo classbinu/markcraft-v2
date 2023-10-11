@@ -1,0 +1,62 @@
+{% extends "layout/base.html" %}
+<!-- 레이아웃 -->
+{% block body %} {% include 'common/navbar.html' %}
+<div class="text-center">
+  <ul class="steps text-xs">
+    <li class="step hover:cursor-pointer step-success" onclick="go(1)">헤더</li>
+    <li class="step hover:cursor-pointer step-success" onclick="go(2)">줄바꿈</li>
+    <li class="step hover:cursor-pointer" onclick="go(3)">수평선</li>
+    <li class="step hover:cursor-pointer" onclick="go(4)">스타일</li>
+    <li class="step hover:cursor-pointer" onclick="go(5)">인용</li>
+    <li class="step hover:cursor-pointer" onclick="go(6)">코드블록</li>
+    <li class="step hover:cursor-pointer" onclick="go(7)">U목록</li>
+    <li class="step hover:cursor-pointer" onclick="go(8)">O목록</li>
+    <li class="step hover:cursor-pointer" onclick="go(9)">링크</li>
+    <li class="step hover:cursor-pointer" onclick="go(10)">이미지</li>
+  </ul>
+</div>
+<main class="p-5 container mx-auto">
+  <!-- 챕터2 -->
+  <div>
+    <h2 class="font-bold text-3xl text-center my-5">Chapter 2. 줄바꿈</h2>
+    <div class="flex flex-wrap">
+      <div class="w-full lg:w-1/2">
+        <p class="mb-5 font-bold">예시</p>
+        <ul>
+          <li>첫 번째 문장입니다.vv두 번째 문장입니다.</li>
+        </ul>
+        <p class="text-gray-400 text-sm">
+          (💁 v는 space(공백)을 나타낸 것입니다.)
+        </p>
+      </div>
+      <div class="w-full lg:w-1/2 text-center">
+        <p class="mb-5 font-bold">문법</p>
+        <p>
+          문장의 끝에 스페이스(space)를 두 번 추가합니다.
+          <br />
+          또는 br태그로 줄바꿈을 할 수도 있습니다.
+          <br />
+          문장의 끝에 스페이스를 추가하는 방식으로 연습해 주세요.
+        </p>
+      </div>
+    </div>
+    <div class="divider text-gray-400">Let's Practice!</div>
+    <div class="flex flex-wrap">
+      <div class="w-full lg:w-1/2 px-20">
+        <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
+        <textarea class="w-full textarea textarea-success"></textarea>
+        <button class="btn btn-xs">
+          잘 모르겠다면 이 버튼을 눌러 정답을 확인하세요
+        </button>
+      </div>
+      <div class="w-full lg:w-1/2 px-20">
+        <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
+        <div class="border-2 p-5 border-success rounded-xl">프리뷰</div>
+      </div>
+    </div>
+    <div class="text-center">
+      <a href="3" class="btn btn-success text-white my-10">다음 챕터</a>
+    </div>
+  </div>
+</main>
+{% endblock %}
