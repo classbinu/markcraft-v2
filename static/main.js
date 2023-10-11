@@ -6,9 +6,24 @@ function go(url) {
 // 강의실, 타임어택
 // 예제 JSON 데이터
 
-function Class() {}
+function classRoom() {}
 
-function TimeAttack() {
+// 모달을 보여주는 함수
+function showModal(timeDisplay) {
+  let completionModal = document.getElementById("completionModal");
+  let completionTime = document.getElementById("completionTime");
+  let currentScore = timeDisplay.textContent;
+  completionModal.style.display = "block";
+}
+
+// 모달을 닫는 함수
+function closeModal() {
+  let completionModal = document.getElementById("completionModal");
+  completionModal.style.display = "none";
+  location.reload();
+}
+
+function timeAttack() {
   // 예제문제
   const example = {
     questions: [
@@ -62,8 +77,8 @@ function TimeAttack() {
   // 현재 최고 기록
   let bestTime = document.getElementById("bestTime");
   bestTime.textContent = localStorage.getItem("bestTime")
-    ? parseInt(localStorage.getItem("bestTime"))
-    : Infinity;
+    ? convertTimeFormat(localStorage.getItem("bestTime"))
+    : convertTimeFormat(Infinity);
 
   // 2. 시작 버튼 클릭 이벤트 리스너 추가
   document.querySelector(".btn-success").addEventListener("click", function () {
@@ -83,86 +98,83 @@ function TimeAttack() {
   }
 
   function stopTimer() {
+    completeChallenges();
     clearInterval(timerInterval);
     timerInterval = null;
   }
 
+  // function timeToSeconds(timeStr) {
+  //   timeStr = String(timeStr);
+  //   if (typeof timeStr !== "string") {
+  //     console.error(typeof timeStr);
+  //     return 0; // or handle it some other way
+  //   }
+  //   const [hours, minutes, seconds] = timeStr.split(":").map(Number);
+  //   return hours * 3600 + minutes * 60 + seconds;
+  // }
+
   // 문제가 모두 완료되었을 때 타이머를 멈추고 모달을 띄움
   function completeChallenges() {
-    stopTimer();
-    const currentScore = timeDisplay.textContent;
-    if (currentScore < bestTime) {
-      bestTime = currentScore;
-      localStorage.setItem("bestTime", bestTime);
+    const currentScore = timeDisplay.textContent);
+    const topScore = bestTime;
 
-      // 최고 기록 UI 업데이트
-      document.querySelector(".text-gray-400 span").textContent =
-        convertTimeFormat(bestTime);
+    console.log(timeToSeconds(bestTime.textContent));
+    console.log(bestTime);
+    if (currentScore < topScore) {
+      localStorage.setItem("bestTime", convertTimeFormat(currentScore));
 
-      // 폭죽 이펙트 실행
-      document.getElementById("particles-js").style.display = "block";
-      setTimeout(function () {
-        document.getElementById("particles-js").style.display = "none";
-      }, 2000); // 2초 후 폭죽 이펙트 숨김
+      // // 최고 기록 UI 업데이트
+      // document.getElementById("bestTime").textContent = bestTime;
+
+      // // 폭죽 이펙트 실행
+      // document.getElementById("particles-js").style.display = "block";
+      // setTimeout(function () {
+      //   document.getElementById("particles-js").style.display = "none";
+      // }, 2000); // 2초 후 폭죽 이펙트 숨김
 
       // 모달 메시지 변경
       document.getElementById("completionTime").textContent =
         "축하합니다! 최고 기록을 경신하셨습니다!!";
     }
-    showModal(win);
+    showModal(timeDisplay);
   }
-  particlesJS("particles-js", {
-    particles: {
-      number: {
-        value: 100,
-      },
-      size: {
-        value: 3,
-      },
-      line_linked: {
-        enable: false,
-      },
-      move: {
-        direction: "top",
-        speed: 2,
-      },
-    },
-    interactivity: {
-      events: {
-        onclick: {
-          enable: true,
-          mode: "repulse",
-        },
-      },
-      modes: {
-        repulse: {
-          distance: 200,
-          duration: 0.4,
-        },
-      },
-    },
-  });
-
-  // 모달을 보여주는 함수
-  function showModal(win) {
-    let completionModal = document.getElementById("completionModal");
-    let completionTime = document.getElementById("completionTime");
-    let currentScore = timeDisplay.textContent;
-    completionModal.style.display = "block";
-  }
-
-  // 모달을 닫는 함수
-  function closeModal() {
-    let completionModal = document.getElementById("completionModal");
-    completionModal.style.display = "none";
-    location.reload();
-  }
+  // particlesJS("particles-js", {
+  //   particles: {
+  //     number: {
+  //       value: 100,
+  //     },
+  //     size: {
+  //       value: 3,
+  //     },
+  //     line_linked: {
+  //       enable: false,
+  //     },
+  //     move: {
+  //       direction: "top",
+  //       speed: 2,
+  //     },
+  //   },
+  //   interactivity: {
+  //     events: {
+  //       onclick: {
+  //         enable: true,
+  //         mode: "repulse",
+  //       },
+  //     },
+  //     modes: {
+  //       repulse: {
+  //         distance: 200,
+  //         duration: 0.4,
+  //       },
+  //     },
+  //   },
+  // });
 
   function loadQuestion(index) {
     console.log(index);
     // 문제 불러오기
-    userInput.value = jsonData.questions[index].userPrompt;
-    correctOutput.innerHTML = marked(jsonData.questions[index].correctAnswer);
+    userInput.value = example.questions[index].userPrompt;
+    correctOutput.innerHTML = marked(example.questions[index].correctAnswer);
     correctOutput.style.display = "block"; // 정답 미리보기 보이기
     userInput.focus();
   }
@@ -178,8 +190,8 @@ function TimeAttack() {
       // comparisonResult.style.color = "green";
       // userInput.style.borderColor = "#ccc";
       // 문제를 모두 풀면 모달을 보여주는 코드
-      if (currentQuestionIndex === jsonData.questions.length - 1) {
-        completeChallenges();
+      if (currentQuestionIndex === example.questions.length - 1) {
+        stopTimer();
       } else {
         // setTimeout(loadNextQuestion, 2000);
         loadNextQuestion();
