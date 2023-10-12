@@ -1,9 +1,11 @@
 from flask import Flask
 from routes.pages import pages_bp
 from routes.api import api_bp
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = os.getenv("SECRET")
 app.register_blueprint(pages_bp)
 app.register_blueprint(api_bp)
 

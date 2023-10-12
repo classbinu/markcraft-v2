@@ -16,6 +16,11 @@ def millisecondsToMinutesSeconds(milliseconds):
     return formattedTime
 
 
+@pages_bp.route('/401error')
+def error():
+    return render_template('error/Error.html')
+
+
 @pages_bp.route("/", methods=["GET"])
 def get_home():
     token = request.cookies.get("access_token")
