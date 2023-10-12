@@ -22,7 +22,7 @@
     <h2 class="font-bold text-3xl text-center my-5">Chapter 1. 헤더(Header)</h2>
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2">
-        <p class="mb-5 font-bold">예시</p>
+        {% include 'common/example_title.html' %}
         <ul>
           <li class="text-4xl"># 이것은 1수준의 헤더입니다.</li>
           <li class="text-3xl">## 이것은 2수준의 헤더입니다.</li>
@@ -33,7 +33,7 @@
         </ul>
       </div>
       <div class="w-full lg:w-1/2 text-center">
-        <p class="mb-5 font-bold">문법</p>
+        {% include 'common/grammar_title.html' %}
         <p>
           제목을 만들려면 텍스트 앞에 1~6개의 '#' 기호를 추가하세요.
           <br />
@@ -46,7 +46,7 @@
     <div class="divider text-gray-400">Let's Practice!</div>
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 px-20">
-        <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
+        <p class="text-center fond-bold text-xl mb-5">마크다운을 작성하세요</p>
         <textarea
           id="answer"
           class="w-full textarea textarea-success h-36"
@@ -58,7 +58,7 @@
         </button>
       </div>
       <div class="w-full lg:w-1/2 px-20">
-        <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
+        <p class="text-center fond-bold text-xl mb-5">이 화면을 구현하세요</p>
         <input
           id="question"
           class="border-2 p-5 border-success rounded-xl h-36 hidden"
@@ -74,7 +74,10 @@
     </div>
     <div class="text-center">
       <span id="chapter_id" class="hidden">{{ chapter_id }}</span>
-      <a href="2" class="btn btn-lg btn-success text-white" onclick="postProgress()"
+      <a
+        href="2"
+        class="btn btn-lg btn-success text-white"
+        onclick="postProgress()"
         >다음 챕터 ➡️</a
       >
     </div>

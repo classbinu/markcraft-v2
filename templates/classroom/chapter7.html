@@ -34,7 +34,7 @@
     </h2>
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2">
-        <p class="mb-5 font-bold">예시</p>
+        {% include 'common/example_title.html' %}
         <ul class="list-disc list-inside">
           <li>+ 순서가 없는 목록 아이템 A입니다.</li>
           <li>+ 순서가 없는 목록 아이템 B입니다.</li>
@@ -42,7 +42,7 @@
         </ul>
       </div>
       <div class="w-full lg:w-1/2 text-center">
-        <p class="mb-5 font-bold">문법</p>
+        {% include 'common/grammar_title.html' %}
         <p>
           '하이픈(-)', '별표(*)', '더하기(+)'를 이용해
           <br />
@@ -55,7 +55,7 @@
     <div class="divider text-gray-400">Let's Practice!</div>
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 px-20">
-        <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
+        <p class="text-center fond-bold text-xl mb-5">마크다운을 작성하세요</p>
         <textarea
           id="answer"
           class="w-full textarea textarea-success h-36"
@@ -67,7 +67,7 @@
         </button>
       </div>
       <div class="w-full lg:w-1/2 px-20">
-        <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
+        <p class="text-center fond-bold text-xl mb-5">이 화면을 구현하세요</p>
         <input
           id="question"
           class="border-2 p-5 border-success rounded-xl h-36 hidden"
