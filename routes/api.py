@@ -123,14 +123,12 @@ def signup():
 
 @api_bp.route('/timeattack', methods=['POST'])
 def timeattack():
-    print('hi')
     token = request.cookies.get("access_token")
-    print(token)
     users = verify_token(token)
-    print(users)
-    timeScore = request.get_json().values()
-    # db.users.insert_one({"tie"})
-    print(users)
+    timeScore = request.json.get("bestTime")
+    print(timeScore)
+    # db.users.update_one({"email":users["email"]})
+    collection.update_one({"email":users["email"]}, {"$set":{"bestTime":timeScore}})
     return jsonify(users)
 
 
