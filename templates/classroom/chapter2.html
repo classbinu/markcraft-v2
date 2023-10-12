@@ -53,8 +53,8 @@
           oninput="checkAnswer()"
           autofocus
         ></textarea>
-        <button class="btn btn-xs">
-          잘 모르겠다면 이 버튼을 눌러 정답을 확인하세요
+        <button class="btn btn-xs" onclick="showAnswerModal()">
+          잘 모르겠다면 여기를 눌러 정답을 확인하세요 🤔
         </button>
       </div>
       <div class="w-full lg:w-1/2 px-20">
@@ -64,14 +64,19 @@
           class="border-2 p-5 border-success rounded-xl h-36 hidden"
           value="{{ question }}"
         />
-        <div id="previewOutput" class="border-2 p-5 border-success rounded-xl h-36">
+        <div
+          id="previewOutput"
+          class="border-2 p-5 border-success rounded-xl h-36"
+        >
           {{ question }}
         </div>
       </div>
     </div>
     <div class="text-center">
       <span id="chapter_id" class="hidden">{{ chapter_id }}</span>
-      <a href="3" class="btn btn-success text-white" onclick="postProgress()">다음 챕터</a>
+      <a href="3" class="btn btn-lg btn-success text-white" onclick="postProgress()"
+        >다음 챕터 ➡️</a
+      >
     </div>
   </div>
   <script>

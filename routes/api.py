@@ -11,7 +11,7 @@ import os
 api_bp = Blueprint("api", __name__)
 bcrypt = Bcrypt()
 SECRET = os.getenv("SECRET")
-client = MongoClient("localhost", 27017)
+client = MongoClient(os.getenv("DB"), 27017)
 db = client.test
 collection = db["users"]
 collection.create_index([("email", 1)], unique=True)
@@ -148,7 +148,7 @@ def setProgress():
         return jsonify({"message":"진도 저장 완료!"})
 
     except Exception as e :
-        if str(e) is "NoneData":
+        if str(e) == "NoneData":
             return jsonify({"message":"잘못된 데이터이다."})
 
     

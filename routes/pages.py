@@ -3,9 +3,11 @@ from pymongo import MongoClient
 from .api import verify_token
 from random import choice, sample
 import markdown
+from dotenv import load_dotenv
+import os
 
 pages_bp = Blueprint("pages", __name__)
-client = MongoClient("localhost", 27017)
+client = MongoClient(os.getenv("DB"), 27017)
 db = client.test
 
 study_set = {

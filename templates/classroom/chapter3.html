@@ -5,8 +5,12 @@
 <div class="text-center">
   <ul class="steps text-xs">
     <li class="step hover:cursor-pointer step-success" onclick="go(1)">헤더</li>
-    <li class="step hover:cursor-pointer step-success" onclick="go(2)">줄바꿈</li>
-    <li class="step hover:cursor-pointer step-success" onclick="go(3)">수평선</li>
+    <li class="step hover:cursor-pointer step-success" onclick="go(2)">
+      줄바꿈
+    </li>
+    <li class="step hover:cursor-pointer step-success" onclick="go(3)">
+      수평선
+    </li>
     <li class="step hover:cursor-pointer" onclick="go(4)">스타일</li>
     <li class="step hover:cursor-pointer" onclick="go(5)">인용</li>
     <li class="step hover:cursor-pointer" onclick="go(6)">코드블록</li>
@@ -50,8 +54,8 @@
         <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
         <textarea id="answer" class="w-full textarea textarea-success h-36" oninput="checkAnswer()"
           autofocus></textarea>
-        <button class="btn btn-xs">
-          잘 모르겠다면 이 버튼을 눌러 정답을 확인하세요
+        <button class="btn btn-xs" onclick="showAnswerModal()">
+          잘 모르겠다면 여기를 눌러 정답을 확인하세요 🤔
         </button>
       </div>
       <div class="w-full lg:w-1/2 px-20">
@@ -65,7 +69,7 @@
     </div>
     <div class="text-center">
       <span id="chapter_id" class="hidden">{{ chapter_id }}</span>
-      <a href="4" class="btn btn-success text-white" onclick="postProgress()">다음 챕터</a>
+      <a href="4" class="btn btn-lg btn-success text-white" onclick="postProgress()">다음 챕터 ➡️</a>
     </div>
   </div>
   <script>
