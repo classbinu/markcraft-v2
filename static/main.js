@@ -51,145 +51,110 @@ function logout(cookieName) {
 function classRoom() {}
 
 function timeAttack() {
-  // 현재 문제 인덱스
-  let currentQuestionIndex = 0;
-  // 예제문제
-  const example = {
-    questions: [
-      {
-        id: 1,
-        userPrompt: "This is inline code.",
-        correctAnswer: "This is `inline code`.",
-      },
-      // {
-      //   id: 2,
-      //   userPrompt: "",
-      //   correctAnswer: "가나다",
-      // },
-      // {
-      //   id: 3,
-      //   userPrompt: "이것은 제목",
-      //   correctAnswer: "## 이것은 제목",
-      // },
-      // {
-      //   id: 4,
-      //   userPrompt: "여기에 본문을 입력하세요.\n\n이것은 강조된 텍스트입니다.",
-      //   correctAnswer:
-      //     "여기에 본문을 입력하세요.\n\n이것은 **강조된** 텍스트입니다.",
-      // },
-    ],
-  };
-
-  function updateProgressBar(index) {
-    const progressBar = document.getElementById("progress-bar");
-    progressBar.max = example.questions.length;
-    progressBar.value = index + 1;
-  }
-
-  function updateProgressText(index) {
-    const progressText = document.getElementById("progress-text");
-    progressText.textContent = `${index + 1}/${example.questions.length}`;
-  }
-
-  updateProgressBar(currentQuestionIndex);
-  updateProgressText(currentQuestionIndex);
-
-  const userInput = document.getElementById("userInput");
-
-  const correctOutput = document.getElementById("correctOutput");
-
-  function convertTimeFormat(milliseconds) {
-    let minutes = Math.floor(milliseconds / (60 * 1000));
-    let seconds = Math.floor((milliseconds % (60 * 1000)) / 1000);
-
-    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
-      2,
-      "0"
-    )}`;
-  }
-
-  // 1. 타이머를 위한 변수 설정
-  let timerInterval;
-  let startTime;
-  let myTime;
-  let timeDisplay = document.getElementById("currentTime");
-
-  // 2. 시작 버튼 클릭 이벤트 리스너 추가
-  document.querySelector(".btn-success").addEventListener("click", function () {
-    this.style.display = "none"; // 시작 버튼 숨기기
-    startTimer();
-    // 처음 문제 로드
-    loadQuestion(currentQuestionIndex);
-  });
-
-  // 3. 타이머 시작/정지 함수
-  function startTimer() {
-    startTime = Date.now();
-    timerInterval = setInterval(function () {
-      myTime = Date.now() - startTime;
-      timeDisplay.textContent = convertTimeFormat(myTime);
-    }, 10);
-  }
-
-  function stopTimer() {
-    clearInterval(timerInterval);
-    timerInterval = null;
-  }
-
-  // 문제가 모두 완료되었을 때 타이머를 멈추고 모달을 띄움
-  function completeChallenges() {
-    // postMyTime(myTime);
-    const question = document.getElementById("question").textContent;
-    const answer = document.getElementById("answer").textContent;
-    if (question === answer) {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "정답입니다!",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
-        location.reload();
-      }, 1500);
-    }
-  }
-  function loadQuestion(index) {
-    console.log(index);
-    updateProgressBar(index);
-    updateProgressText(index);
-    // 문제 불러오기
-    userInput.value = example.questions[index].userPrompt;
-    correctOutput.innerHTML = marked(example.questions[index].correctAnswer);
-    correctOutput.style.display = "block"; // 정답 미리보기 보이기
-    userInput.focus();
-  }
-
-  userInput.addEventListener("input", function () {
-    // userOutput.innerHTML = marked(userInput.value); // 사용자 입력을 미리보기에 표시ㄴ
-    document.querySelectorAll("pre code").forEach((block) => {
-      hljs.highlightBlock(block); // 코드 하이라이팅
-    });
-
-    if (marked(userInput.value).trim() === correctOutput.innerHTML.trim()) {
-      // 문제를 모두 풀면 모달을 보여주는 코드
-      if (currentQuestionIndex === example.questions.length - 1) {
-        stopTimer();
-        completeChallenges();
-      } else {
-        loadNextQuestion();
-      }
-    }
-  });
-  // 다음 문제 로드 함수
-  function loadNextQuestion() {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < example.questions.length) {
-      loadQuestion(currentQuestionIndex);
-      console.log(currentQuestionIndex);
-    }
-  }
+  // function updateProgressBar(index) {
+  //   const progressBar = document.getElementById("progress-bar");
+  //   progressBar.max = example.questions.length;
+  //   progressBar.value = index + 1;
+  // }
+  // function updateProgressText(index) {
+  //   const progressText = document.getElementById("progress-text");
+  //   progressText.textContent = `${index + 1}/${example.questions.length}`;
+  // }
+  // updateProgressBar(currentQuestionIndex);
+  // updateProgressText(currentQuestionIndex);
+  // const userInput = document.getElementById("userInput");
+  // const correctOutput = document.getElementById("correctOutput");
+  // function convertTimeFormat(milliseconds) {
+  //   let minutes = Math.floor(milliseconds / (60 * 1000));
+  //   let seconds = Math.floor((milliseconds % (60 * 1000)) / 1000);
+  //   return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+  //     2,
+  //     "0"
+  //   )}`;
 }
+
+// 1. 타이머를 위한 변수 설정
+// let timerInterval;
+// let startTime;
+// let myTime;
+// let timeDisplay = document.getElementById("currentTime");
+
+// 2. 시작 버튼 클릭 이벤트 리스너 추가
+// document.querySelector(".btn-success").addEventListener("click", function () {
+//   this.style.display = "none"; // 시작 버튼 숨기기
+//   startTimer();
+//   // 처음 문제 로드
+//   loadQuestion(currentQuestionIndex);
+// });
+
+// 3. 타이머 시작/정지 함수
+//   function startTimer() {
+//     startTime = Date.now();
+//     timerInterval = setInterval(function () {
+//       myTime = Date.now() - startTime;
+//       timeDisplay.textContent = convertTimeFormat(myTime);
+//     }, 10);
+//   }
+
+//   function stopTimer() {
+//     clearInterval(timerInterval);
+//     timerInterval = null;
+//   }
+
+//   // 문제가 모두 완료되었을 때 타이머를 멈추고 모달을 띄움
+//   function completeChallenges() {
+//     // postMyTime(myTime);
+//     const question = document.getElementById("question").textContent;
+//     const answer = document.getElementById("answer").textContent;
+//     if (question === answer) {
+//       Swal.fire({
+//         position: "center",
+//         icon: "success",
+//         title: "정답입니다!",
+//         showConfirmButton: false,
+//         timer: 1500,
+//       });
+//       setTimeout(() => {
+//         location.reload();
+//       }, 1500);
+//     }
+//   }
+//   function loadQuestion(index) {
+//     console.log(index);
+//     updateProgressBar(index);
+//     updateProgressText(index);
+//     // 문제 불러오기
+//     userInput.value = example.questions[index].userPrompt;
+//     correctOutput.innerHTML = marked(example.questions[index].correctAnswer);
+//     correctOutput.style.display = "block"; // 정답 미리보기 보이기
+//     userInput.focus();
+//   }
+
+//   userInput.addEventListener("input", function () {
+//     // userOutput.innerHTML = marked(userInput.value); // 사용자 입력을 미리보기에 표시ㄴ
+//     document.querySelectorAll("pre code").forEach((block) => {
+//       hljs.highlightBlock(block); // 코드 하이라이팅
+//     });
+
+//     if (marked(userInput.value).trim() === correctOutput.innerHTML.trim()) {
+//       // 문제를 모두 풀면 모달을 보여주는 코드
+//       if (currentQuestionIndex === example.questions.length - 1) {
+//         stopTimer();
+//         completeChallenges();
+//       } else {
+//         loadNextQuestion();
+//       }
+//     }
+//   });
+//   // 다음 문제 로드 함수
+//   function loadNextQuestion() {
+//     currentQuestionIndex++;
+//     if (currentQuestionIndex < example.questions.length) {
+//       loadQuestion(currentQuestionIndex);
+//       console.log(currentQuestionIndex);
+//     }
+//   }
+// }
 
 // 연습장 마크다운 동적 실시간 렌더링
 function initializeRealTimeRendering() {
@@ -219,8 +184,8 @@ function markdownStaticRendering() {
 }
 
 function checkAnswer() {
-  const question = document.getElementById("question").textContent;
-  const answer = document.getElementById("answer").textContent;
+  const question = document.getElementById("question").value;
+  const answer = document.getElementById("answer").value;
   if (question === answer) {
     Swal.fire({
       position: "center",
