@@ -13,11 +13,11 @@ db = client.test
 
 study_set = {
     1: [
-        "# 1수준 헤더입니다",
-        "## 2수준 헤더입니다",
-        "### 3수준 헤더입니다",
-        "#### 4수준 헤더입니다",
-        "##### 5수준 헤더입니다",
+        # "# 1수준 헤더입니다",
+        # "## 2수준 헤더입니다",
+        # "### 3수준 헤더입니다",
+        # "#### 4수준 헤더입니다",
+        # "##### 5수준 헤더입니다",
         "###### 6수준 헤더입니다",
     ],
     2: [
@@ -26,9 +26,10 @@ study_set = {
     ],
     3: ["수평선 위입니다\r\n***\r\n수평선 아래입니다"],
     4: [
-        "**이 문장은 볼드체입니다**",
-        "_이 문장은 이탤릭입니다_",
-        "~~이 문장은 취소선입니다~~",
+        # "**이 문장은 볼드체입니다**",
+        # "_이 문장은 이탤릭입니다_",
+        # "~~이 문장은 취소선입니다~~",
+        "~~문장은 취소선입니다~~",
     ],
     5: [">인용입니다"],
     6: ["모듈을 불러오는 예약어는 `import`입니다"],
@@ -36,9 +37,9 @@ study_set = {
     8: ["1. 순서가 있는 목록입니다"],
     9: ["[Google](https://google.com)"],
     10: [
-            "![정글](http://127.0.0.1:4999/static/image/jungle.jpeg)", 
-            "![마크크래프트](http://127.0.0.1:4999/static/image/qr.png)"
-        ],
+        "![정글](http://127.0.0.1:4999/static/image/jungle.jpeg)",
+        "![마크크래프트](http://127.0.0.1:4999/static/image/qr.png)",
+    ],
 }
 
 
@@ -114,22 +115,22 @@ def get_chapter(chapter_id):
     print(html)
 
     # 챕터9~10 전용 텍스트/url
-    text = ''
-    url = ''
+    text = ""
+    url = ""
     # 챕터9(링크), 챕터10(이미지) 힌트 생성
-    text_pattern = r'\[(.*?)\]' # 대괄호 내부 정규식
-    url_patter = r'\((.*?)\)' # 소괄호 내부 정규식
+    text_pattern = r"\[(.*?)\]"  # 대괄호 내부 정규식
+    url_patter = r"\((.*?)\)"  # 소괄호 내부 정규식
     if chapter_id == 9 or chapter_id == 10:
         text = re.search(text_pattern, question).group(1)
         url = re.search(url_patter, question).group(1)
 
     return render_template(
-        template_path, 
-        question=question, 
-        chapter_id=chapter_id, 
+        template_path,
+        question=question,
+        chapter_id=chapter_id,
         html=html,
         text=text,
-        url=url
+        url=url,
     )
 
 @pages_bp.route("/classroom/graduation", methods=["GET"])
