@@ -45,7 +45,7 @@ def get_signup():
 def get_classroom():
     try:
         token = request.cookies.get("access_token")
-        if token is None: # 토큰 secret 오류 발행해서 예외 처리로 임시 처리
+        if not token: # 토큰 secret 오류 발행해서 예외 처리로 임시 처리
             flash("로그인이 필요합니다.")
             return redirect(url_for('pages.get_signin'))
         
@@ -64,10 +64,26 @@ def get_chapter(chapter_id):
 
 @pages_bp.route('/timeattack', methods=['GET'])
 def get_timeattack():
-    topRanker = list(db.users.find().sort("bestTime", 1).limit(1))
-    formattedBestTime= millisecondsToMinutesSeconds(topRanker[0]['bestTime'])
-    return render_template('timeattack/index.html', topRanker=topRanker, formattedBestTime=formattedBestTime)
+    try:
+        token = request.cookies.get("access_token")
+        if not token: # 토큰 secret 오류 발행해서 예외 처리로 임시 처리
+            flash("로그인이 필요합니다.")
+            return redirect(url_for('pages.get_signin'))
+        
+        topRanker = list(db.users.find().sort("bestTime", 1).limit(1))
+        formattedBestTime= millisecondsToMinutesSeconds(topRanker[0]['bestTime'])
+        return render_template('timeattack/index.html', topRanker=topRanker, formattedBestTime=formattedBestTime)
+    except:
+        return redirect(url_for('pages.get_signin'))
+    
 
 @pages_bp.route('/note', methods=['GET'])
 def get_note():
-   return render_template('note/index.html')
+    try:
+        token = request.cookies.get("access_token")
+        if not token: # 토큰 secret 오류 발행해서 예외 처리로 임시 처리
+            flash("로그인이 필요합니다.")
+            return redirect(url_for('pages.get_signin'))
+        return render_template('note/index.html')
+    except:
+        return redirect(url_for('pages.get_signin'))
