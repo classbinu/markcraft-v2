@@ -145,6 +145,7 @@ def setProgress():
         if progress is None:
             raise Exception("NoneData")
         db.users.update_one({"email":users["email"],"nickname":users["nickname"]},{"$set":{"progress":progress}})
+        return jsonify({"message":"진도 저장 완료!"})
 
     except Exception as e :
         if str(e) is "NoneData":
