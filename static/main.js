@@ -163,6 +163,8 @@ function initializeRealTimeRendering() {
 
   practiceInput.addEventListener("input", function () {
     previewOutput.innerHTML = marked(practiceInput.value);
+    console.log(marked(practiceInput.value), previewOutput.innerHTML);
+
     document.querySelectorAll("pre code").forEach((block) => {
       hljs.highlightBlock(block);
     });
@@ -181,11 +183,14 @@ function markdownStaticRendering() {
   const question = document.getElementById("question").value;
   const previewOutput = document.getElementById("previewOutput");
   previewOutput.innerHTML = marked(question);
+  console.log(question);
 }
 
 function checkAnswer() {
-  const question = document.getElementById("question").value;
+  const question = marked(document.getElementById("question").value);
   const answer = document.getElementById("answer").value;
+  console.log(question.innerHTML);
+  console.log(marked(answer));
   if (question === answer) {
     Swal.fire({
       position: "center",
