@@ -104,7 +104,9 @@ def get_chapter(chapter_id):
     question = choice(study_set[chapter_id])
     template_path = f"classroom/chapter{chapter_id}.html"
     html = markdown.markdown(question)
-    return render_template(template_path, question=question, html=html)
+    return render_template(
+        template_path, question=question, chapter_id=chapter_id, html=html
+    )
 
 
 @pages_bp.route("/timeattack", methods=["GET"])
