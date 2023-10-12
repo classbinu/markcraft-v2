@@ -12,7 +12,7 @@
       <p class="text-center fond-bold text-xl my-5 mb-5">
         자유롭게 마크다운을 작성하세요
       </p>
-      <textarea id="practiceInput" class="w-full textarea textarea-success h-96"></textarea>
+      <textarea id="practiceInput" class="border-2 w-full textarea textarea-success h-96"></textarea>
     </div>
     <div class="w-full lg:w-1/2 px-20">
       <p class="text-center fond-bold text-xl my-5 mb-5">마크다운 렌더링 프리뷰</p>
@@ -20,7 +20,8 @@
     </div>
   </div>
   </div>
-  <button onclick="resetAllContext()">내용 지우기</button>
+  <div class="text-center mt-20"> <button class="btn btn-outline btn-error" onclick="resetAllContext()">내용 지우기</button>
+  </div>
 </main>
 
 <script>
