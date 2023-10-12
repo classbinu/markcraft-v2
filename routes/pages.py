@@ -5,6 +5,7 @@ from random import choice, sample
 import markdown
 from dotenv import load_dotenv
 import os
+import re
 
 pages_bp = Blueprint("pages", __name__)
 client = MongoClient(os.getenv("DB"), 27017)
@@ -32,10 +33,13 @@ study_set = {
     ],
     5: [">인용입니다"],
     6: ["모듈을 불러오는 예약어는 `import`입니다"],
-    7: ["+ 순서가 없는 목록입니다\r\n+ 순서가 없는 목록입니다"],
-    8: ["1. 순서가 있는 목록입니다\r\n1. 순서가 있는 목록입니다"],
-    9: ["[Google](https://www.google.com)"],
-    10: ["![크래프톤 정글](https://buly.kr/DwAhhgk)"],
+    7: ["+ 순서가 없는 목록입니다"],
+    8: ["1. 순서가 있는 목록입니다"],
+    9: ["[Google](https://google.com)"],
+    10: [
+        "![정글](http://127.0.0.1:4999/static/image/jungle.jpeg)",
+        "![마크크래프트](http://127.0.0.1:4999/static/image/qr.png)",
+    ],
 }
 
 
@@ -109,8 +113,24 @@ def get_chapter(chapter_id):
     html = markdown.markdown(question)
     print(question)
     print(html)
+
+    # 챕터9~10 전용 텍스트/url
+    text = ""
+    url = ""
+    # 챕터9(링크), 챕터10(이미지) 힌트 생성
+    text_pattern = r"\[(.*?)\]"  # 대괄호 내부 정규식
+    url_patter = r"\((.*?)\)"  # 소괄호 내부 정규식
+    if chapter_id == 9 or chapter_id == 10:
+        text = re.search(text_pattern, question).group(1)
+        url = re.search(url_patter, question).group(1)
+
     return render_template(
-        template_path, question=question, chapter_id=chapter_id, html=html
+        template_path,
+        question=question,
+        chapter_id=chapter_id,
+        html=html,
+        text=text,
+        url=url,
     )
 
 

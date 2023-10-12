@@ -36,7 +36,7 @@
     </h2>
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2">
-        <p class="mb-5 font-bold">예시</p>
+        {% include 'common/example_title.html' %}
         <ul>
           <li>1. 첫 번째 목록 아이템입니다.</li>
           <li>1. 두 번째 목록 아이템입니다.</li>
@@ -44,7 +44,7 @@
         </ul>
       </div>
       <div class="w-full lg:w-1/2 text-center">
-        <p class="mb-5 font-bold">문법</p>
+        {% include 'common/grammar_title.html' %}
         <p>
           각 항목 앞에 숫자와 마침표를 입력하면 순서가 있는 목록이 생성됩니다.
           <br />
@@ -58,7 +58,7 @@
     <div class="divider text-gray-400">Let's Practice!</div>
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 px-20">
-        <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
+        <p class="text-center fond-bold text-xl mb-5">마크다운을 작성하세요</p>
         <textarea id="answer" class="w-full textarea textarea-success h-36" oninput="checkAnswer()"
           autofocus></textarea>
         <button class="btn btn-xs" onclick="showAnswerModal()">

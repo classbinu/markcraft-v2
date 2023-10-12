@@ -24,22 +24,29 @@
     <h2 class="font-bold text-3xl text-center my-5">Chapter 2. 줄바꿈</h2>
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2">
-        <p class="mb-5 font-bold">예시</p>
+        {% include 'common/example_title.html' %}
         <ul>
-          <li>첫 번째 문장입니다.< br>두 번째 문장입니다.</li>
+          <<<<<<< HEAD <li>첫 번째 문장입니다.< br>두 번째 문장입니다.</li>
+              =======
+              <li>첫 번째 문장입니다&lt;br&gt;두 번째 문장입니다</li>
+              >>>>>>> 4a81a4cde02becf395abefe75d02f6c5308da180
         </ul>
-        <p class="text-gray-400 text-sm">
-          (💁 br 태그는 공백없이 작성해 주세요.)
-        </p>
       </div>
       <div class="w-full lg:w-1/2 text-center">
-        <p class="mb-5 font-bold">문법</p>
+        {% include 'common/grammar_title.html' %}
         <p>
-          < br>태그로 줄바꿈을 할 수 있습니다.
+          <<<<<<< HEAD < br>태그로 줄바꿈을 할 수 있습니다.
             <br />
             또는 문장의 끝에 스페이스(space)를 두 번 추가합니다.
             <br />
             < br>태그 줄바꿈 방식으로 연습해 주세요.
+              =======
+              &lt;br&gt;태그로 줄바꿈을 할 수 있습니다.
+              <br />
+              또는 문장의 끝에 스페이스(space)를 두 번 추가합니다.
+              <br />
+              &lt;br&gt;태그 줄바꿈 방식으로 연습해 주세요.
+              >>>>>>> 4a81a4cde02becf395abefe75d02f6c5308da180
         </p>
       </div>
     </div>
