@@ -99,7 +99,7 @@ def signup():
                 "email": data["email"],
                 "nickname": data["nickname"],
                 "userpw": bcrypt.generate_password_hash(data["userpw"]).decode("utf-8"),
-                "bestTime": 99999999,
+                "bestTime": 5940000,
                 "progress": 0,
             }
         )

@@ -47,18 +47,30 @@
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 px-20">
         <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
-        <textarea class="w-full textarea textarea-success"></textarea>
+        <textarea
+          id="answer"
+          class="w-full textarea textarea-success h-36"
+          oninput="checkAnswer()"
+          autofocus
+        ></textarea>
         <button class="btn btn-xs">
           잘 모르겠다면 이 버튼을 눌러 정답을 확인하세요
         </button>
       </div>
       <div class="w-full lg:w-1/2 px-20">
         <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
-        <div class="border-2 p-5 border-success rounded-xl">프리뷰</div>
+        <input
+          id="question"
+          class="border-2 p-5 border-success rounded-xl h-36 hidden"
+          value="{{ question }}"
+        />
+        <div id="previewOutput" class="border-2 p-5 border-success rounded-xl h-36">
+          {{ question }}
+        </div>
       </div>
     </div>
     <div class="text-center">
-      <a href="9" class="btn btn-success text-white my-10">다음 챕터</a>
+      <a href="9" class="btn btn-success text-white">다음 챕터</a>
     </div>
   </div>
   <script>

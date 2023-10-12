@@ -24,11 +24,11 @@
       <div class="w-full lg:w-1/2">
         <p class="mb-5 font-bold">예시</p>
         <ul>
-          <li class="font-bold">**이 문장은 볼드체입니다.**</li>
+          <li class="font-bold">**이 문장은 볼드체입니다**</li>
           <li class="italic">_이 문장은 이탤릭입니다._</li>
           <li>
-            ~~이 문장은 취소선입니다.~~<span class="line-through"
-              >(~~이 문장은 취소선입니다.~~)</span
+            ~~이 문장은 취소선입니다~~<span class="line-through"
+              >(~~이 문장은 취소선입니다~~)</span
             >
           </li>
         </ul>
@@ -46,18 +46,30 @@
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 px-20">
         <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
-        <textarea class="w-full textarea textarea-success"></textarea>
+        <textarea
+          id="answer"
+          class="w-full textarea textarea-success h-36"
+          oninput="checkAnswer()"
+          autofocus
+        ></textarea>
         <button class="btn btn-xs">
           잘 모르겠다면 이 버튼을 눌러 정답을 확인하세요
         </button>
       </div>
       <div class="w-full lg:w-1/2 px-20">
         <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
-        <div class="border-2 p-5 border-success rounded-xl">프리뷰</div>
+        <input
+          id="question"
+          class="border-2 p-5 border-success rounded-xl h-36 hidden"
+          value="{{ question }}"
+        />
+        <div id="previewOutput" class="border-2 p-5 border-success rounded-xl h-36">
+          {{ question }}
+        </div>
       </div>
     </div>
     <div class="text-center">
-      <a href="5" class="btn btn-success text-white my-10">다음 챕터</a>
+      <a href="5" class="btn btn-success text-white">다음 챕터</a>
     </div>
   </div>
   <script>
