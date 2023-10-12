@@ -1,0 +1,43 @@
+{% extends "layout/base.html" %}
+<!-- 레이아웃 -->
+{% block body %} {% include 'common/navbar.html' %} 
+<main class="container mx-auto lg:w-1/3 p-5">
+  <h1 class="logo text-center text-6xl font-bold text-markcraft">축하합니다🥳</h1>
+  <p class="text-center text-gray-400 text-xl mt-5">
+  저희가 준비한 모든 강의를 수강하셨어요👏
+</p>
+  <div class="mt-10">
+    <p>
+      <span class="font-bold text-markcraft">강의를 성실하게 수강해 주셔서 고맙습니다.</span>
+      당신은 이제 
+      <span
+        ><a
+          href="https://obsidian.md/"
+          target="_blank"
+          class="link link-primary"
+          >옵시디언</a
+        ></span
+      >,
+      <span
+        ><a href="https://velog.io/" target="_blank" class="link link-primary"
+          >벨로그</a
+        ></span
+      >,
+      <span
+        ><a href="https://github.com/" target="_blank" class="link link-primary"
+          >깃허브</a
+        ></span
+      > 등에서 기본적인 마크다운을 작성할 수 있게 되었어요.
+      하지만 마크다운 문법은 저희가 알려드린 게 전부가 아니에요.
+      참고할 만한 자료를 알려드리니 마크다운을 더 공부해 보세요!
+    </p>
+    <p><a href="https://www.markdownguide.org/" target="_blank" class="link link-primary">Markdown Guide 바로가기 🔥</a></p>
+  </div>
+  <h2 class="text-center text-3xl text-gray-400 font-bold mt-5">Reference</h2>
+  <div class="flex flex-wrap">
+    
+  </div>
+  
+  </div>
+</main>
+{% endblock %}
