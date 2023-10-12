@@ -26,7 +26,7 @@
       <div class="w-full lg:w-1/2">
         <p class="mb-5 font-bold">예시</p>
         <ul>
-          <li>첫 번째 문장입니다.< br >두 번째 문장입니다.</li>
+          <li>첫 번째 문장입니다.< br>두 번째 문장입니다.</li>
         </ul>
         <p class="text-gray-400 text-sm">
           (💁 br 태그는 공백없이 작성해 주세요.)
@@ -35,11 +35,11 @@
       <div class="w-full lg:w-1/2 text-center">
         <p class="mb-5 font-bold">문법</p>
         <p>
-          < br >태그로 줄바꿈을 할 수 있습니다.
-          <br />
-          또는 문장의 끝에 스페이스(space)를 두 번 추가합니다.
-          <br />
-          < br >태그 줄바꿈 방식으로 연습해 주세요.
+          < br>태그로 줄바꿈을 할 수 있습니다.
+            <br />
+            또는 문장의 끝에 스페이스(space)를 두 번 추가합니다.
+            <br />
+            < br>태그 줄바꿈 방식으로 연습해 주세요.
         </p>
       </div>
     </div>
@@ -47,44 +47,36 @@
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 px-20">
         <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
-        <textarea
-          id="answer"
-          class="w-full textarea textarea-success h-36"
-          oninput="checkAnswer()"
-          autofocus
-        ></textarea>
+        <textarea id="answer" class="w-full textarea textarea-success h-36" oninput="checkAnswer()"
+          autofocus></textarea>
         <button class="btn btn-xs" onclick="showAnswerModal()">
           잘 모르겠다면 여기를 눌러 정답을 확인하세요 🤔
         </button>
       </div>
       <div class="w-full lg:w-1/2 px-20">
         <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
-        <input
-          id="question"
-          class="border-2 p-5 border-success rounded-xl h-36 hidden"
-          value="{{ question }}"
-        />
-        <div
-          id="previewOutput"
-          class="border-2 p-5 border-success rounded-xl h-36"
-        >
-          {{ question }}
+        <input id="question" class="border-2 p-5 border-success rounded-xl h-36 hidden" value="{{ question }}" />
+        <input id="html" class="border-2 p-5 border-success roundedks-xl h-36 hidden" value="{{ html }}" />
+        <div id="previewOutput" class="border-2 p-5 border-success rounded-xl h-36">
+          {{ html }}
         </div>
       </div>
     </div>
     <div class="text-center">
       <span id="chapter_id" class="hidden">{{ chapter_id }}</span>
-      <a href="3" class="btn btn-lg btn-success text-white" onclick="postProgress()"
-        >다음 챕터 ➡️</a
-      >
+      <a href="4" class="btn btn-lg btn-success text-white" onclick="postProgress()">다음 챕터 ➡️</a>
     </div>
   </div>
   <script>
-    markdownStaticRendering();
+
     function postProgress() {
       const chapter_id = document.getElementById("chapter_id").innerText;
       postUpdateMyProgress(parseInt(chapter_id));
     }
+    //
+
+    staticRendering()
+
   </script>
 </main>
 {% endblock %}
