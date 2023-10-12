@@ -4,7 +4,7 @@ from .api import verify_token
 from random import choice
 
 pages_bp = Blueprint("pages", __name__)
-client = MongoClient("localhost", 27017)
+client = MongoClient("mongodb://markcraft:1234@localhost", 27017)
 db = client.test
 
 

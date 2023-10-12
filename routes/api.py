@@ -10,7 +10,7 @@ import os
 api_bp = Blueprint("api", __name__)
 bcrypt = Bcrypt()
 SECRET = os.getenv("SECRET")
-client = MongoClient("localhost", 27017)
+client = MongoClient("mongodb://markcraft:1234@localhost", 27017)
 db = client.test
 collection = db["users"]
 collection.create_index([("email", 1)], unique=True)
@@ -99,7 +99,7 @@ def signup():
                 "email": data["email"],
                 "nickname": data["nickname"],
                 "userpw": bcrypt.generate_password_hash(data["userpw"]).decode("utf-8"),
-                "bestTime": 99999999,
+                "bestTime": 5940000,
                 "progress": 0,
             }
         )
