@@ -1,9 +1,11 @@
-from flask import Flask, Blueprint, render_template, request
+from flask import Flask, Blueprint, render_template, request, redirect, url_for, flash
 from pymongo import MongoClient
+from .api import verify_token
 
 pages_bp = Blueprint('pages',__name__)
 client = MongoClient('localhost', 27017)
 db = client.test
+
 
 def millisecondsToMinutesSeconds(milliseconds):
     seconds = int(milliseconds / 1000)
@@ -41,7 +43,19 @@ def get_signup():
 
 @pages_bp.route('/classroom', methods=['GET'])
 def get_classroom():
-    return render_template('classroom/index.html')
+    try:
+        token = request.cookies.get("access_token")
+        if token is None: # 토큰 secret 오류 발행해서 예외 처리로 임시 처리
+            flash("로그인이 필요합니다.")
+            return redirect(url_for('pages.get_signin'))
+        
+        email = verify_token(token)['email']
+        user = db.users.find_one({'email': email})
+        progress = user['progress']
+        nextProgress = 10 if progress == 10 else progress + 1
+        return redirect(url_for('pages.get_chapter', chapter_id=nextProgress))
+    except:
+        return redirect(url_for('pages.get_signin'))
 
 @pages_bp.route('/classroom/chapter/<int:chapter_id>', methods=['GET'])
 def get_chapter(chapter_id):
