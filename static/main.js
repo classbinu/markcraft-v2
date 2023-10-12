@@ -29,7 +29,6 @@ function checkPasswordMatch() {
 function millisecondsToMinutesSeconds(milliseconds) {
   let seconds = Math.floor(milliseconds / 1000);
   let minutes = Math.floor(seconds / 60);
-  seconds = seconds % 60;
   const formattedTime =
     (minutes < 10 ? "0" : "") +
     minutes +
@@ -50,20 +49,6 @@ function logout(cookieName) {
 // 예제 example 데이터
 
 function classRoom() {}
-
-// 모달을 보여주는 함수
-function showModal() {
-  let completionModal = document.getElementById("completionModal");
-  let completionTime = document.getElementById("completionTime");
-  completionModal.style.display = "block";
-}
-
-// 모달을 닫는 함수
-function closeModal() {
-  let completionModal = document.getElementById("completionModal");
-  completionModal.style.display = "none";
-  location.reload();
-}
 
 function timeAttack() {
   // 현재 문제 인덱스
@@ -94,16 +79,6 @@ function timeAttack() {
       // },
     ],
   };
-  async function getBestTime() {
-    const response = await fetch("/besttime", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    console.log(data.value);
-  }
 
   function updateProgressBar(index) {
     const progressBar = document.getElementById("progress-bar");
@@ -115,40 +90,29 @@ function timeAttack() {
     const progressText = document.getElementById("progress-text");
     progressText.textContent = `${index + 1}/${example.questions.length}`;
   }
-  getBestTime();
+
   updateProgressBar(currentQuestionIndex);
   updateProgressText(currentQuestionIndex);
+
   const userInput = document.getElementById("userInput");
-  const userOutput = document.getElementById("userOutput");
+
   const correctOutput = document.getElementById("correctOutput");
-  const comparisonResult = document.getElementById("comparisonResult");
-  const questionsContainer = document.getElementById("questionsContainer");
 
   function convertTimeFormat(milliseconds) {
     let minutes = Math.floor(milliseconds / (60 * 1000));
     let seconds = Math.floor((milliseconds % (60 * 1000)) / 1000);
-    let ms = milliseconds % 1000;
 
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
       2,
       "0"
-    )}:${String(ms).padStart(3, "0")}`;
+    )}`;
   }
 
   // 1. 타이머를 위한 변수 설정
   let timerInterval;
   let startTime;
-  let totalTime;
+  let myTime;
   let timeDisplay = document.getElementById("currentTime");
-
-  // 현재 최고 기록
-  // let max_best = 51 * 60000;
-  // let bestTime = document.getElementById("bestTime");
-  // console.log(convertTimeFormat(max_best));
-  // if (!localStorage.getItem("bestTime")) {
-  //   localStorage.setItem("bestTime", max_best);
-  // }
-  // bestTime.textContent = convertTimeFormat(localStorage.getItem("bestTime"));
 
   // 2. 시작 버튼 클릭 이벤트 리스너 추가
   document.querySelector(".btn-success").addEventListener("click", function () {
@@ -162,8 +126,8 @@ function timeAttack() {
   function startTimer() {
     startTime = Date.now();
     timerInterval = setInterval(function () {
-      totalTime = Date.now() - startTime;
-      timeDisplay.textContent = convertTimeFormat(totalTime);
+      myTime = Date.now() - startTime;
+      timeDisplay.textContent = convertTimeFormat(myTime);
     }, 10);
   }
 
@@ -172,71 +136,35 @@ function timeAttack() {
     timerInterval = null;
   }
 
-  function storedBestTime(time) {
-    return fetch("/timeattack", {
+  async function postMyTime(myTime) {
+    return await fetch("/timeattack", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ bestTime: time }),
+      body: JSON.stringify({ myTime: myTime }),
     }).then((response) => response.json());
   }
+
   // 문제가 모두 완료되었을 때 타이머를 멈추고 모달을 띄움
   function completeChallenges() {
-    if (totalTime < localStorage.getItem("bestTime")) {
-      storedBestTime(totalTime);
-      // // 최고 기록 UI 업데이트
-      // document.getElementById("bestTime").textContent = bestTime;
+    console.log(postMyTime(myTime));
 
-      // 폭죽 이펙트 실행
-      document.getElementById("particles-js").style.display = "block";
-      setTimeout(function () {
-        document.getElementById("particles-js").style.display = "none";
-      }, 2000); // 2초 후 폭죽 이펙트 숨김
+    // if (myTime < localStorage.getItem("bestTime")) {
+    //   spostMyTime(myTime);
+    //   // // 최고 기록 UI 업데이트
+    //   // document.getElementById("bestTime").textContent = bestTime;
 
-      // 모달 메시지 변경
-      document.getElementById(
-        "completionTime"
-      ).textContent = `축하합니다! 최고 기록을 경신하셨습니다!!\n\n걸린 시간: ${timeDisplay.textContent}`;
-    } else {
-      document.getElementById(
-        "completionTime"
-      ).textContent = `완료까지 걸린 시간: ${timeDisplay.textContent}`;
-    }
-    showModal();
+    //   // 모달 메시지 변경
+    //   document.getElementById(
+    //     "completionTime"
+    //   ).textContent = `축하합니다! 최고 기록을 경신하셨습니다!!\n\n걸린 시간: ${timeDisplay.textContent}`;
+    // } else {
+    //   document.getElementById(
+    //     "completionTime"
+    //   ).textContent = `완료까지 걸린 시간: ${timeDisplay.textContent}`;
+    // }
   }
-  particlesJS("particles-js", {
-    particles: {
-      number: {
-        value: 100,
-      },
-      size: {
-        value: 3,
-      },
-      line_linked: {
-        enable: false,
-      },
-      move: {
-        direction: "top",
-        speed: 2,
-      },
-    },
-    interactivity: {
-      events: {
-        onclick: {
-          enable: true,
-          mode: "repulse",
-        },
-      },
-      modes: {
-        repulse: {
-          distance: 200,
-          duration: 0.4,
-        },
-      },
-    },
-  });
-
   function loadQuestion(index) {
     console.log(index);
     updateProgressBar(index);
