@@ -5,11 +5,19 @@
 {% include 'common/navbar.html' %}
 <main class="container mx-auto p-5">
   <h1 class="text-center text-3xl font-bold logo text-markcraft">타임어택</h1>
-  <p id="currentTime" class="text-6xl text-center mt-10">00:00</p>
-  <div class="text-center text-gray-400 mb-10">
-    <p class="">현재 1위 기록</p>
-    <span id="bestTime" class="">{{ formattedBestTime }}</span>
+  <p id="currentTime" class="text-6xl text-center mt-10 mb-5">00:00</p>
+  <div>
+    <div class="text-center text-gray-400 mb-5 text-smks">
+      <p class="mb-1">현재 1위 기록</p>
+      <span class="">{{ formattedBestTime }}</span>
+    </div>
+    <div class="text-center text-gray-400 mb-10 text-xs">
+      <p class="mb-1">내 최고 기록</p>
+      <span class="">{{ formattedMyBestTime }}</span>
+    </div>
   </div>
+
+
   <div class="text-center">
     <progress id="progress-bar" class="progress progress-success w-56"></progress>
     <p id="progress-text" class="text-gray-400"></p>

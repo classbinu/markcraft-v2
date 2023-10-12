@@ -122,12 +122,19 @@ def get_timeattack():
             flash("로그인이 필요합니다.")
             return redirect(url_for("pages.get_signin"))
 
+        users = verify_token(token)
+        user = db.users.find_one({"email": users["email"]})
+        myBestTime = int(user["bestTime"])
+        print(myBestTime)
+        formattedMyBestTime = millisecondsToMinutesSeconds(myBestTime)
+
         topRanker = list(db.users.find().sort("bestTime", 1).limit(1))
         formattedBestTime = millisecondsToMinutesSeconds(topRanker[0]["bestTime"])
         return render_template(
             "timeattack/index.html",
             topRanker=topRanker,
             formattedBestTime=formattedBestTime,
+            formattedMyBestTime=formattedMyBestTime,
         )
     except:
         return redirect(url_for("pages.get_signin"))

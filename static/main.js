@@ -136,34 +136,23 @@ function timeAttack() {
     timerInterval = null;
   }
 
-  async function postMyTime(myTime) {
-    return await fetch("/timeattack", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ myTime: myTime }),
-    }).then((response) => response.json());
-  }
-
   // 문제가 모두 완료되었을 때 타이머를 멈추고 모달을 띄움
   function completeChallenges() {
-    console.log(postMyTime(myTime));
-
-    // if (myTime < localStorage.getItem("bestTime")) {
-    //   spostMyTime(myTime);
-    //   // // 최고 기록 UI 업데이트
-    //   // document.getElementById("bestTime").textContent = bestTime;
-
-    //   // 모달 메시지 변경
-    //   document.getElementById(
-    //     "completionTime"
-    //   ).textContent = `축하합니다! 최고 기록을 경신하셨습니다!!\n\n걸린 시간: ${timeDisplay.textContent}`;
-    // } else {
-    //   document.getElementById(
-    //     "completionTime"
-    //   ).textContent = `완료까지 걸린 시간: ${timeDisplay.textContent}`;
-    // }
+    // postMyTime(myTime);
+    const question = document.getElementById("question").textContent;
+    const answer = document.getElementById("answer").textContent;
+    if (question === answer) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "정답입니다!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setTimeout(() => {
+        location.reload();
+      }, 1500);
+    }
   }
   function loadQuestion(index) {
     console.log(index);
@@ -183,21 +172,13 @@ function timeAttack() {
     });
 
     if (marked(userInput.value).trim() === correctOutput.innerHTML.trim()) {
-      // comparisonResult.textContent = "정답입니다!";
-      // comparisonResult.style.color = "green";
-      // userInput.style.borderColor = "#ccc";
       // 문제를 모두 풀면 모달을 보여주는 코드
       if (currentQuestionIndex === example.questions.length - 1) {
         stopTimer();
         completeChallenges();
       } else {
-        // setTimeout(loadNextQuestion, 2000);
         loadNextQuestion();
       }
-    } else {
-      // comparisonResult.textContent = "틀렸습니다. 다시 시도해보세요.";
-      // comparisonResult.style.color = "red";
-      // userInput.style.borderColor = "red";
     }
   });
   // 다음 문제 로드 함수
@@ -223,6 +204,13 @@ function initializeRealTimeRendering() {
   });
 }
 
+function resetAllContext() {
+  const textarea = document.getElementById("practiceInput");
+  textarea.value = "";
+  const preview = document.getElementById("previewOutput");
+  preview.textContent = "";
+}
+
 // 강의실 마크다운 정적 렌더링
 function markdownStaticRendering() {
   const question = document.getElementById("question").value;
@@ -231,8 +219,8 @@ function markdownStaticRendering() {
 }
 
 function checkAnswer() {
-  const question = document.getElementById("question").value;
-  const answer = document.getElementById("answer").value;
+  const question = document.getElementById("question").textContent;
+  const answer = document.getElementById("answer").textContent;
   if (question === answer) {
     Swal.fire({
       position: "center",
