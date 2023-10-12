@@ -1,7 +1,6 @@
 {% extends "layout/base.html" %}
 <!-- 레이아웃 -->
-{% block body %} {% if isLoggedIn %} {% include 'common/navbar.html' %} {% else
-%}
+{% block body %} {% if isLoggedIn %} {% include 'common/navbar.html' %} {% else %}
 <div class="mt-10"></div>
 {% endif %}
 <main class="container mx-auto lg:w-1/3 p-5">
@@ -30,7 +29,8 @@
         ><a href="https://github.com/" target="_blank" class="link link-primary"
           >깃허브</a
         ></span
-      > 등에서 마크다운이 사용됩니다.
+      >
+      등에서 마크다운이 사용됩니다.
       <span class="font-bold text-markcraft"
         >지금 마크크래프트로 몰입해서 마크다운을 익혀보세요.🤗</span
       >
