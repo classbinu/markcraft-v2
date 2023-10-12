@@ -226,8 +226,8 @@ function initializeRealTimeRendering() {
 // 강의실 마크다운 정적 렌더링
 function markdownStaticRendering() {
   const question = document.getElementById("question").value;
-  const markdown = document.getElementById("markdown");
-  markdown.innerHTML = marked(question);
+  const previewOutput = document.getElementById("previewOutput");
+  previewOutput.innerHTML = marked(question);
 }
 
 function checkAnswer() {
