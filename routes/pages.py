@@ -20,17 +20,16 @@ def get_home():
         isLoggedIn = True
 
     rankers = list(db.users.find().sort("bestTime", 1).limit(3))
-    try:
-        ranker_1 = rankers[0]
-        ranker_2 = rankers[1]
-        ranker_3 = rankers[2]
+    # rankers에 있는 회원 수가 3명 미만인 경우 더미 데이터 추가
+    while len(rankers) < 3:
+        rankers.append({
+            'nickname': '참가자 없음',
+            'bestTime': 5940000
+        })
 
-        ranker_1['bestTime'] = millisecondsToMinutesSeconds(ranker_1['bestTime'])
-        ranker_2['bestTime'] = millisecondsToMinutesSeconds(ranker_2['bestTime'])
-        ranker_3['bestTime'] = millisecondsToMinutesSeconds(ranker_3['bestTime'])
-    except StopIteration:
-        pass
-    return render_template('index.html', ranker_1=ranker_1, ranker_2=ranker_2, ranker_3=ranker_3, isLoggedIn=isLoggedIn)
+    for ranker in rankers:
+        ranker['bestTime'] = millisecondsToMinutesSeconds(ranker['bestTime'])
+    return render_template('index.html', ranker_1=rankers[0], ranker_2=rankers[1], ranker_3=rankers[2], isLoggedIn=isLoggedIn)
 
 @pages_bp.route('/signin', methods=['GET'])
 def get_signin():
