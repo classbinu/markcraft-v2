@@ -5,13 +5,25 @@
 <div class="text-center">
   <ul class="steps text-xs">
     <li class="step hover:cursor-pointer step-success" onclick="go(1)">헤더</li>
-    <li class="step hover:cursor-pointer step-success" onclick="go(2)">줄바꿈</li>
-    <li class="step hover:cursor-pointer step-success" onclick="go(3)">수평선</li>
-    <li class="step hover:cursor-pointer step-success" onclick="go(4)">스타일</li>
+    <li class="step hover:cursor-pointer step-success" onclick="go(2)">
+      줄바꿈
+    </li>
+    <li class="step hover:cursor-pointer step-success" onclick="go(3)">
+      수평선
+    </li>
+    <li class="step hover:cursor-pointer step-success" onclick="go(4)">
+      스타일
+    </li>
     <li class="step hover:cursor-pointer step-success" onclick="go(5)">인용</li>
-    <li class="step hover:cursor-pointer step-success" onclick="go(6)">코드블록</li>
-    <li class="step hover:cursor-pointer step-success" onclick="go(7)">U목록</li>
-    <li class="step hover:cursor-pointer step-success" onclick="go(8)">O목록</li>
+    <li class="step hover:cursor-pointer step-success" onclick="go(6)">
+      코드블록
+    </li>
+    <li class="step hover:cursor-pointer step-success" onclick="go(7)">
+      U목록
+    </li>
+    <li class="step hover:cursor-pointer step-success" onclick="go(8)">
+      O목록
+    </li>
     <li class="step hover:cursor-pointer" onclick="go(9)">링크</li>
     <li class="step hover:cursor-pointer" onclick="go(10)">이미지</li>
   </ul>
@@ -53,8 +65,8 @@
           oninput="checkAnswer()"
           autofocus
         ></textarea>
-        <button class="btn btn-xs">
-          잘 모르겠다면 이 버튼을 눌러 정답을 확인하세요
+        <button class="btn btn-xs" onclick="showAnswerModal()">
+          잘 모르겠다면 여기를 눌러 정답을 확인하세요 🤔
         </button>
       </div>
       <div class="w-full lg:w-1/2 px-20">
@@ -64,14 +76,19 @@
           class="border-2 p-5 border-success rounded-xl h-36 hidden"
           value="{{ question }}"
         />
-        <div id="previewOutput" class="border-2 p-5 border-success rounded-xl h-36">
+        <div
+          id="previewOutput"
+          class="border-2 p-5 border-success rounded-xl h-36"
+        >
           {{ question }}
         </div>
       </div>
     </div>
     <div class="text-center">
       <span id="chapter_id" class="hidden">{{ chapter_id }}</span>
-      <a href="9" class="btn btn-success text-white" onclick="postProgress()">다음 챕터</a>
+      <a href="9" class="btn btn-success text-white" onclick="postProgress()"
+        >다음 챕터</a
+      >
     </div>
   </div>
   <script>

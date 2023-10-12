@@ -226,3 +226,15 @@ async function postUpdateMyProgress(progress) {
     console.error("오류 발생:", error);
   }
 }
+
+// 강의실 정답보기
+function showAnswerModal() {
+  const question = document.getElementById("question").value;
+  const answerEl = document.getElementById("answer");
+  Swal.fire({
+    text: question,
+    focusConfirm: false,
+  }).then(() => {
+    setTimeout(() => answerEl.focus(), 300);
+  });
+}
