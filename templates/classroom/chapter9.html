@@ -34,20 +34,20 @@
     <h2 class="font-bold text-3xl text-center my-5">Chapter 9. 링크</h2>
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2">
-        <p class="mb-5 font-bold">예시</p>
+        {% include 'common/example_title.html' %}
         <ul>
           <li>[Google](https://www.google.com)</li>
         </ul>
       </div>
       <div class="w-full lg:w-1/2 text-center">
-        <p class="mb-5 font-bold">문법</p>
+        {% include 'common/grammar_title.html' %}
         <p>링크는 '[링크 텍스트](링크 URL)'로 작성할 수 있습니다.</p>
       </div>
     </div>
     <div class="divider text-gray-400">Let's Practice!</div>
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 px-20">
-        <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
+        <p class="text-center fond-bold text-xl mb-5">마크다운을 작성하세요</p>
         <textarea
           id="answer"
           class="w-full textarea textarea-success h-36"
@@ -59,7 +59,7 @@
         </button>
       </div>
       <div class="w-full lg:w-1/2 px-20">
-        <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
+        <p class="text-center fond-bold text-xl mb-5">이 화면을 구현하세요</p>
         <input
           id="question"
           class="border-2 p-5 border-success rounded-xl h-36 hidden"

@@ -26,7 +26,7 @@
     <h2 class="font-bold text-3xl text-center my-5">Chapter 3. 수평선</h2>
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2">
-        <p class="mb-5 font-bold">예시</p>
+        {% include 'common/example_title.html' %}
         <ul>
           <li>
             이 문장은 수평선의 위입니다.
@@ -38,7 +38,7 @@
         </ul>
       </div>
       <div class="w-full lg:w-1/2 text-center">
-        <p class="mb-5 font-bold">문법</p>
+        {% include 'common/grammar_title.html' %}
         <p>
           하이픈('-'), 별표('*'), 언더스코어('_') 중 하나를
           <br />
@@ -51,19 +51,23 @@
     <div class="divider text-gray-400">Let's Practice!</div>
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 px-20">
+
         <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
         <textarea id="answer" class="w-full textarea textarea-success h-36" oninput="checkAnswer()"
           autofocus></textarea>
+
         <button class="btn btn-xs" onclick="showAnswerModal()">
           잘 모르겠다면 여기를 눌러 정답을 확인하세요 🤔
         </button>
       </div>
       <div class="w-full lg:w-1/2 px-20">
+
         <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
         <input id="question" class="border-2 p-5 border-success rounded-xl h-36 hidden" value="{{ html }}" />
         <input id="html" class="border-2 p-5 border-success roundedks-xl h-36 hidden" value="{{ html }}" />
         <div id="previewOutput" class="border-2 p-5 border-success rounded-xl h-36">
           {{ html }}
+
         </div>
       </div>
     </div>
