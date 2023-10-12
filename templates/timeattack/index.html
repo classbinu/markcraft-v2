@@ -7,39 +7,186 @@
   <h1 class="text-center text-3xl font-bold logo text-markcraft">타임어택</h1>
   <p id="currentTime" class="text-6xl text-center mt-10 mb-5">00:00</p>
   <div>
-    <div class="text-center text-gray-400 mb-5 text-smks">
-      <p class="mb-1">현재 1위 기록</p>
-      <span class="">{{ formattedBestTime }}</span>
-    </div>
-    <div class="text-center text-gray-400 mb-10 text-xs">
-      <p class="mb-1">내 최고 기록</p>
-      <span class="">{{ formattedMyBestTime }}</span>
+    <div class="text-gray-400 mb-5 w-40 mx-auto">
+      <ol>
+        <li class="text-primary"><span class="text-xl">🥇</span> {{ ranker_1.nickname }} {{ ranker_1.bestTime }}</li>
+        <li class="text-secondary"><span class="text-xl">🥈</span> {{ ranker_2.nickname }} {{ ranker_2.bestTime }}</li>
+        <li class="text-accent"><span class="text-xl">🥉</span> {{ ranker_3.nickname }} {{ ranker_3.bestTime }}</li>
+        <li class="text-success"><span class="text-xl">🏅</span>  내 최고 기록 {{ formattedMyBestTime }}</li>
+      </ol>
     </div>
   </div>
 
-
   <div class="text-center">
-    <progress id="progress-bar" class="progress progress-success w-56"></progress>
-    <p id="progress-text" class="text-gray-400"></p>
+    <progress
+      id="progress-bar"
+      class="progress progress-success w-56"
+      value="0"
+      max="5"
+    ></progress>
+    <p id="progress-text" class="text-gray-400">0/5</p>
   </div>
   <div class="flex flex-wrap">
     <div class="w-full lg:w-1/2 px-20">
-      <p class="text-center fond-bold text-xl my-5">답안지</p>
-      <textarea id="userInput" class="w-full textarea textarea-success" rows="5"></textarea>
+      <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
+      <textarea
+        id="answer"
+        class="w-full textarea textarea-success h-36"
+        oninput="checkAnswer()"
+        autofocus
+      ></textarea>
     </div>
     <div class="w-full lg:w-1/2 px-20">
-      <p class="text-center fond-bold text-xl my-5">문제</p>
-      <div id="correctOutput" class="border-2 p-5 border-success rounded-xl" style="display: none"></div>
+      <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
+      <input
+        id="question"
+        class="border-2 p-5 border-success rounded-xl h-36 hidden"
+      />
+      <div
+        id="previewOutput"
+        class="border-2 p-5 border-success rounded-xl h-36"
+      ></div>
     </div>
   </div>
   <div class="text-center">
-    <button class="btn btn-success text-white btn-lg my-10">시작</button>
+    <button
+      id="startBtn"
+      class="btn btn-success text-white btn-lg my-10"
+      onclick="startTimeAttack()"
+    >
+      시작 🚀
+    </button>
+    <button
+      id="quitBtn"
+      class="btn btn-error text-white btn-lg my-10 hidden"
+      onclick="location.reload()"
+    >
+      포기 😥
+    </button>
   </div>
-  </div>
-
+  <!-- <ul class="">
+    {% for question in questions %}
+    <li id="question_{{ loop.index }}">{{ question }}</li>
+    {% endfor %}
+  </ul> -->
+  <input id="test_set" value="{{ questions }}" hidden />
 </main>
 
 <script>
-  timeAttack();
+  let answerCount = 0;
+  let testSet = [];
+
+  function startTimeAttack() {
+    // 문제 데이터 추출
+    const testSetText = document.getElementById("test_set").value;
+
+    const question = document.getElementById("question");
+    const previewOutput = document.getElementById("previewOutput");
+
+    testSet = testSetText.replace(/[\[\]']+/g, "").split(", ");
+
+    // 최초 1번 문제 세팅
+    const answer = document.getElementById("answer");
+    answer.focus();
+    question.value = testSet[answerCount];
+    previewOutput.textContent = testSet[answerCount];
+
+    // 버튼 변경
+    const startBtnEl = document.getElementById("startBtn");
+    const quitBtnEl = document.getElementById("quitBtn");
+    startBtnEl.classList.add("hidden");
+    quitBtnEl.classList.remove("hidden");
+
+    startTimer();
+  }
+
+  function checkAnswer() {
+    const question = document.getElementById("question");
+    const previewOutput = document.getElementById("previewOutput");
+    const answer = document.getElementById("answer");
+
+    if (question.value === answer.value) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: `[${answerCount + 1}/5] 정답입니다!`,
+        showConfirmButton: false,
+        timer: 1000,
+      });
+      setTimeout(() => {
+        answerCount++;
+        question.value = testSet[answerCount];
+        previewOutput.textContent = testSet[answerCount];
+        answer.value = "";
+        checkPassedTimeattack();
+        updateProgressBar();
+      }, 1000);
+    }
+  }
+
+  function checkPassedTimeattack() {
+    if (answerCount === 5) {
+      stopTimer();
+      Swal.fire({
+        title: `타임어택 성공<br>${convertTimeFormat(myTime)}`,
+        width: 600,
+        padding: "3em",
+        color: "#716add",
+        // background: "#fff url(/images/trees.png)",
+        backdrop: `
+    rgba(0,0,123,0.4)
+    url("https://sweetalert2.github.io/images/nyan-cat.gif")
+    left top
+    no-repeat
+  `,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        }
+      });
+    }
+  }
+
+  // 타이머 관련 변수
+  let timerInterval;
+  let startTime;
+  let myTime;
+  let timeDisplay = document.getElementById("currentTime");
+
+  // 타이머 작동 시작
+  function startTimer() {
+    startTime = Date.now();
+    timerInterval = setInterval(function () {
+      myTime = Date.now() - startTime;
+      timeDisplay.textContent = convertTimeFormat(myTime);
+    }, 10);
+  }
+
+  // 타이머 작동 중지
+  function stopTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
+  // 타임어택 진행 시간 포맷팅
+  function convertTimeFormat(milliseconds) {
+    let minutes = Math.floor(milliseconds / (60 * 1000));
+    let seconds = Math.floor((milliseconds % (60 * 1000)) / 1000);
+
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+      2,
+      "0"
+    )}`;
+  }
+
+  // 프로그레스바 업데이트
+  function updateProgressBar() {
+    const progressBar = document.getElementById("progress-bar");
+    progressBar.max = testSet.length;
+    progressBar.value = answerCount;
+
+    const progressText = document.getElementById("progress-text");
+    progressText.textContent = `${answerCount}/${testSet.length}`;
+  }
 </script>
 {% endblock %}
