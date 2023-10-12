@@ -136,3 +136,18 @@ def timeattack():
         return jsonify({"modal_title": "'내 기록 갱신완료!'", "completion_time": timeScore})
 
     return jsonify({"modal_title": "'기록 갱신 실패!'", "completion_time": timeScore})
+
+@api_bp.route("/progress", methods=["POST"])
+def setProgress():
+    users = verify_token(request.cookies.get("access_token"))
+    try:
+        progress = request.json.get('progress')
+        if progress is None:
+            raise Exception("NoneData")
+        db.users.update_one({"email":users["email"],"nickname":users["nickname"]},{"$set":{"progress":progress}})
+
+    except Exception as e :
+        if str(e) is "NoneData":
+            return jsonify({"message":"잘못된 데이터이다."})
+
+    
