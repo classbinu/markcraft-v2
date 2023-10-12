@@ -1,4 +1,13 @@
-from flask import Flask, Blueprint, render_template, request, redirect, url_for, flash, send_from_directory
+from flask import (
+    Flask,
+    Blueprint,
+    render_template,
+    request,
+    redirect,
+    url_for,
+    flash,
+    send_from_directory,
+)
 from pymongo import MongoClient
 from .api import verify_token
 from random import choice, sample
@@ -7,8 +16,9 @@ from dotenv import load_dotenv
 import os
 import re
 
+load_dotenv()
 pages_bp = Blueprint("pages", __name__)
-client = MongoClient(os.getenv("DB"), 27017)
+client = MongoClient(os.getenv("LOCALDB"), 27017)
 db = client.test
 app = Flask(__name__)
 
@@ -57,10 +67,12 @@ def millisecondsToMinutesSeconds(milliseconds):
 def error():
     return render_template("error/Error.html")
 
+
 # 정적 파일 호스팅(권장 방법 아님)
-@app.route('/static/<path:filename>')
+@app.route("/static/<path:filename>")
 def serve_static(filename):
-    return send_from_directory('static', filename)
+    return send_from_directory("static", filename)
+
 
 @pages_bp.route("/", methods=["GET"])
 def get_home():
@@ -143,6 +155,7 @@ def get_chapter(chapter_id):
         url=url,
     )
 
+
 @pages_bp.route("/classroom/graduation", methods=["GET"])
 def get_graduation():
     try:
@@ -187,7 +200,7 @@ def get_timeattack():
         # ]
         test_set = [
             "# 1수준 제목입니다",
-             "**이 텍스트의 스타일은 볼드입니다**",
+            "**이 텍스트의 스타일은 볼드입니다**",
             "_이 텍스트의 스타일은 이탤릭입니다_",
             "~~이 텍스트의 스타일은 취소선입니다~~",
             ">성장하는 개발자가 되고 싶다면 크래프톤 정글에 합류하세요",
