@@ -142,13 +142,13 @@ function timeAttack() {
   let timeDisplay = document.getElementById("currentTime");
 
   // 현재 최고 기록
-  let max_best = 51 * 60000;
-  let bestTime = document.getElementById("bestTime");
-  console.log(convertTimeFormat(max_best));
-  if (!localStorage.getItem("bestTime")) {
-    localStorage.setItem("bestTime", max_best);
-  }
-  bestTime.textContent = convertTimeFormat(localStorage.getItem("bestTime"));
+  // let max_best = 51 * 60000;
+  // let bestTime = document.getElementById("bestTime");
+  // console.log(convertTimeFormat(max_best));
+  // if (!localStorage.getItem("bestTime")) {
+  //   localStorage.setItem("bestTime", max_best);
+  // }
+  // bestTime.textContent = convertTimeFormat(localStorage.getItem("bestTime"));
 
   // 2. 시작 버튼 클릭 이벤트 리스너 추가
   document.querySelector(".btn-success").addEventListener("click", function () {

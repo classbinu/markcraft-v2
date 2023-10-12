@@ -64,7 +64,9 @@ def get_chapter(chapter_id):
 
 @pages_bp.route('/timeattack', methods=['GET'])
 def get_timeattack():
-    return render_template('timeattack/index.html')
+    topRanker = list(db.users.find().sort("bestTime", 1).limit(1))
+    formattedBestTime= millisecondsToMinutesSeconds(topRanker[0]['bestTime'])
+    return render_template('timeattack/index.html', topRanker=topRanker, formattedBestTime=formattedBestTime)
 
 @pages_bp.route('/note', methods=['GET'])
 def get_note():
