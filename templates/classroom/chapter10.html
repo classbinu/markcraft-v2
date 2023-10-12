@@ -73,11 +73,16 @@
       </div>
     </div>
     <div class="text-center">
-      <button class="btn btn-success text-white">강의 완료</button>
+      <span id="chapter_id" class="hidden">{{ chapter_id }}</span>
+      <button class="btn btn-success text-white" onclick="postProgress()">강의 완료</button>
     </div>
   </div>
   <script>
     markdownStaticRendering();
+    function postProgress() {
+      const chapter_id = document.getElementById("chapter_id").innerText;
+      postUpdateMyProgress(parseInt(chapter_id));
+    }
   </script>
 </main>
 {% endblock %}
