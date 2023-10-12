@@ -184,8 +184,8 @@ function markdownStaticRendering() {
 }
 
 function checkAnswer() {
-  const question = document.getElementById("question").textContent;
-  const answer = document.getElementById("answer").textContent;
+  const question = document.getElementById("question").value;
+  const answer = document.getElementById("answer").value;
   if (question === answer) {
     Swal.fire({
       position: "center",
