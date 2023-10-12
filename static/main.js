@@ -195,21 +195,21 @@ function staticRendering() {
 
 function checkAnswer() {
   let question;
-  let answer = document.getElementById("answer").value;
+  let answer = document.getElementById("answer");
   // const chapter_id = parseInt(document.getElementById("chapter_id").innerText);
-  if (/\n/.test(answer)) {
+  if (/\n/.test(answer.value)) {
     question = document.getElementById("previewOutput");
     question = question.innerHTML;
-
-    let value = marked(answer);
+    let value = marked(answer.value);
     // 개행문자 제거
     value = value.replace(/\n/g, "");
     answer = value;
   } else {
+    answer = answer.value;
     question = document.getElementById("question").value;
   }
-  question = question.trim();
-  answer = answer.trim();
+  // question = question.trim();
+  // answer = answer.trim();
   console.log(`"${question}"`);
   console.log(`"${answer}"`);
 
@@ -260,10 +260,13 @@ async function postUpdateMyProgress(progress) {
 
 // 강의실 정답보기
 function showAnswerModal() {
-  const question = document.getElementById("question").value;
+  const question = document.getElementById("html").value;
   const answerEl = document.getElementById("answer");
+  const convert = convertHtmlToMarkdown(question);
+  console.log(convert);
+
   Swal.fire({
-    text: question,
+    html: `<strong>여기는 변환된 답입니다:</strong><br><br>${convert}`,
     focusConfirm: false,
   }).then(() => {
     setTimeout(() => answerEl.focus(), 300);
