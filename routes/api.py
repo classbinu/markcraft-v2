@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import os
 
 
-
+load_dotenv()
 api_bp = Blueprint("api", __name__)
 bcrypt = Bcrypt()
 SECRET = os.getenv("SECRET")
