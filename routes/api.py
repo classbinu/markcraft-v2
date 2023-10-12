@@ -1,4 +1,4 @@
-from flask import jsonify, make_response, request, Blueprint, redirect
+from flask import jsonify, make_response, render_template, request, Blueprint, redirect
 from pymongo import MongoClient
 from flask_bcrypt import Bcrypt
 import jwt
@@ -66,15 +66,15 @@ def signin():
             if not result:
                 raise Exception("IncorrectPassWord")
 
-            expires= datetime.datetime.utcnow() + datetime.timedelta(hours=2)
+            expires = datetime.datetime.utcnow() + datetime.timedelta(hours=2)
             payload = {
                 "email": checkUser["email"],
                 "nickname": checkUser["nickname"],
-                "exp": expires
+                "exp": expires,
             }
-            access_token = jwt.encode(payload, SECRET, algorithm='HS256')
-            response = make_response(redirect('/'))
-            response.set_cookie('access_token', access_token, expires = expires)
+            access_token = jwt.encode(payload, SECRET, algorithm="HS256")
+            response = make_response(redirect("/"))
+            response.set_cookie("access_token", access_token, expires=expires)
 
             return response
 
@@ -96,19 +96,15 @@ def signup():
     try:
         db.users.insert_one(
             {
-                'email':data["email"], 
-                'nickname':data["nickname"], 
-                'userpw':bcrypt.generate_password_hash(data['userpw']).decode('utf-8'),
-                'bestTime': 99999999,
-                'progress':0
+                "email": data["email"],
+                "nickname": data["nickname"],
+                "userpw": bcrypt.generate_password_hash(data["userpw"]).decode("utf-8"),
+                "bestTime": 99999999,
+                "progress": 0,
             }
         )
-        expires= datetime.datetime.utcnow() + datetime.timedelta(hours=2)
-        payload = {
-            "email": data["email"],
-            "nickname": data["nickname"],
-            "exp": expires
-        }
+        expires = datetime.datetime.utcnow() + datetime.timedelta(hours=2)
+        payload = {"email": data["email"], "nickname": data["nickname"], "exp": expires}
         access_token = jwt.encode(payload, SECRET, algorithm="HS256")
         response = make_response(redirect("/"))
         response.set_cookie("access_token", access_token, expires=expires)
@@ -122,9 +118,12 @@ def signup():
 def timeattack():
     token = request.cookies.get("access_token")
     users = verify_token(token)
-    timeScore = request.json.get("bestTime")
-    user = db.users.find_one({"email":users["email"]})
-    if int(user["bestTime"])>timeScore:
-        collection.update_one({"email":users["email"]}, {"$set":{"bestTime":timeScore}})
-        return '신기록 갱신완료!'
-    return ""
+    timeScore = request.json.get("myTime")
+    user = db.users.find_one({"email": users["email"]})
+    if int(user["bestTime"]) > timeScore:
+        collection.update_one(
+            {"email": users["email"]}, {"$set": {"bestTime": timeScore}}
+        )
+        return jsonify({"modal_title": "'내 기록 갱신완료!'", "completion_time": timeScore})
+
+    return jsonify({"modal_title": "'기록 갱신 실패!'", "completion_time": timeScore})
