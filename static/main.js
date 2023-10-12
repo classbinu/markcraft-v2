@@ -94,6 +94,17 @@ function timeAttack() {
       // },
     ],
   };
+  async function getBestTime() {
+    const response = await fetch("/besttime", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    console.log(data.value);
+  }
+
   function updateProgressBar(index) {
     const progressBar = document.getElementById("progress-bar");
     progressBar.max = example.questions.length;
@@ -104,6 +115,7 @@ function timeAttack() {
     const progressText = document.getElementById("progress-text");
     progressText.textContent = `${index + 1}/${example.questions.length}`;
   }
+  getBestTime();
   updateProgressBar(currentQuestionIndex);
   updateProgressText(currentQuestionIndex);
   const userInput = document.getElementById("userInput");
@@ -159,15 +171,7 @@ function timeAttack() {
     clearInterval(timerInterval);
     timerInterval = null;
   }
-  function getBestTime() {
-    return fetch("/besttime", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ bestTime: time }),
-    }).then((response) => response.json());
-  }
+
   function storedBestTime(time) {
     return fetch("/timeattack", {
       method: "POST",
