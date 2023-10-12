@@ -70,9 +70,15 @@
     기본 문법을 익힌 후 타임어택에 도전해 보세요🔥
   </p>
   <div class="text-center mt-10">
+    {% if isLoggedIn == False %}
     <a href="/signin" class="btn btn-lg w-full bg-success text-white"
       >시작하기 🚀</a
     >
+    {% else %}
+    <a href="/classroom" class="btn btn-lg w-full bg-success text-white"
+      >강의실로 이동하기 🚀</a
+    >
+    {% endif %}
   </div>
 </main>
 {% endblock %}
