@@ -31,12 +31,12 @@
 <main class="p-5 container mx-auto">
   <!-- 챕터9 -->
   <div>
-    <h2 class="font-bold text-3xl text-center my-5">Chapter 9. 링크</h2>
+    <h2 class="font-bold text-3xl text-center my-5">Chapter 9. 링크</h2>
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2">
         {% include 'common/example_title.html' %}
         <ul>
-          <li>[Google](https://www.google.com)</li>
+          <li>[Google](https://google.com)</li>
         </ul>
       </div>
       <div class="w-full lg:w-1/2 text-center">
@@ -71,11 +71,18 @@
         >
           {{ question }}
         </div>
+        <div class="text-primary">
+          <p>링크 텍스트: {{ text }}</p>
+          <p>링크 URL: {{ url }}</p>
+        </div>
       </div>
     </div>
     <div class="text-center">
       <span id="chapter_id" class="hidden">{{ chapter_id }}</span>
-      <a href="10" class="btn btn-lg btn-success text-white" onclick="postProgress()"
+      <a
+        href="10"
+        class="btn btn-lg btn-success text-white"
+        onclick="postProgress()"
         >다음 챕터 ➡️</a
       >
     </div>

@@ -38,7 +38,7 @@
       <div class="w-full lg:w-1/2">
         {% include 'common/example_title.html' %}
         <ul>
-          <li>![크래프톤 정글](https://buly.kr/DwAhhgk)</li>
+          <li>![정글](http://127.0.0.1:4999/static/image/jungle.jpeg)</li>
         </ul>
       </div>
       <div class="w-full lg:w-1/2 text-center">
@@ -52,7 +52,7 @@
         <p class="text-center fond-bold text-xl mb-5">마크다운을 작성하세요</p>
         <textarea
           id="answer"
-          class="w-full textarea textarea-success h-60"
+          class="w-full textarea textarea-success h-48"
           oninput="checkAnswer()"
           autofocus
         ></textarea>
@@ -64,16 +64,15 @@
         <p class="text-center fond-bold text-xl mb-5">이 화면을 구현하세요</p>
         <input
           id="question"
-          class="border-2 p-5 border-success rounded-xl h-60 hidden"
+          class="border-2 p-5 border-success rounded-xl h-48 hidden"
           value="{{ question }}"
         />
-        <div class="border-2 p-5 border-success rounded-xl h-60">
-          <img src="https://buly.kr/DwAhhgk" class="w-48" />
-          <div class="text-gray-400">
-            <p class="font-bold">-- 아래는 구현하지 않습니다(참고용) --</p>
-            <p>대체 텍스트: 크래프톤 정글</p>
-            <p>이미지 URL: https://buly.kr/DwAhhgk</p>
-          </div>
+        <div class="border-2 p-5 border-success rounded-xl h-48">
+          <img src="{{ url }}" class="w-36" />
+        </div>
+        <div class="text-primary">
+          <p>대체 텍스트: {{ text }}</p>
+          <p>이미지 URL: {{ url }}</p>
         </div>
       </div>
     </div>
