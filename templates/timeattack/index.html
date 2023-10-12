@@ -49,9 +49,12 @@
     <button id="startBtn" class="btn btn-success text-white btn-lg my-10" onclick="startTimeAttack()">
       시작 ⏰
     </button>
-    <button id="quitBtn" class="btn btn-error text-white btn-lg my-10 hidden" onclick="location.reload()">
+    <button id="quitBtn" class="btn btn-error text-white btn-lg my-10 hidden" onclick="stopTimer()">
       포기 😥
     </button>
+    <!-- <button id="quitBtn" class="btn btn-error text-white btn-lg my-10 hidden" onclick="location.reload()">
+      포기 😥
+    </button> -->
   </div>
   <!-- <ul class="">
     {% for question in questions %}
@@ -59,28 +62,39 @@
     {% endfor %}
   </ul> -->
   <input id="test_set" value="{{ questions }}" hidden />
+  <input id="test_set_html" value="{{html_questions}}" hidden />
+
 </main>
 
 <script>
   let answerCount = 0;
   let testSet = [];
-
+  let htmlSet = [];
+  // 문제 데이터 추출
+  const testSetText = document.getElementById("test_set").value;
+  const testHtmlSetlText = document.getElementById("test_set_html").value;
   function startTimeAttack() {
-    // 문제 데이터 추출
-    const testSetText = document.getElementById("test_set").value;
-
     const question = document.getElementById("question");
     const previewOutput = document.getElementById("previewOutput");
-
+    console.log(testSetText);
     testSet = testSetText.replace(/[\[\]']+/g, "").split(", ");
+    // '\\n'을 '\n'으로 바꾸기
+    testSet = testSet.map(s => s.replace(/\\n/g, '\n'));
+    testSet = testSet.map(s => marked(s));
+    console.log(testSet);
+    // console.log(testHtmlSetlText);
+    // htmlSet = testHtmlSetlText.replace(/[\[\]']+/g, "").split(", ");
+    // console.log(htmlSet);
+    // testSet = testSetText.replace(/[\[\]']+/g, "").split(", ");
 
     // 최초 1번 문제 세팅
     const answer = document.getElementById("answer");
     answer.focus();
     question.value = testSet[answerCount];
-    previewOutput.textContent = testSet[answerCount];
+    // previewOutput.innerHTML = testSet[answerCount];
     markdownStaticRendering();
-
+    // console.log(marked(question.value))
+    // console.log(previewOutput.innerHTML)
     // 버튼 변경
     const startBtnEl = document.getElementById("startBtn");
     const quitBtnEl = document.getElementById("quitBtn");
@@ -91,11 +105,19 @@
   }
 
   function checkAnswer() {
-    const question = document.getElementById("question");
-    const previewOutput = document.getElementById("previewOutput");
-    const answer = document.getElementById("answer");
-
-    if (question.value === answer.value) {
+    let question = document.getElementById("previewOutput");
+    let answer = document.getElementById("answer");
+    console.log(answer.value);
+    // const chapter_id = parseInt(document.getElementById("chapter_id").innerText);
+    question = question.innerHTML;
+    let value = marked(answer.value);
+    // 개행문자 제거
+    value = value.replace(/\n/g, "");
+    answer = value;
+    console.log(question);
+    console.log(answer);
+    console.log(question == answer);
+    if (question == answer) {
       Swal.fire({
         position: "center",
         icon: "success",
@@ -104,10 +126,14 @@
         timer: 1000,
       });
       setTimeout(() => {
+        let question = document.getElementById("question");
+        let answer = document.getElementById("answer");
         answerCount++;
         question.value = testSet[answerCount];
-        previewOutput.textContent = testSet[answerCount];
+        // previewOutput.value = testSet[answerCount];
         markdownStaticRendering();
+        console.log(question.value)
+        console.log(previewOutput.innerHTML)
         answer.value = "";
         checkPassedTimeattack();
         updateProgressBar();

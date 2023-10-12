@@ -47,6 +47,15 @@ window.convertHtmlToMarkdown = function (html) {
       return content;
     },
   });
+
+  // <blockquote> 태그에 대한 사용자 정의 규칙
+  turndownService.addRule("blockquote", {
+    filter: "blockquote",
+    replacement: function (content) {
+      // 내용의 앞과 뒤의 공백 문자를 제거하고, ">" 문자를 앞에 추가합니다.
+      return ">" + content.trim();
+    },
+  });
   const resp = turndownService.turndown(html);
 
   return resp;
