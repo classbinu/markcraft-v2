@@ -1,10 +1,11 @@
-from flask import jsonify, make_response, render_template, request, Blueprint, redirect
+from flask import jsonify, make_response, render_template, request, Blueprint, redirect, url_for, flash
 from pymongo import MongoClient
 from flask_bcrypt import Bcrypt
 import jwt
 import datetime
 from dotenv import load_dotenv
 import os
+
 
 
 api_bp = Blueprint("api", __name__)
@@ -36,7 +37,6 @@ def verify_token(token):
         condition = [{"email": email}, {"nickname": nickname}]
 
         # # 잘못된 토큰. 토큰 값이 db에 없는 email이나 nickname일때
-        # # if not db.users.find_one({"$and":condition}) :
         if not db.users.find_one({"$and": condition}):
             raise Exception("IncorrectTokens")
         # # raise
@@ -83,9 +83,11 @@ def signin():
 
     except Exception as e:
         if str(e) == "IncorrectPassWord":
-            return "비밀번호가 일치하지 않습니다. (로그인 실패)"
+            flash("Error: 비밀번호가 옳바르지 않습니다. (로그인 실패)")
+            return redirect(url_for("pages.error"))
         elif str(e) == "UserNotFound":
-            return "사용자 정보(Email)가 일치하지 않습니다. (로그인 실패)"
+            flash("Error: 사용자 정보(Email)가 일치하지 않습니다. (로그인 실패)")
+            return redirect(url_for("pages.error"))
         else:
             return str(e)
 
@@ -111,8 +113,15 @@ def signup():
         return response
 
     except Exception as e:
-        return str(e)
-
+        Error = e.__class__.__name__
+        if Error == "DuplicateKeyError":
+            flash("Error:이미 존재하는 아아디/닉네임 입니다.")
+            return redirect(url_for("pages.get_signup"))
+        elif Error == "ConnectionFailure":
+            flash("Error: DB Unconneted")
+            return redirect(url_for("pages.get_signup"))
+        else :
+            return redirect(url_for("pages.get_signup"))
 
 @api_bp.route("/timeattack", methods=["POST"])
 def timeattack():
