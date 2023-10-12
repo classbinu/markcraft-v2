@@ -135,6 +135,18 @@ def get_chapter(chapter_id):
         url=url,
     )
 
+@pages_bp.route("/classroom/graduation", methods=["GET"])
+def get_graduation():
+    try:
+        token = request.cookies.get("access_token")
+        if not token:  # 토큰 secret 오류 발행해서 예외 처리로 임시 처리
+            flash("로그인이 필요합니다.")
+            return redirect(url_for("pages.get_signin"))
+        verify_token(token)["email"]
+        return render_template("classroom/graduation.html")
+    except:
+        return redirect(url_for("pages.get_signin"))
+
 
 @pages_bp.route("/timeattack", methods=["GET"])
 def get_timeattack():
