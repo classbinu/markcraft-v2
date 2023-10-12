@@ -5,8 +5,9 @@ from random import choice, sample
 from dotenv import load_dotenv
 import os
 
+load_dotenv()
 pages_bp = Blueprint("pages", __name__)
-client = MongoClient(os.getenv("DB"), 27017)
+client = MongoClient(os.getenv("LOCALDB"), 27017)
 db = client.test
 
 study_set = {
