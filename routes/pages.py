@@ -1,4 +1,13 @@
-from flask import Flask, Blueprint, render_template, request, redirect, url_for, flash, send_from_directory
+from flask import (
+    Flask,
+    Blueprint,
+    render_template,
+    request,
+    redirect,
+    url_for,
+    flash,
+    send_from_directory,
+)
 from pymongo import MongoClient
 from .api import verify_token
 from random import choice, sample
@@ -22,11 +31,7 @@ study_set = {
         "##### 5수준 제목입니다",
         "###### 6수준 제목입니다",
     ],
-    2: [
-        "안녕하세요<br>크래프톤 정글입니다",
-        "이곳은 경기대학교입니다<br>언덕이 무척 높습니다",
-        "독도는<br>우리땅"
-    ],
+    2: ["안녕하세요<br>크래프톤 정글입니다", "이곳은 경기대학교입니다<br>언덕이 무척 높습니다", "독도는<br>우리땅"],
     3: ["수평선 위입니다\r\n***\r\n수평선 아래입니다"],
     4: [
         "**이 텍스트의 스타일은 볼드입니다**",
@@ -59,10 +64,12 @@ def millisecondsToMinutesSeconds(milliseconds):
 def error():
     return render_template("error/Error.html")
 
+
 # 정적 파일 호스팅(권장 방법 아님)
-@app.route('/static/<path:filename>')
+@app.route("/static/<path:filename>")
 def serve_static(filename):
-    return send_from_directory('static', filename)
+    return send_from_directory("static", filename)
+
 
 @pages_bp.route("/", methods=["GET"])
 def get_home():
@@ -145,6 +152,7 @@ def get_chapter(chapter_id):
         url=url,
     )
 
+
 @pages_bp.route("/classroom/graduation", methods=["GET"])
 def get_graduation():
     try:
@@ -189,7 +197,7 @@ def get_timeattack():
         # ]
         test_set = [
             "# 1수준 제목입니다",
-             "**이 텍스트의 스타일은 볼드입니다**",
+            "**이 텍스트의 스타일은 볼드입니다**",
             "_이 텍스트의 스타일은 이탤릭입니다_",
             "~~이 텍스트의 스타일은 취소선입니다~~",
             ">성장하는 개발자가 되고 싶다면 크래프톤 정글에 합류하세요",
