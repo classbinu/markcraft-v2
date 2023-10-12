@@ -9,10 +9,22 @@
   <div>
     <div class="text-gray-400 mb-5 w-40 mx-auto">
       <ol>
-        <li class="text-primary"><span class="text-xl">🥇</span> {{ ranker_1.nickname }} {{ ranker_1.bestTime }}</li>
-        <li class="text-secondary"><span class="text-xl">🥈</span> {{ ranker_2.nickname }} {{ ranker_2.bestTime }}</li>
-        <li class="text-accent"><span class="text-xl">🥉</span> {{ ranker_3.nickname }} {{ ranker_3.bestTime }}</li>
-        <li class="text-success"><span class="text-xl">🏅</span>  내 최고 기록 {{ formattedMyBestTime }}</li>
+        <li class="text-primary font-bold">
+          <span class="text-2xl">🥇</span> {{ ranker_1.nickname }} {{
+          ranker_1.bestTime }}
+        </li>
+        <li class="text-secondary">
+          <span class="text-2xl">🥈</span> {{ ranker_2.nickname }} {{
+          ranker_2.bestTime }}
+        </li>
+        <li class="text-accent">
+          <span class="text-2xl">🥉</span> {{ ranker_3.nickname }} {{
+          ranker_3.bestTime }}
+        </li>
+        <li class="text-success">
+          <span class="text-2xl">🏅</span> 내 최고 기록 {{ formattedMyBestTime
+          }}
+        </li>
       </ol>
     </div>
   </div>
@@ -127,6 +139,7 @@
   function checkPassedTimeattack() {
     if (answerCount === 5) {
       stopTimer();
+      postMyTime(myTime);
       Swal.fire({
         title: `타임어택 성공<br>${convertTimeFormat(myTime)}`,
         width: 600,
@@ -187,6 +200,32 @@
 
     const progressText = document.getElementById("progress-text");
     progressText.textContent = `${answerCount}/${testSet.length}`;
+  }
+
+  // 내 기록 업데이트하기
+  async function postMyTime(myTime) {
+    const url = "/timeattack";
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ myTime }),
+    };
+
+    try {
+      const response = await fetch(url, options);
+
+      if (!response.ok) {
+        throw new Error("네트워크 오류 발생");
+      }
+
+      const data = await response.json();
+      console.log("서버 응답:", data);
+    } catch (error) {
+      console.error("오류 발생:", error);
+    }
   }
 </script>
 {% endblock %}

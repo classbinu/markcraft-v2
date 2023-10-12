@@ -51,78 +51,43 @@ function logout(cookieName) {
 function classRoom() {}
 
 function timeAttack() {
-  // 현재 문제 인덱스
-  let currentQuestionIndex = 0;
-  // 예제문제
-  const example = {
-    questions: [
-      {
-        id: 1,
-        userPrompt: "This is inline code.",
-        correctAnswer: "This is `inline code`.",
-      },
-      // {
-      //   id: 2,
-      //   userPrompt: "",
-      //   correctAnswer: "가나다",
-      // },
-      // {
-      //   id: 3,
-      //   userPrompt: "이것은 제목",
-      //   correctAnswer: "## 이것은 제목",
-      // },
-      // {
-      //   id: 4,
-      //   userPrompt: "여기에 본문을 입력하세요.\n\n이것은 강조된 텍스트입니다.",
-      //   correctAnswer:
-      //     "여기에 본문을 입력하세요.\n\n이것은 **강조된** 텍스트입니다.",
-      // },
-    ],
-  };
-
   // function updateProgressBar(index) {
   //   const progressBar = document.getElementById("progress-bar");
   //   progressBar.max = example.questions.length;
   //   progressBar.value = index + 1;
   // }
-
   // function updateProgressText(index) {
   //   const progressText = document.getElementById("progress-text");
   //   progressText.textContent = `${index + 1}/${example.questions.length}`;
   // }
-
   // updateProgressBar(currentQuestionIndex);
   // updateProgressText(currentQuestionIndex);
-
   // const userInput = document.getElementById("userInput");
-
   // const correctOutput = document.getElementById("correctOutput");
-
   // function convertTimeFormat(milliseconds) {
   //   let minutes = Math.floor(milliseconds / (60 * 1000));
   //   let seconds = Math.floor((milliseconds % (60 * 1000)) / 1000);
-
   //   return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
   //     2,
   //     "0"
   //   )}`;
-  }
+}
 
-  // 1. 타이머를 위한 변수 설정
-  // let timerInterval;
-  // let startTime;
-  // let myTime;
-  // let timeDisplay = document.getElementById("currentTime");
+// 1. 타이머를 위한 변수 설정
+// let timerInterval;
+// let startTime;
+// let myTime;
+// let timeDisplay = document.getElementById("currentTime");
 
-  // 2. 시작 버튼 클릭 이벤트 리스너 추가
-  // document.querySelector(".btn-success").addEventListener("click", function () {
-  //   this.style.display = "none"; // 시작 버튼 숨기기
-  //   startTimer();
-  //   // 처음 문제 로드
-  //   loadQuestion(currentQuestionIndex);
-  // });
+// 2. 시작 버튼 클릭 이벤트 리스너 추가
+// document.querySelector(".btn-success").addEventListener("click", function () {
+//   this.style.display = "none"; // 시작 버튼 숨기기
+//   startTimer();
+//   // 처음 문제 로드
+//   loadQuestion(currentQuestionIndex);
+// });
 
-  // 3. 타이머 시작/정지 함수
+// 3. 타이머 시작/정지 함수
 //   function startTimer() {
 //     startTime = Date.now();
 //     timerInterval = setInterval(function () {
