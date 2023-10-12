@@ -52,7 +52,7 @@
         <p class="text-center fond-bold text-xl mb-5">마크다운을 작성하세요</p>
         <textarea
           id="answer"
-          class="w-full textarea textarea-success h-36"
+          class="w-full textarea textarea-success h-60"
           oninput="checkAnswer()"
           autofocus
         ></textarea>
@@ -64,20 +64,25 @@
         <p class="text-center fond-bold text-xl mb-5">이 화면을 구현하세요</p>
         <input
           id="question"
-          class="border-2 p-5 border-success rounded-xl h-36 hidden"
+          class="border-2 p-5 border-success rounded-xl h-60 hidden"
           value="{{ question }}"
         />
-        <div
-          id="previewOutput"
-          class="border-2 p-5 border-success rounded-xl h-36"
-        >
-          {{ question }}
+        <div class="border-2 p-5 border-success rounded-xl h-60">
+          <img src="https://buly.kr/DwAhhgk" class="w-48" />
+          <div class="text-gray-400">
+            <p class="font-bold">-- 아래는 구현하지 않습니다(참고용) --</p>
+            <p>대체 텍스트: 크래프톤 정글</p>
+            <p>이미지 URL: https://buly.kr/DwAhhgk</p>
+          </div>
         </div>
       </div>
     </div>
     <div class="text-center">
       <span id="chapter_id" class="hidden">{{ chapter_id }}</span>
-      <button class="btn btn-lg btn-success text-white" onclick="postProgress()">
+      <button
+        class="btn btn-lg btn-success text-white"
+        onclick="postProgress()"
+      >
         강의 완료 🎉
       </button>
     </div>
