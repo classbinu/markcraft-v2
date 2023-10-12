@@ -1,7 +1,7 @@
 {% extends "layout/base.html" %}
 <!-- 레이아웃 -->
 {% block body %} {% include 'common/navbar.html' %}
-
+<link rel="stylesheet" type="text/css" href="/static/markdown.css" />
 <div class="text-center">
   <ul class="steps text-xs">
     <li class="step hover:cursor-pointer step-success" onclick="go(1)">헤더</li>
@@ -64,5 +64,8 @@
       <button class="btn btn-success text-white my-10">강의 완료</button>
     </div>
   </div>
+  <script>
+    markdownStaticRendering();
+  </script>
 </main>
 {% endblock %}
