@@ -148,7 +148,7 @@ def setProgress():
         return jsonify({"message":"진도 저장 완료!"})
 
     except Exception as e :
-        if str(e) is "NoneData":
+        if str(e) == "NoneData":
             return jsonify({"message":"잘못된 데이터이다."})
 
     
