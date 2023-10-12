@@ -116,7 +116,7 @@ def get_classroom():
 def get_chapter(chapter_id):
     question = choice(study_set[chapter_id])
     template_path = f'classroom/chapter{chapter_id}.html'
-    return render_template(template_path, question=question)
+    return render_template(template_path, question=question, chapter_id=chapter_id)
 
 @pages_bp.route("/timeattack", methods=["GET"])
 def get_timeattack():

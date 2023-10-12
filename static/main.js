@@ -199,3 +199,30 @@ function checkAnswer() {
     }, 1500);
   }
 }
+
+// 강의실 내 최종 진도 업데이트
+// 내 기록 업데이트하기
+async function postUpdateMyProgress(progress) {
+  const url = "/progress";
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ progress }),
+  };
+
+  try {
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      throw new Error("네트워크 오류 발생");
+    }
+
+    const data = await response.json();
+    console.log("서버 응답:", data);
+  } catch (error) {
+    console.error("오류 발생:", error);
+  }
+}
