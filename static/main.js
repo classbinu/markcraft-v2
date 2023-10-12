@@ -183,14 +183,27 @@ function markdownStaticRendering() {
   const question = document.getElementById("question").value;
   const previewOutput = document.getElementById("previewOutput");
   previewOutput.innerHTML = marked(question);
-  console.log(question);
+  console.log(previewOutput.innerHTML);
 }
 
 function checkAnswer() {
-  const question = marked(document.getElementById("question").value);
-  const answer = document.getElementById("answer").value;
-  console.log(question.innerHTML);
-  console.log(marked(answer));
+  let question;
+  let answer;
+  const chapter_id = parseInt(document.getElementById("chapter_id").innerText);
+
+  if (chapter_id === 3) {
+    question = document.getElementById("previewOutput");
+    question = question.innerHTML;
+    answer = document.getElementById("answer");
+    let value = marked(answer.value);
+    // 개행문자 제거
+    value = value.replace(/\n/g, "");
+    answer = value;
+  } else {
+    question = document.getElementById("question").value;
+    answer = document.getElementById("answer").value;
+  }
+
   if (question === answer) {
     Swal.fire({
       position: "center",

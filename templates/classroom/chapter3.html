@@ -60,7 +60,7 @@
       </div>
       <div class="w-full lg:w-1/2 px-20">
         <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
-        <input id="question" class="border-2 p-5 border-success rounded-xl h-36 hidden" value="{{ question }}" />
+        <input id="question" class="border-2 p-5 border-success rounded-xl h-36 hidden" value="{{ html }}" />
         <input id="html" class="border-2 p-5 border-success roundedks-xl h-36 hidden" value="{{ html }}" />
         <div id="previewOutput" class="border-2 p-5 border-success rounded-xl h-36">
           {{ html }}
@@ -84,22 +84,7 @@
       const question = document.getElementById("question");
       const html = document.getElementById("html");
       const answer = document.getElementById("answer");
-
-      // previewOutput.innerHTML = html.value;
-      console.log(question.value)
-      console.log(answer.value)
-      previewOutput.innerHTML = marked(answer.value)
       previewOutput.innerHTML = html.value
-      console.log(marked(question.value))
-      console.log(marked(previewOutput.innerHTML))
-      const pre = `
-      이 문장은 수평선의 위입니다.
-      ***
-      이 문장은 수평선의 아래입니다.`
-      previewOutput.innerHTML = marked(pre)
-      console.log(marked(previewOutput.innerHTML))
-      previewOutput.innerHTML = html.value
-      console.log(marked(previewOutput.innerHTML))
     }
     staticRendering()
 
