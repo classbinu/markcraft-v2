@@ -68,15 +68,16 @@ def signin():
             if not result:
                 raise Exception('IncorrectPassWord')
 
+            expires= datetime.datetime.utcnow() + datetime.timedelta(minutes=5)
             payload = {
                 "email":checkUser["email"],
                 "nickname":checkUser["nickname"], 
-                "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=2)
+                "exp": expires
             }
 
             access_token = jwt.encode(payload, SECRET, algorithm='HS256')
             response = make_response(redirect('/'))
-            response.set_cookie('access_token', access_token)
+            response.set_cookie('access_token', access_token, expires = expires)
 
             return response
 
@@ -103,7 +104,7 @@ def signup():
                 'nickname':data["nickname"], 
                 'userpw':bcrypt.generate_password_hash(data['userpw']).decode('utf-8'),
                 'bestTime': 99999999,
-                'progress':1
+                'progress':0
             }
         )
         payload = {
@@ -123,15 +124,15 @@ def signup():
 
 @api_bp.route('/timeattack', methods=['POST'])
 def timeattack():
-    print('hi')
     token = request.cookies.get("access_token")
-    print(token)
     users = verify_token(token)
-    print(users)
-    timeScore = request.get_json().values()
-    # db.users.insert_one({"tie"})
-    print(users)
-    return jsonify(users)
+    timeScore = request.json.get("bestTime")
+    user = db.users.find_one({"email":users["email"]})
+    if int(user["bestTime"])>timeScore:
+        collection.update_one({"email":users["email"]}, {"$set":{"bestTime":timeScore}})
+        return '신기록 갱신완료!'
+    return None
+    
 
 
 @api_bp.route('/besttime', methods=['GET'])

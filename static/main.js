@@ -76,22 +76,22 @@ function timeAttack() {
         userPrompt: "This is inline code.",
         correctAnswer: "This is `inline code`.",
       },
-      {
-        id: 2,
-        userPrompt: "",
-        correctAnswer: "가나다",
-      },
-      {
-        id: 3,
-        userPrompt: "이것은 제목",
-        correctAnswer: "## 이것은 제목",
-      },
-      {
-        id: 4,
-        userPrompt: "여기에 본문을 입력하세요.\n\n이것은 강조된 텍스트입니다.",
-        correctAnswer:
-          "여기에 본문을 입력하세요.\n\n이것은 **강조된** 텍스트입니다.",
-      },
+      // {
+      //   id: 2,
+      //   userPrompt: "",
+      //   correctAnswer: "가나다",
+      // },
+      // {
+      //   id: 3,
+      //   userPrompt: "이것은 제목",
+      //   correctAnswer: "## 이것은 제목",
+      // },
+      // {
+      //   id: 4,
+      //   userPrompt: "여기에 본문을 입력하세요.\n\n이것은 강조된 텍스트입니다.",
+      //   correctAnswer:
+      //     "여기에 본문을 입력하세요.\n\n이것은 **강조된** 텍스트입니다.",
+      // },
     ],
   };
   function updateProgressBar(index) {
