@@ -63,7 +63,7 @@
       <div class="w-full lg:w-1/2 px-20">
 
         <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
-        <input id="question" class="border-2 p-5 border-success rounded-xl h-36 hidden" value="{{ html }}" />
+        <input id="question" class="border-2 p-5 border-success rounded-xl h-36 hidden" value="{{ question }}" />
         <input id="html" class="border-2 p-5 border-success roundedks-xl h-36 hidden" value="{{ html }}" />
         <div id="previewOutput" class="border-2 p-5 border-success rounded-xl h-36">
           {{ html }}
@@ -78,18 +78,12 @@
   </div>
   <script>
 
-    // markdownStaticRendering();
     function postProgress() {
       const chapter_id = document.getElementById("chapter_id").innerText;
       postUpdateMyProgress(parseInt(chapter_id));
     }
-    function staticRendering() {
-      const previewOutput = document.getElementById("previewOutput");
-      const question = document.getElementById("question");
-      const html = document.getElementById("html");
-      const answer = document.getElementById("answer");
-      previewOutput.innerHTML = html.value
-    }
+    //
+
     staticRendering()
 
   </script>

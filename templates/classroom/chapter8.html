@@ -59,44 +59,36 @@
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 px-20">
         <p class="text-center fond-bold text-xl mb-5">마크다운을 작성하세요</p>
-        <textarea
-          id="answer"
-          class="w-full textarea textarea-success h-36"
-          oninput="checkAnswer()"
-          autofocus
-        ></textarea>
+        <textarea id="answer" class="w-full textarea textarea-success h-36" oninput="checkAnswer()"
+          autofocus></textarea>
         <button class="btn btn-xs" onclick="showAnswerModal()">
           잘 모르겠다면 여기를 눌러 정답을 확인하세요 🤔
         </button>
       </div>
       <div class="w-full lg:w-1/2 px-20">
-        <p class="text-center fond-bold text-xl mb-5">이 화면을 구현하세요</p>
-        <input
-          id="question"
-          class="border-2 p-5 border-success rounded-xl h-36 hidden"
-          value="{{ question }}"
-        />
-        <div
-          id="previewOutput"
-          class="border-2 p-5 border-success rounded-xl h-36"
-        >
-          {{ question }}
+        <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
+        <input id="question" class="border-2 p-5 border-success rounded-xl h-36 hidden" value="{{ question }}" />
+        <input id="html" class="border-2 p-5 border-success roundedks-xl h-36 hidden" value="{{ html }}" />
+        <div id="previewOutput" class="border-2 p-5 border-success rounded-xl h-36">
+          {{ html }}
         </div>
       </div>
     </div>
     <div class="text-center">
       <span id="chapter_id" class="hidden">{{ chapter_id }}</span>
-      <a href="9" class="btn btn-lg btn-success text-white" onclick="postProgress()"
-        >다음 챕터 ➡️</a
-      >
+      <a href="4" class="btn btn-lg btn-success text-white" onclick="postProgress()">다음 챕터 ➡️</a>
     </div>
   </div>
   <script>
-    markdownStaticRendering();
+
     function postProgress() {
       const chapter_id = document.getElementById("chapter_id").innerText;
       postUpdateMyProgress(parseInt(chapter_id));
     }
+    //
+
+    staticRendering()
+
   </script>
 </main>
 

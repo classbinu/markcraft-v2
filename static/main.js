@@ -186,24 +186,37 @@ function markdownStaticRendering() {
   console.log(previewOutput.innerHTML);
 }
 
+// 여러 줄 들어가는 예시 데이터
+function staticRendering() {
+  const previewOutput = document.getElementById("previewOutput");
+  const html = document.getElementById("html");
+  previewOutput.innerHTML = html.value;
+}
+
 function checkAnswer() {
   let question;
-  let answer;
-  const chapter_id = parseInt(document.getElementById("chapter_id").innerText);
-
-  if (chapter_id === 3) {
+  let answer = document.getElementById("answer").value;
+  // const chapter_id = parseInt(document.getElementById("chapter_id").innerText);
+  if (/\n/.test(answer)) {
     question = document.getElementById("previewOutput");
     question = question.innerHTML;
-    answer = document.getElementById("answer");
-    let value = marked(answer.value);
+
+    let value = marked(answer);
     // 개행문자 제거
     value = value.replace(/\n/g, "");
     answer = value;
   } else {
     question = document.getElementById("question").value;
-    answer = document.getElementById("answer").value;
   }
+  question = question.trim();
+  answer = answer.trim();
+  console.log(`"${question}"`);
+  console.log(`"${answer}"`);
 
+  console.log(question);
+  console.log(answer);
+
+  console.log(question === answer);
   if (question === answer) {
     Swal.fire({
       position: "center",
@@ -212,9 +225,9 @@ function checkAnswer() {
       showConfirmButton: false,
       timer: 1500,
     });
-    setTimeout(() => {
-      location.reload();
-    }, 1500);
+    // setTimeout(() => {
+    //   location.reload();
+    // }, 1500);
   }
 }
 
