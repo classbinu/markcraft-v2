@@ -3,6 +3,7 @@
 {% block body %}
 <!-- 네비게이션바 -->
 {% include 'common/navbar.html' %}
+<link rel="stylesheet" type="text/css" href="/static/markdown.css" />
 <main class="container mx-auto p-5">
   <h1 class="text-center text-3xl font-bold logo text-markcraft">타임어택</h1>
   <p id="currentTime" class="text-6xl text-center mt-10 mb-5">00:00</p>
@@ -102,6 +103,7 @@
     answer.focus();
     question.value = testSet[answerCount];
     previewOutput.textContent = testSet[answerCount];
+    markdownStaticRendering();
 
     // 버튼 변경
     const startBtnEl = document.getElementById("startBtn");
@@ -129,6 +131,7 @@
         answerCount++;
         question.value = testSet[answerCount];
         previewOutput.textContent = testSet[answerCount];
+        markdownStaticRendering();
         answer.value = "";
         checkPassedTimeattack();
         updateProgressBar();
