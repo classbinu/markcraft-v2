@@ -24,20 +24,20 @@
       <div class="w-full lg:w-1/2">
         <p class="mb-5 font-bold">예시</p>
         <ul>
-          <li>첫 번째 문장입니다.vv두 번째 문장입니다.</li>
+          <li>첫 번째 문장입니다.< br >두 번째 문장입니다.</li>
         </ul>
         <p class="text-gray-400 text-sm">
-          (💁 v는 space(공백)을 나타낸 것입니다.)
+          (💁 br 태그는 공백없이 작성해 주세요.)
         </p>
       </div>
       <div class="w-full lg:w-1/2 text-center">
         <p class="mb-5 font-bold">문법</p>
         <p>
-          문장의 끝에 스페이스(space)를 두 번 추가합니다.
+          < br >태그로 줄바꿈을 할 수 있습니다.
           <br />
-          또는 br태그로 줄바꿈을 할 수도 있습니다.
+          또는 문장의 끝에 스페이스(space)를 두 번 추가합니다.
           <br />
-          문장의 끝에 스페이스를 추가하는 방식으로 연습해 주세요.
+          < br >태그 줄바꿈 방식으로 연습해 주세요.
         </p>
       </div>
     </div>
@@ -45,7 +45,7 @@
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 px-20">
         <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
-        <textarea class="w-full textarea textarea-success"></textarea>
+        <textarea idclass="w-full textarea textarea-success"></textarea>
         <button class="btn btn-xs">
           잘 모르겠다면 이 버튼을 눌러 정답을 확인하세요
         </button>
@@ -59,5 +59,8 @@
       <a href="3" class="btn btn-success text-white my-10">다음 챕터</a>
     </div>
   </div>
+  <script>
+    markdownStaticRendering();
+  </script>
 </main>
 {% endblock %}

@@ -1,6 +1,7 @@
 from flask import Flask, Blueprint, render_template, request, redirect, url_for, flash
 from pymongo import MongoClient
 from .api import verify_token
+from random import choice
 
 pages_bp = Blueprint('pages',__name__)
 client = MongoClient('localhost', 27017)
@@ -59,8 +60,32 @@ def get_classroom():
 
 @pages_bp.route('/classroom/chapter/<int:chapter_id>', methods=['GET'])
 def get_chapter(chapter_id):
+
+    study_set = {
+        1: [
+            '# 1수준 헤더입니다', 
+            '## 2수준 헤더입니다', 
+            '### 3수준 헤더입니다',
+            '#### 4수준 헤더입니다',
+            '##### 5수준 헤더입니다',
+            '###### 6수준 헤더입니다'
+        ], 
+        2: [
+            '안녕하세요<br>크래프톤 정글입니다'
+        ],
+        3: [],
+        4: [],
+        5: [],
+        6: [],
+        7: [],
+        8: [],
+        9: [],
+        10: []
+    }
+
+    question = choice(study_set[chapter_id])
     template_path = f'classroom/chapter{chapter_id}.html'
-    return render_template(template_path)
+    return render_template(template_path, question=question)
 
 @pages_bp.route('/timeattack', methods=['GET'])
 def get_timeattack():
