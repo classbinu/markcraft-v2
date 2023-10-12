@@ -210,6 +210,7 @@ function timeAttack() {
   }
 }
 
+// 연습장 마크다운 동적 실시간 렌더링
 function initializeRealTimeRendering() {
   const practiceInput = document.getElementById("practiceInput");
   const previewOutput = document.getElementById("previewOutput");
@@ -220,4 +221,28 @@ function initializeRealTimeRendering() {
       hljs.highlightBlock(block);
     });
   });
+}
+
+// 강의실 마크다운 정적 렌더링
+function markdownStaticRendering() {
+  const question = document.getElementById("question").value;
+  const markdown = document.getElementById("markdown");
+  markdown.innerHTML = marked(question);
+}
+
+function checkAnswer() {
+  const question = document.getElementById("question").value;
+  const answer = document.getElementById("answer").value;
+  if (question === answer) {
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "정답입니다!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setTimeout(() => {
+      location.reload();
+    }, 1500);
+  }
 }
