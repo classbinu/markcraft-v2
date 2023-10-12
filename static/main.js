@@ -163,6 +163,8 @@ function initializeRealTimeRendering() {
 
   practiceInput.addEventListener("input", function () {
     previewOutput.innerHTML = marked(practiceInput.value);
+    console.log(marked(practiceInput.value), previewOutput.innerHTML);
+
     document.querySelectorAll("pre code").forEach((block) => {
       hljs.highlightBlock(block);
     });
@@ -181,11 +183,27 @@ function markdownStaticRendering() {
   const question = document.getElementById("question").value;
   const previewOutput = document.getElementById("previewOutput");
   previewOutput.innerHTML = marked(question);
+  console.log(previewOutput.innerHTML);
 }
 
 function checkAnswer() {
-  const question = document.getElementById("question").value;
-  const answer = document.getElementById("answer").value;
+  let question;
+  let answer;
+  const chapter_id = parseInt(document.getElementById("chapter_id").innerText);
+
+  if (chapter_id === 3) {
+    question = document.getElementById("previewOutput");
+    question = question.innerHTML;
+    answer = document.getElementById("answer");
+    let value = marked(answer.value);
+    // 개행문자 제거
+    value = value.replace(/\n/g, "");
+    answer = value;
+  } else {
+    question = document.getElementById("question").value;
+    answer = document.getElementById("answer").value;
+  }
+
   if (question === answer) {
     Swal.fire({
       position: "center",

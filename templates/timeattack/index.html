@@ -31,49 +31,25 @@
   </div>
 
   <div class="text-center">
-    <progress
-      id="progress-bar"
-      class="progress progress-success w-56"
-      value="0"
-      max="5"
-    ></progress>
+    <progress id="progress-bar" class="progress progress-success w-56" value="0" max="5"></progress>
     <p id="progress-text" class="text-gray-400">0/5</p>
   </div>
   <div class="flex flex-wrap">
     <div class="w-full lg:w-1/2 px-20">
       <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
-      <textarea
-        id="answer"
-        class="w-full textarea textarea-success h-36"
-        oninput="checkAnswer()"
-        autofocus
-      ></textarea>
+      <textarea id="answer" class="w-full textarea textarea-success h-36" oninput="checkAnswer()" autofocus></textarea>
     </div>
     <div class="w-full lg:w-1/2 px-20">
       <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
-      <input
-        id="question"
-        class="border-2 p-5 border-success rounded-xl h-36 hidden"
-      />
-      <div
-        id="previewOutput"
-        class="border-2 p-5 border-success rounded-xl h-36"
-      ></div>
+      <input id="question" class="border-2 p-5 border-success rounded-xl h-36 hidden" />
+      <div id="previewOutput" class="border-2 p-5 border-success rounded-xl h-36"></div>
     </div>
   </div>
   <div class="text-center">
-    <button
-      id="startBtn"
-      class="btn btn-success text-white btn-lg my-10"
-      onclick="startTimeAttack()"
-    >
+    <button id="startBtn" class="btn btn-success text-white btn-lg my-10" onclick="startTimeAttack()">
       시작 ⏰
     </button>
-    <button
-      id="quitBtn"
-      class="btn btn-error text-white btn-lg my-10 hidden"
-      onclick="location.reload()"
-    >
+    <button id="quitBtn" class="btn btn-error text-white btn-lg my-10 hidden" onclick="location.reload()">
       포기 😥
     </button>
   </div>

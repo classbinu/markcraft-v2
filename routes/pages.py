@@ -2,6 +2,7 @@ from flask import Flask, Blueprint, render_template, request, redirect, url_for,
 from pymongo import MongoClient
 from .api import verify_token
 from random import choice, sample
+import markdown
 from dotenv import load_dotenv
 import os
 
@@ -11,43 +12,29 @@ db = client.test
 
 study_set = {
     1: [
-        '# 1수준 헤더입니다', 
-        '## 2수준 헤더입니다', 
-        '### 3수준 헤더입니다',
-        '#### 4수준 헤더입니다',
-        '##### 5수준 헤더입니다',
-        '###### 6수준 헤더입니다'
-    ], 
+        "# 1수준 헤더입니다",
+        "## 2수준 헤더입니다",
+        "### 3수준 헤더입니다",
+        "#### 4수준 헤더입니다",
+        "##### 5수준 헤더입니다",
+        "###### 6수준 헤더입니다",
+    ],
     2: [
-        '안녕하세요<br>크래프톤 정글입니다',
-        '이곳은 경기대학교입니다<br>언덕이 무척 높습니다',
+        "안녕하세요<br>크래프톤 정글입니다",
+        "이곳은 경기대학교입니다<br>언덕이 무척 높습니다",
     ],
-    3: [
-        '수평선 위입니다 *** 수평선 아래입니다'
-    ],
+    3: ["수평선 위입니다\r\n***\r\n수평선 아래입니다"],
     4: [
-        '**이 문장은 볼드체입니다**',
-        '_이 문장은 이탤릭입니다_',
-        '~~이 문장은 취소선입니다~~',
+        "**이 문장은 볼드체입니다**",
+        "_이 문장은 이탤릭입니다_",
+        "~~이 문장은 취소선입니다~~",
     ],
-    5: [
-        '>인용입니다'
-    ],
-    6: [
-        '모듈을 불러오는 예약어는 `import`입니다'
-    ],
-    7: [
-        '+ 순서가 없는 목록입니다'
-    ],
-    8: [
-        '1. 순서가 있는 목록입니다'
-    ],
-    9: [
-        '[Google](https://www.google.com)'
-    ],
-    10: [
-        '![크래프톤 정글](https://buly.kr/DwAhhgk)'
-    ]
+    5: [">인용입니다"],
+    6: ["모듈을 불러오는 예약어는 `import`입니다"],
+    7: ["+ 순서가 없는 목록입니다"],
+    8: ["1. 순서가 있는 목록입니다"],
+    9: ["[Google](https://www.google.com)"],
+    10: ["![크래프톤 정글](https://buly.kr/DwAhhgk)"],
 }
 
 
@@ -59,9 +46,9 @@ def millisecondsToMinutesSeconds(milliseconds):
     return formattedTime
 
 
-@pages_bp.route('/401error')
+@pages_bp.route("/401error")
 def error():
-    return render_template('error/Error.html')
+    return render_template("error/Error.html")
 
 
 @pages_bp.route("/", methods=["GET"])
@@ -117,8 +104,14 @@ def get_classroom():
 @pages_bp.route("/classroom/chapter/<int:chapter_id>", methods=["GET"])
 def get_chapter(chapter_id):
     question = choice(study_set[chapter_id])
-    template_path = f'classroom/chapter{chapter_id}.html'
-    return render_template(template_path, question=question, chapter_id=chapter_id)
+    template_path = f"classroom/chapter{chapter_id}.html"
+    html = markdown.markdown(question)
+    print(question)
+    print(html)
+    return render_template(
+        template_path, question=question, chapter_id=chapter_id, html=html
+    )
+
 
 @pages_bp.route("/timeattack", methods=["GET"])
 def get_timeattack():
@@ -136,7 +129,7 @@ def get_timeattack():
         topRanker = list(db.users.find().sort("bestTime", 1).limit(1))
         formattedBestTime = millisecondsToMinutesSeconds(topRanker[0]["bestTime"])
 
-        test_set = ['# 헤더1', '## 헤더2', '### 헤더3', '#### 헤더4', '##### 헤더5']
+        test_set = ["# 헤더1", "## 헤더2", "### 헤더3", "#### 헤더4", "##### 헤더5"]
         questions = sample(test_set, 5)
 
         # 랭커 가져오기
@@ -153,7 +146,7 @@ def get_timeattack():
             topRanker=topRanker,
             formattedBestTime=formattedBestTime,
             formattedMyBestTime=formattedMyBestTime,
-            questions = questions,
+            questions=questions,
             ranker_1=rankers[0],
             ranker_2=rankers[1],
             ranker_3=rankers[2],

@@ -43,7 +43,47 @@
 }
 
 #previewOutput blockquote {
-    border-left: 2px solid #ccc;
-    margin: 0;
-    padding: 10px 20px;
+  border-left: 2px solid #ccc;
+  margin: 0;
+  padding: 10px 20px;
+}
+
+/* 백틱 관련 CSS*/
+/* 코드 블록 스타일링 */
+pre:not(.void) {
+  background-color: #282c34;
+  /* 어두운 배경색 */
+  border-radius: 5px;
+  /* 모서리 둥글게 */
+  padding: 15px;
+  /* 안쪽 여백 */
+  overflow-x: auto;
+  /* 가로 스크롤 */
+  color: #a9b7c6;
+  /* 텍스트 색상 */
+  margin-top: 10px;
+  /* 위 여백 */
+  margin-bottom: 10px;
+  /* 아래 여백 */
+}
+
+/* 인라인 코드 스타일링 (백틱 사용) */
+code:not(.void) {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* 블록 내 코드 스타일링 */
+pre > code {
+  background-color: transparent;
+  /* 배경색 없음 */
+  border: none;
+  /* 테두리 없음 */
+  padding: 0;
+  /* 안쪽 여백 없음 */
+  color: inherit;
+  /* 부모 요소의 색상 상속 */
 }
