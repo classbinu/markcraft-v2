@@ -66,11 +66,11 @@ def signin():
             if not result:
                 raise Exception("IncorrectPassWord")
 
-            expires= datetime.datetime.utcnow() + datetime.timedelta(minutes=5)
+            expires= datetime.datetime.utcnow() + datetime.timedelta(hours=2)
             payload = {
                 "email": checkUser["email"],
                 "nickname": checkUser["nickname"],
-                "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=2),
+                "exp": expires
             }
             access_token = jwt.encode(payload, SECRET, algorithm='HS256')
             response = make_response(redirect('/'))
@@ -103,14 +103,15 @@ def signup():
                 'progress':0
             }
         )
+        expires= datetime.datetime.utcnow() + datetime.timedelta(hours=2)
         payload = {
             "email": data["email"],
             "nickname": data["nickname"],
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=2),
+            "exp": expires
         }
         access_token = jwt.encode(payload, SECRET, algorithm="HS256")
         response = make_response(redirect("/"))
-        response.set_cookie("access_token", access_token)
+        response.set_cookie("access_token", access_token, expires=expires)
         return response
 
     except Exception as e:
@@ -126,11 +127,4 @@ def timeattack():
     if int(user["bestTime"])>timeScore:
         collection.update_one({"email":users["email"]}, {"$set":{"bestTime":timeScore}})
         return '신기록 갱신완료!'
-    return None
-    
-
-
-@api_bp.route("/besttime", methods=["GET"])
-def getTimeAttack():
-    result = db.users.find_one(sort=[("bestTime", 1)])
-    return jsonify({"result": result["bestTime"]})
+    return ""
