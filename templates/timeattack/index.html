@@ -43,51 +43,30 @@
   </div>
 
   <div class="text-center">
-    <progress
-      id="progress-bar"
-      class="progress progress-success w-56"
-      value="0"
-      max="5"
-    ></progress>
+    <progress id="progress-bar" class="progress progress-success w-56" value="0" max="5"></progress>
     <p id="progress-text" class="text-gray-400">0/5</p>
   </div>
   <div class="flex flex-wrap">
     <div class="w-full lg:w-1/2 px-20">
       <p class="text-center fond-bold text-xl my-5">마크다운을 작성하세요</p>
-      <textarea
-        id="answer"
-        class="w-full textarea textarea-success h-36"
-        oninput="checkAnswer()"
-        autofocus
-      ></textarea>
+      <textarea id="answer" class="w-full textarea textarea-success h-36" oninput="checkAnswer()" autofocus></textarea>
     </div>
     <div class="w-full lg:w-1/2 px-20">
       <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
-      <input
-        id="question"
-        class="border-2 p-5 border-success rounded-xl h-36 hidden"
-      />
-      <div
-        id="previewOutput"
-        class="border-2 p-5 border-success rounded-xl h-36"
-      ></div>
+      <input id="question" class="border-2 p-5 border-success rounded-xl h-36 hidden" />
+      <div id="previewOutput" class="border-2 p-5 border-success rounded-xl h-36"></div>
     </div>
   </div>
   <div class="text-center">
-    <button
-      id="startBtn"
-      class="btn btn-success text-white btn-lg my-10"
-      onclick="startTimeAttack()"
-    >
+    <button id="startBtn" class="btn btn-success text-white btn-lg my-10" onclick="startTimeAttack()">
       시작 ⏰
     </button>
-    <button
-      id="quitBtn"
-      class="btn btn-error text-white btn-lg my-10 hidden"
-      onclick="location.reload()"
-    >
+    <button id="quitBtn" class="btn btn-error text-white btn-lg my-10 hidden" onclick="location.reload()">
       포기 😥
     </button>
+    <!-- <button id="quitBtn" class="btn btn-error text-white btn-lg my-10 hidden" onclick="location.reload()">
+      포기 😥
+    </button> -->
   </div>
   <!-- <ul class="">
     {% for question in questions %}
@@ -95,6 +74,8 @@
     {% endfor %}
   </ul> -->
   <input id="test_set" value="{{ questions }}" hidden />
+  <input id="test_set_html" value="{{html_questions}}" hidden />
+
 </main>
 
 <script>
@@ -104,21 +85,27 @@
   const myBestTime = document.getElementById("myBestTime").value;
 
   function startTimeAttack() {
-    // 문제 데이터 추출
-    const testSetText = document.getElementById("test_set").value;
-
     const question = document.getElementById("question");
     const previewOutput = document.getElementById("previewOutput");
-
+    console.log(testSetText);
     testSet = testSetText.replace(/[\[\]']+/g, "").split(", ");
+    // '\\n'을 '\n'으로 바꾸기
+    testSet = testSet.map(s => s.replace(/\\n/g, '\n'));
+    testSet = testSet.map(s => marked(s));
+    console.log(testSet);
+    // console.log(testHtmlSetlText);
+    // htmlSet = testHtmlSetlText.replace(/[\[\]']+/g, "").split(", ");
+    // console.log(htmlSet);
+    // testSet = testSetText.replace(/[\[\]']+/g, "").split(", ");
 
     // 최초 1번 문제 세팅
     const answer = document.getElementById("answer");
     answer.focus();
     question.value = testSet[answerCount];
-    previewOutput.textContent = testSet[answerCount];
+    // previewOutput.innerHTML = testSet[answerCount];
     markdownStaticRendering();
-
+    // console.log(marked(question.value))
+    // console.log(previewOutput.innerHTML)
     // 버튼 변경
     const startBtnEl = document.getElementById("startBtn");
     const quitBtnEl = document.getElementById("quitBtn");
@@ -129,11 +116,19 @@
   }
 
   function checkAnswer() {
-    const question = document.getElementById("question");
-    const previewOutput = document.getElementById("previewOutput");
-    const answer = document.getElementById("answer");
-
-    if (question.value === answer.value) {
+    let question = document.getElementById("previewOutput");
+    let answer = document.getElementById("answer");
+    console.log(answer.value);
+    // const chapter_id = parseInt(document.getElementById("chapter_id").innerText);
+    question = question.innerHTML;
+    let value = marked(answer.value);
+    // 개행문자 제거
+    value = value.replace(/\n/g, "");
+    answer = value;
+    console.log(question);
+    console.log(answer);
+    console.log(question == answer);
+    if (question == answer) {
       Swal.fire({
         position: "center",
         icon: "success",
@@ -142,10 +137,14 @@
         timer: 1000,
       });
       setTimeout(() => {
+        let question = document.getElementById("question");
+        let answer = document.getElementById("answer");
         answerCount++;
         question.value = testSet[answerCount];
-        previewOutput.textContent = testSet[answerCount];
+        // previewOutput.value = testSet[answerCount];
         markdownStaticRendering();
+        console.log(question.value)
+        console.log(previewOutput.innerHTML)
         answer.value = "";
         checkPassedTimeattack();
         updateProgressBar();
