@@ -107,6 +107,23 @@ def get_signup():
     return render_template("auth/signup.html")
 
 
+@pages_bp.route("/mypage", methods=["GET"])
+def get_mypage():
+    try:
+        token = request.cookies.get("access_token")
+        if not token:  # 토큰 secret 오류 발행해서 예외 처리로 임시 처리
+            flash("로그인이 필요합니다.")
+            return redirect(url_for("pages.get_signin"))
+
+        email = verify_token(token)["email"]
+        user = db.users.find_one({"email": email})
+        nickname = user["nickname"]
+    except:
+        return redirect(url_for("pages.get_signin"))
+
+    return render_template("auth/mypage.html", email=email, nickname=nickname)
+
+
 @pages_bp.route("/classroom", methods=["GET"])
 def get_classroom():
     try:
