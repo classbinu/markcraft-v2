@@ -49,8 +49,8 @@ study_set = {
     8: ["1. 미니 프로젝트\r\n1. 알고리즘\r\n1. 운영체제"],
     9: ["[크래프톤 정글](https://jungle.krafton.com)"],
     10: [
-        "![정글](http://15.164.92.132/static/image/jungle.jpeg)",
-        "![마크크래프트](http://15.164.92.132/static/image/qr.png)",
+        "![정글](http://markcraft.site/static/image/jungle.jpeg)",
+        "![마크크래프트](http://markcraft.site/static/image/qr.png)",
     ],
 }
 
