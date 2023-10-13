@@ -55,7 +55,7 @@ pre:not(.void) {
   /* 어두운 배경색 */
   border-radius: 5px;
   /* 모서리 둥글게 */
-  padding: 15px;
+  padding: 0px;
   /* 안쪽 여백 */
   overflow-x: auto;
   /* 가로 스크롤 */
