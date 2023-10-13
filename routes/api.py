@@ -153,7 +153,7 @@ def setProgress():
 
     
 
-@api_bp.route("/updatenickname", methods=["PUT"])
+@api_bp.route("/mypage", methods=["POST"])
 def update_nickname():
     user = verify_token(request.cookies.get("access_token"))
     nickname = request.form.get("nickname")
