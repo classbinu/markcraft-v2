@@ -15,6 +15,11 @@
     <p id="currentTime" class="text-6xl mt-10 mb-5">00:00:00</p>
   </div>
   <div>
+    <!-- 기록 비교를 위한 기존 기록 숨김 -->
+    <div class="hidden">
+      <input id="bestTime" type="number" value="{{ bestTime }}" />
+      <input id="myBestTime" type="number" value="{{ myBestTime }}" />
+    </div>
     <div class="text-gray-400 mb-5 w-40 mx-auto">
       <ol>
         <li class="text-primary font-bold">
@@ -101,10 +106,10 @@
 <script>
   let answerCount = 0;
   let testSet = [];
-  let htmlSet = [];
-  // 문제 데이터 추출
-  const testSetText = document.getElementById("test_set").value;
-  const testHtmlSetlText = document.getElementById("test_set_html").value;
+
+  const bestTime = document.getElementById("bestTime").value;
+  const myBestTime = document.getElementById("myBestTime").value;
+
   function startTimeAttack() {
     const question = document.getElementById("question");
     const previewOutput = document.getElementById("previewOutput");
@@ -174,11 +179,21 @@
   }
 
   function checkPassedTimeattack() {
+    let conditionalMessage = "";
     if (answerCount === 5) {
       stopTimer();
       postMyTime(myTime);
+      const bestTime = document.getElementById('bestTime').value;
+      const myBestTime = document.getElementById('myBestTime').value;
+      if (myTime < bestTime) {
+        conditionalMessage = "🎉 서버 최고 기록을 경신했어요 👏";
+      } else if (myTime < myBestTime) {
+        conditionalMessage = "🔥 개인 최고 기록을 경신했어요 👏";
+      }
       Swal.fire({
-        title: `타임어택 성공<br>${convertTimeFormat(myTime)}`,
+        title: `타임어택 성공<br>${convertTimeFormat(
+          myTime
+        )}<br>${conditionalMessage}`,
         width: 600,
         padding: "3em",
         color: "#716add",
@@ -227,7 +242,7 @@
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
       2,
       "0"
-    )}.${String(milliseconds2).padStart(2, "0")}`;
+    )}:${String(milliseconds2).padStart(2, "0")}`;
   }
 
   // 프로그레스바 업데이트

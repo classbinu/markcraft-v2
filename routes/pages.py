@@ -222,6 +222,8 @@ def get_timeattack():
         return render_template(
             "timeattack/index.html",
             topRanker=topRanker,
+            bestTime = topRanker[0]["bestTime"],
+            myBestTime = myBestTime,
             formattedBestTime=formattedBestTime,
             formattedMyBestTime=formattedMyBestTime,
             questions=questions,
