@@ -19,6 +19,7 @@ import re
 load_dotenv()
 pages_bp = Blueprint("pages", __name__)
 client = MongoClient(os.getenv("LOCALDB"), 27017)
+# client = MongoClient("localhost", 27017) # 로컬 테스트용 DB
 db = client.markcraft
 app = Flask(__name__)
 

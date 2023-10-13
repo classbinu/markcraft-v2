@@ -2,7 +2,7 @@
 <!-- 레이아웃 -->
 {% block body %} {% include 'common/navbar.html' %}
 <link rel="stylesheet" type="text/css" href="/static/markdown.css" />
-<div class="text-center">
+<div class="text-center overflow-x-auto">
   <ul class="steps text-xs">
     <li class="step hover:cursor-pointer step-success" onclick="go(1)">헤더</li>
     <li class="step hover:cursor-pointer step-success" onclick="go(2)">
@@ -55,7 +55,7 @@
         </button>
       </div>
       <div class="w-full lg:w-1/2 px-20">
-        <p class="text-center fond-bold text-xl mb-5">이 화면을 구현하세요</p>
+        <p class="text-center fond-bold text-xl my-5">이 화면을 구현하세요</p>
         <input id="question" class="border-2 p-5 border-success rounded-xl h-36 hidden" value="{{ question }}" />
         <input id="html" class="border-2 p-5 border-success roundedks-xl h-36 hidden" value="{{ html }}" />
 
@@ -70,7 +70,7 @@
     </div>
     <div class="text-center">
       <span id="chapter_id" class="hidden">{{ chapter_id }}</span>
-      <a href="10" class="btn btn-lg btn-success text-white" onclick="postProgress()">다음 챕터 ➡️</a>
+      <a href="10" class="btn btn-lg btn-success text-white mt-10 lg:mt-0" onclick="postProgress()">다음 챕터 ➡️</a>
     </div>
   </div>
   <script>
