@@ -12,7 +12,7 @@
     </div>
 
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="#" method="POST">
+      <form class="space-y-6" method="POST">
         <div>
           <label
             for="email"
@@ -23,10 +23,10 @@
             <input
               id="email"
               type="email"
-              autocomplete="email"
               required
               class="input input-bordered input-success w-full"
               disabled
+              value="{{ email }}"
             />
           </div>
         </div>
@@ -44,6 +44,7 @@
               id="nickname"
               name="nickname"
               type="text"
+              value="{{ nickname }}"
               required
               class="input input-bordered input-success w-full"
               maxlength="8"
