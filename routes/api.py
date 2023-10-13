@@ -12,6 +12,7 @@ api_bp = Blueprint("api", __name__)
 bcrypt = Bcrypt()
 SECRET = os.getenv("SECRET")
 client = MongoClient(os.getenv("LOCALDB"), 27017)
+# client = MongoClient("localhost", 27017) # 로컬 테스트용 DB
 db = client.markcraft
 collection = db["users"]
 collection.create_index([("email", 1)], unique=True)

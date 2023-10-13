@@ -2,7 +2,7 @@
 <!-- 레이아웃 -->
 {% block body %} {% include 'common/navbar.html' %}
 <link rel="stylesheet" type="text/css" href="/static/markdown.css" />
-<div class="text-center">
+<div class="text-center overflow-x-auto">
   <ul class="steps text-xs">
     <li class="step hover:cursor-pointer step-success" onclick="go(1)">헤더</li>
     <li class="step hover:cursor-pointer step-success" onclick="go(2)">
@@ -61,7 +61,7 @@
     </div>
     <div class="text-center">
       <span id="chapter_id" class="hidden">{{ chapter_id }}</span>
-      <a href="4" class="btn btn-lg btn-success text-white" onclick="postProgress()">다음 챕터 ➡️</a>
+      <a href="4" class="btn btn-lg btn-success text-white mt-10 lg:mt-0" onclick="postProgress()">다음 챕터 ➡️</a>
     </div>
   </div>
   <script>
