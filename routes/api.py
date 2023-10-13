@@ -126,12 +126,12 @@ def signup():
 @api_bp.route("/timeattack", methods=["POST"])
 def timeattack():
     token = request.cookies.get("access_token")
-    users = verify_token(token)
+    user = verify_token(token)
     timeScore = request.json.get("myTime")
-    user = db.users.find_one({"email": users["email"]})
+    user = db.users.find_one({"email": user["email"]})
     if int(user["bestTime"]) > timeScore:
         collection.update_one(
-            {"email": users["email"]}, {"$set": {"bestTime": timeScore}}
+            {"email": user["email"]}, {"$set": {"bestTime": timeScore}}
         )
         return jsonify({"modal_title": "'내 기록 갱신완료!'", "completion_time": timeScore})
 
@@ -139,12 +139,12 @@ def timeattack():
 
 @api_bp.route("/progress", methods=["POST"])
 def setProgress():
-    users = verify_token(request.cookies.get("access_token"))
+    user = verify_token(request.cookies.get("access_token"))
     try:
         progress = request.json.get('progress')
         if progress is None:
             raise Exception("NoneData")
-        db.users.update_one({"email":users["email"],"nickname":users["nickname"]},{"$set":{"progress":progress}})
+        db.users.update_one({"email":user["email"],"nickname":user["nickname"]},{"$set":{"progress":progress}})
         return jsonify({"message":"진도 저장 완료!"})
 
     except Exception as e :
@@ -152,3 +152,10 @@ def setProgress():
             return jsonify({"message":"잘못된 데이터이다."})
 
     
+
+@api_bp.route("/updatenickname", methods=["PUT"])
+def update_nickname():
+    user = verify_token(request.cookies.get("access_token"))
+    nickname = request.form.get("nickname")
+    db.users.update_one({"email":user["email"],"nickname":user["nickname"]},{"$set":{"nickname":nickname}})
+    return jsonify({"message":"Success Update Nickname"})
