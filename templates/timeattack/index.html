@@ -75,7 +75,6 @@
   </ul> -->
   <input id="test_set" value="{{ questions }}" hidden />
   <input id="test_set_html" value="{{html_questions}}" hidden />
-
 </main>
 
 <script>
@@ -90,8 +89,8 @@
     console.log(testSetText);
     testSet = testSetText.replace(/[\[\]']+/g, "").split(", ");
     // '\\n'을 '\n'으로 바꾸기
-    testSet = testSet.map(s => s.replace(/\\n/g, '\n'));
-    testSet = testSet.map(s => marked(s));
+    testSet = testSet.map((s) => s.replace(/\\n/g, "\n"));
+    testSet = testSet.map((s) => marked(s));
     console.log(testSet);
     // console.log(testHtmlSetlText);
     // htmlSet = testHtmlSetlText.replace(/[\[\]']+/g, "").split(", ");
@@ -143,8 +142,8 @@
         question.value = testSet[answerCount];
         // previewOutput.value = testSet[answerCount];
         markdownStaticRendering();
-        console.log(question.value)
-        console.log(previewOutput.innerHTML)
+        console.log(question.value);
+        console.log(previewOutput.innerHTML);
         answer.value = "";
         checkPassedTimeattack();
         updateProgressBar();
@@ -157,8 +156,8 @@
     if (answerCount === 5) {
       stopTimer();
       postMyTime(myTime);
-      const bestTime = document.getElementById('bestTime').value;
-      const myBestTime = document.getElementById('myBestTime').value;
+      const bestTime = document.getElementById("bestTime").value;
+      const myBestTime = document.getElementById("myBestTime").value;
       if (myTime < bestTime) {
         conditionalMessage = "🎉 서버 최고 기록을 경신했어요 👏";
       } else if (myTime < myBestTime) {
