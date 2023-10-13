@@ -158,4 +158,9 @@ def update_nickname():
     user = verify_token(request.cookies.get("access_token"))
     nickname = request.form.get("nickname")
     db.users.update_one({"email":user["email"],"nickname":user["nickname"]},{"$set":{"nickname":nickname}})
-    return jsonify({"message":"Success Update Nickname"})
+    expires = datetime.datetime.utcnow() + datetime.timedelta(hours=2)
+    payload = {"email": user["email"], "nickname": nickname, "exp": expires}
+    access_token = jwt.encode(payload, SECRET, algorithm="HS256")
+    response = make_response(redirect("/"))
+    response.set_cookie("access_token", access_token, expires=expires)
+    return response
