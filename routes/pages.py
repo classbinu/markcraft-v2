@@ -106,6 +106,10 @@ def get_signin():
 def get_signup():
     return render_template("auth/signup.html")
 
+@pages_bp.route("/mypage", methods=["GET"])
+def get_mypage():
+    return render_template("auth/mypage.html")
+
 
 @pages_bp.route("/classroom", methods=["GET"])
 def get_classroom():
