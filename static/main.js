@@ -156,7 +156,7 @@ function showAnswerModal() {
   console.log(convert);
 
   Swal.fire({
-    html: `<strong>여기는 변환된 답입니다:</strong><br><br>${convert}`,
+    html: `${convert}`,
     focusConfirm: false,
   }).then(() => {
     setTimeout(() => answerEl.focus(), 300);
