@@ -1,4 +1,4 @@
-> 이 프로젝트는 [크래프톤 개발자 양성 프로그램 정글](https://jungle.krafton.com/)  
+> 이 프로젝트는 [개발자 양성 프로그램 크래프톤 정글](https://jungle.krafton.com/)  
 'week0. 3박 4일 미니 프로젝트'에서 개발되었습니다.
 
 # 마크 크래프트
@@ -65,7 +65,7 @@ Paas기반으로 배포 환경을 변경하였습니다.
 
 [민상기](https://github.com/classbinu) 기획, UI, 페이지 API, 발표  
 [이세욱](https://github.com/o-ogie) 백엔드, 각종 API, EC2 및 DB 세팅  
-[조OO](https://github.com/y0c0y) 프론트엔드, 마크다운 렌더링(JS, CSS)
+[조윤희](https://github.com/y0c0y) 프론트엔드, 마크다운 렌더링(JS, CSS)
 
 ## 관련 포스팅
 [[크래프톤 정글 3기] 마크크래프트 이전하기](https://velog.io/@classbinu/%ED%81%AC%EB%9E%98%ED%94%84%ED%86%A4-%EC%A0%95%EA%B8%80-3%EA%B8%B0-%EB%A7%88%ED%81%AC%ED%81%AC%EB%9E%98%ED%94%84%ED%8A%B8-%EC%9D%B4%EC%A0%84%ED%95%98%EA%B8%B0)
