@@ -84,7 +84,7 @@ def signin():
 
     except Exception as e:
         if str(e) == "IncorrectPassWord":
-            flash("Error: 비밀번호가 옳바르지 않습니다. (로그인 실패)")
+            flash("Error: 비밀번호가 올바르지 않습니다. (로그인 실패)")
             return redirect(url_for("pages.error"))
         elif str(e) == "UserNotFound":
             flash("Error: 사용자 정보(Email)가 일치하지 않습니다. (로그인 실패)")
@@ -123,6 +123,26 @@ def signup():
             return redirect(url_for("pages.get_signup"))
         else :
             return redirect(url_for("pages.get_signup"))
+        
+@api_bp.route("/delete-user", methods=["DELETE"])
+def delete_user():
+    user = verify_token(request.cookies.get("access_token"))
+    # 사용자 삭제 로직
+    db.users.delete_one({"email": user["email"]})
+
+    # 사용자 삭제 성공 여부를 클라이언트로 전송
+    success = True  # 성공 여부에 따라 조절
+    message = "사용자 삭제가 완료되었습니다." if success else "사용자 삭제에 실패하였습니다."
+
+    # JSON 형식으로 응답 데이터 구성
+    response_data = {
+        "success": success,
+        "message": message,
+    }
+
+    # JSON 응답 반환
+    return jsonify(response_data)
+
 
 @api_bp.route("/timeattack", methods=["POST"])
 def timeattack():
