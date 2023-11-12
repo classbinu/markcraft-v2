@@ -10,8 +10,8 @@ import os
 load_dotenv()
 api_bp = Blueprint("api", __name__)
 bcrypt = Bcrypt()
-SECRET = os.getenv("SECRET")
-client = MongoClient(os.getenv("LOCALDB"), 27017)
+SECRET = os.getenv("SECRET_KEY")
+client = MongoClient(os.getenv("DB_URL"), 27017)
 # client = MongoClient("localhost", 27017) # 로컬 테스트용 DB
 db = client.markcraft
 collection = db["users"]

@@ -6,7 +6,7 @@ import os
 
 load_dotenv()
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv("SECRET")
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 app.register_blueprint(pages_bp)
 app.register_blueprint(api_bp)
 

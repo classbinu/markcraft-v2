@@ -18,7 +18,7 @@ import re
 
 load_dotenv()
 pages_bp = Blueprint("pages", __name__)
-client = MongoClient(os.getenv("LOCALDB"), 27017)
+client = MongoClient(os.getenv("DB_URL"), 27017)
 # client = MongoClient("localhost", 27017) # 로컬 테스트용 DB
 db = client.markcraft
 app = Flask(__name__)
@@ -36,7 +36,7 @@ study_set = {
         "몰입하고 몰입하라<br>오늘의 몰입이 내일의 성장을 만든다",
         "잊지 마라<br>네 인생의 주인은 너다",
     ],
-    3: ["수평선 위입니다\r\n***\r\n수평선 아래입니다"],
+    3: ["수평선 위입니다\r\n___\r\n수평선 아래입니다"],
     4: [
         "**이 텍스트의 스타일은 볼드입니다**",
         "_이 텍스트의 스타일은 이탤릭입니다_",

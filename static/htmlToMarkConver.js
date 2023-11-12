@@ -42,7 +42,7 @@ window.convertHtmlToMarkdown = function (html) {
       }
       if (node.nodeName === "HR") {
         // 수평선을 만났을 때
-        return "<br>***<br>";
+        return "<br>___<br>";
       }
       return content;
     },
