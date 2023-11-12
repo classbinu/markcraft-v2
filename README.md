@@ -64,7 +64,7 @@ Paas기반으로 배포 환경을 변경하였습니다.
 **크래프톤 정글 3기 week0 101호 8팀**
 
 [민상기](https://github.com/classbinu) 기획, UI, 페이지 API, 발표  
-[이OO](https://github.com/o-ogie) 백엔드, 각종 API, EC2 및 DB 세팅  
+[이세욱](https://github.com/o-ogie) 백엔드, 각종 API, EC2 및 DB 세팅  
 [조OO](https://github.com/y0c0y) 프론트엔드, 마크다운 렌더링(JS, CSS)
 
 ## 관련 포스팅
