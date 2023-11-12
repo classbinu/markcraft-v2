@@ -25,7 +25,7 @@
 ### 프론트 엔드
 - CSS Framework: [TailwindCSS](https://tailwindcss.com/)
 - Component Library: [Daisy UI](https://daisyui.com/)
-- Templating Engine: [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/)
+- Template Engine: [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/)
 
 ### 백엔드
 - Framework: [Flask](https://flask-docs-kr.readthedocs.io/ko/latest/index.html)
