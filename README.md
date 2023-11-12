@@ -1,9 +1,9 @@
+> 이 프로젝트는 [크래프톤 개발자 양성 프로그램 정글](https://jungle.krafton.com/)  
+'week0. 3박 4일 미니 프로젝트' 과정 중 개발되었습니다.
+
 # 마크 크래프트
 몰입해서 익히는 마크다운 튜토리얼  
 [https://markcraft.site](https://markcraft.site)
-
-> 이 프로젝트는 [크래프톤 개발자 양성 프로그램 정글](https://jungle.krafton.com/)  
-'week0. 3박 4일 미니 프로젝트' 과정 중 개발되었습니다.
 
 ## 기획 의도
 마크다운(Markdown)은 일반 텍스트 기반의 경량 마크업 언어입니다.  
