@@ -72,7 +72,7 @@ Paas기반으로 배포 환경을 변경하였습니다.
 
 ## Contact
 > 서비스를 자유롭게 알려도 괜찮아요.  
-> 코드를 이용하실 때는 출처(https://github.com/classbinu/markcraft-v2)를 남겨 주세요.  
+> 코드를 이용하실 때는 출처(https://github.com/classbinu/markcraft-v2) 를 남겨 주세요.  
 > 서비스 개선을 위해 PR해 주셔도 괜찮아요.  
 > 서비스에 대한 피드백, 질문은 언제든지 환영합니다.🥳  
 classbinu@gmail.com
