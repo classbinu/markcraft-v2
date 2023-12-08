@@ -1,12 +1,12 @@
-> 이 프로젝트는 [개발자 양성 프로그램 크래프톤 정글](https://jungle.krafton.com/)  
-'week0. 3박 4일 미니 프로젝트'에서 개발되었습니다.
-
-# 마크 크래프트
+# Markcraft-v2
 몰입해서 익히는 마크다운 튜토리얼  
 [https://markcraft.site](https://markcraft.site)
 
 개발팀: 크래프톤 정글 3기-101호-week0-8팀  
 개발기간: 2023/10/10 ~ 2023/10/14
+
+> 이 프로젝트는 [개발자 양성 프로그램 크래프톤 정글](https://jungle.krafton.com/)  
+'week0. 3박 4일 미니 프로젝트'에서 개발되었습니다.
 
 ## 기획 의도
 마크다운(Markdown)은 일반 텍스트 기반의 경량 마크업 언어입니다.  
@@ -71,5 +71,8 @@ Paas기반으로 배포 환경을 변경하였습니다.
 [[크래프톤 정글 3기] 마크크래프트 이전하기](https://velog.io/@classbinu/%ED%81%AC%EB%9E%98%ED%94%84%ED%86%A4-%EC%A0%95%EA%B8%80-3%EA%B8%B0-%EB%A7%88%ED%81%AC%ED%81%AC%EB%9E%98%ED%94%84%ED%8A%B8-%EC%9D%B4%EC%A0%84%ED%95%98%EA%B8%B0)
 
 ## Contact
+> 서비스를 자유롭게 알려도 괜찮아요.  
+> 코드를 이용하실 때는 출처(https://github.com/classbinu/markcraft-v2) 를 남겨 주세요.  
+> 서비스 개선을 위해 PR해 주셔도 괜찮아요.  
 > 서비스에 대한 피드백, 질문은 언제든지 환영합니다.🥳  
 classbinu@gmail.com
