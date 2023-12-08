@@ -34,7 +34,7 @@
 - Nosql: [Mongodb](https://www.mongodb.com/ko-kr)
 
 ### 배포
-- Server: [CloudType](https://cloudtype.io/)
+- Server: [Fly.io](https://fly.io/)
 - DB: [Mongodb Atlas](https://www.mongodb.com/ko-kr/cloud/atlas/lp/try4)
 
 > 최초 배포 시에는 EC2 기반으로 배포하였으나,  
